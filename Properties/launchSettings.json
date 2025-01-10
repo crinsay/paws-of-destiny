@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "PawsOfDestiny": {
+      "commandName": "Project"
+    },
+    "PawsOfDestinyGodot": {
+      "commandName": "Executable",
+      "executablePath": "I:\\Programy\\Godot\\Godot_v4.3-stable_mono_win64\\Godot_v4.3-stable_mono_win64.exe",
+      "commandLineArgs": "--path, --verbose",
+      "workingDirectory": "."
+    }
+  }
+}

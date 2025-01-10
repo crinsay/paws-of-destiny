@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://bsioq6o65311k"]
+
+[ext_resource type="Script" path="res://Scripts/KillZone.cs" id="1_76olt"]
+
+[node name="KillZone" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_76olt")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.69
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="OnBodyEntered"]
+[connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]
