@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PawsOfDestiny.Constants;
+namespace PawsOfDestiny.Scripts.Constants;
 
 internal enum MoveDirection
 {
