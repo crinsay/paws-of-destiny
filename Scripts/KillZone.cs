@@ -1,4 +1,5 @@
 using Godot;
+using PawsOfDestiny.Scripts.Constants;
 using System;
 
 namespace PawsOfDestiny.Scripts;
@@ -8,7 +9,7 @@ public partial class KillZone : Area2D
     {
         GD.Print("You died! :(");
 
-        var timer = GetNode<Timer>("Timer");
+        var timer = GetNode<Timer>(KillZoneConstants.Timer);
         timer.Start();
     }
 

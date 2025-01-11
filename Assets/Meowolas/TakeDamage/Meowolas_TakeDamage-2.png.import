@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://blj20m34r78k5"
-path="res://.godot/imported/Meowolas_TakeDamage-1.png-0a68a8ebadd5d9aeb4b934b7f06d2091.ctex"
+uid="uid://8t66yridmv0c"
+path="res://.godot/imported/Meowolas_TakeDamage-2.png-b721b03d1deb1831cd19ba9e210c8ab5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Meowolas/TakeDemage/Meowolas_TakeDamage-1.png"
-dest_files=["res://.godot/imported/Meowolas_TakeDamage-1.png-0a68a8ebadd5d9aeb4b934b7f06d2091.ctex"]
+source_file="res://Assets/Meowolas/TakeDamage/Meowolas_TakeDamage-2.png"
+dest_files=["res://.godot/imported/Meowolas_TakeDamage-2.png-b721b03d1deb1831cd19ba9e210c8ab5.ctex"]
 
 [params]
 

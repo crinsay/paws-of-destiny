@@ -1,5 +1,5 @@
 using Godot;
-using PawsOfDestiny.Constants;
+using PawsOfDestiny.Scripts.Constants;
 using System;
 
 namespace PawsOfDestiny.Scripts;

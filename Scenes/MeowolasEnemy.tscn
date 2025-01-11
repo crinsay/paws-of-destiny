@@ -1,0 +1,388 @@
+[gd_scene load_steps=81 format=3 uid="uid://cywwll3edceec"]
+
+[ext_resource type="Texture2D" uid="uid://ckntrhhjr3p3a" path="res://Assets/Meowolas/Attack1/Meowolas_Attack1-1.png" id="1_3ovwy"]
+[ext_resource type="Texture2D" uid="uid://33w8cbn6paju" path="res://Assets/Meowolas/Idle/Meowolas_Idle-1.png" id="1_euk6i"]
+[ext_resource type="Script" path="res://Scripts/MeowolasEnemy.cs" id="1_n2o4r"]
+[ext_resource type="Texture2D" uid="uid://dyt13kslf5w6y" path="res://Assets/Meowolas/Idle/Meowolas_Idle-2.png" id="2_h82tw"]
+[ext_resource type="Texture2D" uid="uid://bwk0idpf46dr4" path="res://Assets/Meowolas/Attack1/Meowolas_Attack1-2.png" id="2_umog1"]
+[ext_resource type="Texture2D" uid="uid://gvsftkqe2b23" path="res://Assets/Meowolas/Attack1/Meowolas_Attack1-3.png" id="3_7ahsx"]
+[ext_resource type="Texture2D" uid="uid://c65fc34i8mojm" path="res://Assets/Meowolas/Idle/Meowolas_Idle-3.png" id="3_nx56b"]
+[ext_resource type="Texture2D" uid="uid://bw120t1qbrm3p" path="res://Assets/Meowolas/Idle/Meowolas_Idle-4.png" id="4_brxc7"]
+[ext_resource type="Texture2D" uid="uid://btmxae70emtvy" path="res://Assets/Meowolas/Attack1/Meowolas_Attack1-4.png" id="4_e75pc"]
+[ext_resource type="Texture2D" uid="uid://kxyd0nsjjian" path="res://Assets/Meowolas/Attack1/Meowolas_Attack1-5.png" id="5_qvrut"]
+[ext_resource type="Texture2D" uid="uid://bvgeapykt8l07" path="res://Assets/Meowolas/Idle/Meowolas_Idle-5.png" id="5_v2yce"]
+[ext_resource type="Texture2D" uid="uid://cpr03d1f6clgu" path="res://Assets/Meowolas/Idle/Meowolas_Idle-6.png" id="6_fbks0"]
+[ext_resource type="Texture2D" uid="uid://dgc4vcndm28ku" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-1.png" id="6_krwfj"]
+[ext_resource type="Texture2D" uid="uid://kqbhk1ngtqv" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-2.png" id="7_q034f"]
+[ext_resource type="Texture2D" uid="uid://x117ihb8s12t" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-3.png" id="8_wna6t"]
+[ext_resource type="Texture2D" uid="uid://dlgu6h7blmnsw" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-4.png" id="9_62vwx"]
+[ext_resource type="Texture2D" uid="uid://y7a7gmgrrweg" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-5.png" id="10_pn356"]
+[ext_resource type="Texture2D" uid="uid://cj63qff6p7u3f" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-6.png" id="11_etasl"]
+[ext_resource type="Texture2D" uid="uid://dusg83vcykh54" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-7.png" id="12_dd0qx"]
+[ext_resource type="Texture2D" uid="uid://0h5sugnford1" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-8.png" id="13_5mjvv"]
+[ext_resource type="Texture2D" uid="uid://tn415lqjc8uj" path="res://Assets/Meowolas/Attack3/Meowolas_Attack3-1.png" id="14_tjil7"]
+[ext_resource type="Texture2D" uid="uid://cn7ab1snfftr6" path="res://Assets/Meowolas/Attack3/Meowolas_Attack3-2.png" id="15_vlj2f"]
+[ext_resource type="Texture2D" uid="uid://0ewxa8uuna6b" path="res://Assets/Meowolas/Attack3/Meowolas_Attack3-3.png" id="16_ka7uh"]
+[ext_resource type="Texture2D" uid="uid://cbrnil0u5giot" path="res://Assets/Meowolas/Attack3/Meowolas_Attack3-4.png" id="17_84xas"]
+[ext_resource type="Texture2D" uid="uid://dgubf67eootc6" path="res://Assets/Meowolas/Attack3/Meowolas_Attack3-5.png" id="18_8lko8"]
+[ext_resource type="Texture2D" uid="uid://gxjlflu7xb18" path="res://Assets/Meowolas/Attack3/Meowolas_Attack3-6.png" id="19_l3p0l"]
+[ext_resource type="Texture2D" uid="uid://cba1tlihbrs18" path="res://Assets/Meowolas/Attack3/Meowolas_Attack3-7.png" id="20_fd3vp"]
+[ext_resource type="Texture2D" uid="uid://bxlbafr2dyrav" path="res://Assets/Meowolas/Attack3/Meowolas_Attack3-8.png" id="21_iwtjo"]
+[ext_resource type="Texture2D" uid="uid://b4wp3n68lddyv" path="res://Assets/Meowolas/Attack4/Meowolas_Attack4-1.png" id="22_reel3"]
+[ext_resource type="Texture2D" uid="uid://csa6hejeq1ab6" path="res://Assets/Meowolas/Attack4/Meowolas_Attack4-2.png" id="23_efnat"]
+[ext_resource type="Texture2D" uid="uid://eprhbquotwr7" path="res://Assets/Meowolas/Attack4/Meowolas_Attack4-3.png" id="24_efrhc"]
+[ext_resource type="Texture2D" uid="uid://c1h208cjb1tdu" path="res://Assets/Meowolas/Attack4/Meowolas_Attack4-4.png" id="25_dxt4k"]
+[ext_resource type="Texture2D" uid="uid://iinniyaj6iqx" path="res://Assets/Meowolas/Attack4/Meowolas_Attack4-5.png" id="26_4gfta"]
+[ext_resource type="Texture2D" uid="uid://bg0jd5m06arof" path="res://Assets/Meowolas/Attack4/Meowolas_Attack4-6.png" id="27_uwa16"]
+[ext_resource type="Texture2D" uid="uid://vr33clchjh4x" path="res://Assets/Meowolas/Attack4/Meowolas_Attack4-7.png" id="28_2q7qf"]
+[ext_resource type="Texture2D" uid="uid://dj0itl1i5357l" path="res://Assets/Meowolas/Attack4/Meowolas_Attack4-8.png" id="29_meh4p"]
+[ext_resource type="Texture2D" uid="uid://cpax1im5o58o0" path="res://Assets/Meowolas/Attack4/Meowolas_Attack4-9.png" id="30_jvq7j"]
+[ext_resource type="Texture2D" uid="uid://dpqrdbowm0wy3" path="res://Assets/Meowolas/Attack4/Meowolas_Attack4-10.png" id="31_e6hlq"]
+[ext_resource type="Texture2D" uid="uid://bhi0p5gri56m7" path="res://Assets/Meowolas/Attack4/Meowolas_Attack4-11.png" id="32_6v0nw"]
+[ext_resource type="Texture2D" uid="uid://bvqlq54r1byho" path="res://Assets/Meowolas/Death/Meowolas_Death-1.png" id="33_kls4k"]
+[ext_resource type="Texture2D" uid="uid://dl13cr1nrgtry" path="res://Assets/Meowolas/Death/Meowolas_Death-2.png" id="34_fmc3l"]
+[ext_resource type="Texture2D" uid="uid://cpecoetqp72hc" path="res://Assets/Meowolas/Death/Meowolas_Death-3.png" id="35_uj7e6"]
+[ext_resource type="Texture2D" uid="uid://brtmxwsqfdhse" path="res://Assets/Meowolas/Death/Meowolas_Death-4.png" id="36_tyls2"]
+[ext_resource type="Texture2D" uid="uid://dnn01jgqupgo2" path="res://Assets/Meowolas/Death/Meowolas_Death-5.png" id="37_a2ed3"]
+[ext_resource type="Texture2D" uid="uid://bm2sm5x5vt03l" path="res://Assets/Meowolas/Death/Meowolas_Death-6.png" id="38_twib8"]
+[ext_resource type="Texture2D" uid="uid://bxu22nnmqcy7j" path="res://Assets/Meowolas/Dodge/Meowolas_Dodge-1.png" id="39_kjra6"]
+[ext_resource type="Texture2D" uid="uid://c1cr10isn0mq7" path="res://Assets/Meowolas/Dodge/Meowolas_Dodge-2.png" id="40_87va6"]
+[ext_resource type="Texture2D" uid="uid://st4h22f1fi5f" path="res://Assets/Meowolas/Dodge/Meowolas_Dodge-3.png" id="41_w55ou"]
+[ext_resource type="Texture2D" uid="uid://cjfda21nglcqa" path="res://Assets/Meowolas/Dodge/Meowolas_Dodge-4.png" id="42_n6l3j"]
+[ext_resource type="Texture2D" uid="uid://dxbrp8a17jwqk" path="res://Assets/Meowolas/Dodge/Meowolas_Dodge-5.png" id="43_tsydj"]
+[ext_resource type="Texture2D" uid="uid://b8scwqow6y1hl" path="res://Assets/Meowolas/Dodge/Meowolas_Dodge-6.png" id="44_qdkb4"]
+[ext_resource type="Texture2D" uid="uid://ciq6f01sesnjg" path="res://Assets/Meowolas/Dodge/Meowolas_Dodge-7.png" id="45_0nq3h"]
+[ext_resource type="Texture2D" uid="uid://buiik4v3muc8t" path="res://Assets/Meowolas/Dodge/Meowolas_Dodge-8.png" id="46_kcpw0"]
+[ext_resource type="Texture2D" uid="uid://d1mcrnliqruid" path="res://Assets/Meowolas/Dodge/Meowolas_Dodge-9.png" id="47_nu6xb"]
+[ext_resource type="Texture2D" uid="uid://dwvtky77l5uwk" path="res://Assets/Meowolas/Jump/Meowolas_Jump-1.png" id="54_ou2rk"]
+[ext_resource type="Texture2D" uid="uid://s0q8i4y1bgxk" path="res://Assets/Meowolas/Jump/Meowolas_Jump-2.png" id="55_33lgd"]
+[ext_resource type="Texture2D" uid="uid://dwqlrpdr33crp" path="res://Assets/Meowolas/Jump/Meowolas_Jump-3.png" id="56_ucatp"]
+[ext_resource type="Texture2D" uid="uid://b6jxh60asy5c6" path="res://Assets/Meowolas/Jump/Meowolas_Jump-4.png" id="57_fk7uu"]
+[ext_resource type="Texture2D" uid="uid://blc87awd3r5ci" path="res://Assets/Meowolas/Jump/Meowolas_Jump-5.png" id="58_iq5rq"]
+[ext_resource type="Texture2D" uid="uid://c4ehd33h3ye62" path="res://Assets/Meowolas/Jump/Meowolas_Jump-6.png" id="59_8mdwm"]
+[ext_resource type="Texture2D" uid="uid://fwf8mf013x7h" path="res://Assets/Meowolas/Jump/Meowolas_Jump-7.png" id="60_t8exc"]
+[ext_resource type="Texture2D" uid="uid://dygucylt0q712" path="res://Assets/Meowolas/Jump/Meowolas_Jump-8.png" id="61_u4qx1"]
+[ext_resource type="Texture2D" uid="uid://dom35dtw1jsot" path="res://Assets/Meowolas/Jump/Meowolas_Jump-9.png" id="62_1klcy"]
+[ext_resource type="Texture2D" uid="uid://u2e0cbkac8td" path="res://Assets/Meowolas/Jump/Meowolas_Jump-10.png" id="63_gnndm"]
+[ext_resource type="Texture2D" uid="uid://dy8soke87cdsy" path="res://Assets/Meowolas/Jump/Meowolas_Jump-11.png" id="64_h2hxf"]
+[ext_resource type="Texture2D" uid="uid://dlj2sjax7c6bs" path="res://Assets/Meowolas/Jump/Meowolas_Jump-12.png" id="65_h7y7g"]
+[ext_resource type="Texture2D" uid="uid://re6fdu1qo71m" path="res://Assets/Meowolas/Run/Meowolas_Run-1.png" id="66_yv0ik"]
+[ext_resource type="Texture2D" uid="uid://cojfcg6s4dvjq" path="res://Assets/Meowolas/Run/Meowolas_Run-2.png" id="67_wnlil"]
+[ext_resource type="Texture2D" uid="uid://t7wxeqd003cv" path="res://Assets/Meowolas/Run/Meowolas_Run-3.png" id="68_simht"]
+[ext_resource type="Texture2D" uid="uid://d0f78aprv5p4p" path="res://Assets/Meowolas/Run/Meowolas_Run-4.png" id="69_lq4eq"]
+[ext_resource type="Texture2D" uid="uid://cfd35min8chkg" path="res://Assets/Meowolas/Run/Meowolas_Run-5.png" id="70_2h7re"]
+[ext_resource type="Texture2D" uid="uid://bkcsny5vmr04p" path="res://Assets/Meowolas/Run/Meowolas_Run-6.png" id="71_q70dr"]
+[ext_resource type="Texture2D" uid="uid://d23h63pxnb0of" path="res://Assets/Meowolas/Run/Meowolas_Run-7.png" id="72_carxq"]
+[ext_resource type="Texture2D" uid="uid://bkthnc3f7phpv" path="res://Assets/Meowolas/Run/Meowolas_Run-8.png" id="73_j5eaf"]
+[ext_resource type="Texture2D" uid="uid://blj20m34r78k5" path="res://Assets/Meowolas/TakeDamage/Meowolas_TakeDamage-1.png" id="74_ydyc1"]
+[ext_resource type="Texture2D" uid="uid://8t66yridmv0c" path="res://Assets/Meowolas/TakeDamage/Meowolas_TakeDamage-2.png" id="75_0t5bc"]
+[ext_resource type="Texture2D" uid="uid://d06pavbi4o35c" path="res://Assets/Meowolas/TakeDamage/Meowolas_TakeDamage-3.png" id="76_vvjwg"]
+[ext_resource type="PackedScene" uid="uid://bsioq6o65311k" path="res://Scenes/KillZone.tscn" id="77_l81fw"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l2qdr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_3ovwy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_umog1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_7ahsx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_e75pc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_qvrut")
+}],
+"loop": false,
+"name": &"Attack1",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_krwfj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_q034f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_wna6t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_62vwx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_pn356")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_etasl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_dd0qx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_5mjvv")
+}],
+"loop": false,
+"name": &"Attack2",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_tjil7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_vlj2f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_ka7uh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_84xas")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_8lko8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_l3p0l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_fd3vp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_iwtjo")
+}],
+"loop": false,
+"name": &"Attack3",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("22_reel3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_efnat")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_efrhc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_dxt4k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_4gfta")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_uwa16")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_2q7qf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_meh4p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_jvq7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_e6hlq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_6v0nw")
+}],
+"loop": false,
+"name": &"Attack4",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("33_kls4k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_fmc3l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_uj7e6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_tyls2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_a2ed3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_twib8")
+}],
+"loop": false,
+"name": &"Death",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("39_kjra6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_87va6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_w55ou")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_n6l3j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_tsydj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_qdkb4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_0nq3h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_kcpw0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_nu6xb")
+}],
+"loop": false,
+"name": &"Dodge",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_euk6i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_h82tw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_nx56b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_brxc7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_v2yce")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_fbks0")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("54_ou2rk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("55_33lgd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("56_ucatp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("57_fk7uu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("58_iq5rq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("59_8mdwm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("60_t8exc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("61_u4qx1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("62_1klcy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("63_gnndm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("64_h2hxf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("65_h7y7g")
+}],
+"loop": false,
+"name": &"Jump",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("66_yv0ik")
+}, {
+"duration": 1.0,
+"texture": ExtResource("67_wnlil")
+}, {
+"duration": 1.0,
+"texture": ExtResource("68_simht")
+}, {
+"duration": 1.0,
+"texture": ExtResource("69_lq4eq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("70_2h7re")
+}, {
+"duration": 1.0,
+"texture": ExtResource("71_q70dr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("72_carxq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("73_j5eaf")
+}],
+"loop": true,
+"name": &"Run",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("74_ydyc1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("75_0t5bc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("76_vvjwg")
+}],
+"loop": false,
+"name": &"TakeDamage",
+"speed": 8.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_syxi2"]
+radius = 4.0
+height = 12.0
+
+[node name="MeowolasEnemy" type="Node2D"]
+script = ExtResource("1_n2o4r")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-28, -42)
+sprite_frames = SubResource("SpriteFrames_l2qdr")
+animation = &"Idle"
+autoplay = "Idle"
+frame_progress = 0.680238
+offset = Vector2(28, 42)
+
+[node name="KillZone" parent="." instance=ExtResource("77_l81fw")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone"]
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_syxi2")
+
+[node name="RightRayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(6, 0)
+
+[node name="LeftRayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(-6, 0)
