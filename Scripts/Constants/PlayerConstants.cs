@@ -6,16 +6,22 @@ using System.Threading.Tasks;
 
 namespace PawsOfDestiny.Scripts.Constants;
 
-internal class MeowolasEnemyConstants
+internal static class PlayerConstants
 {
     internal class Nodes
     {
-        internal const string RightRayCast2D = "RightRayCast2D";
-        internal const string LeftRayCast2D = "LeftRayCast2D";
         internal const string AnimatedSprite2D = "AnimatedSprite2D";
     }
 
-    internal class Animations
+    internal static class InputActions
+    {
+        internal static string MoveLeft = "MoveLeft";
+        internal static string MoveRight = "MoveRight";
+        internal static string Jump = "Jump";
+        internal static string MoveDown = "MoveDown";
+    }
+
+    internal static class Animations
     {
         internal const string Idle = "Idle";
         internal const string Jump = "Jump";

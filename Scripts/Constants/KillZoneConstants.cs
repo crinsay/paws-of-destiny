@@ -9,5 +9,5 @@ namespace PawsOfDestiny.Scripts.Constants;
 
 internal class KillZoneConstants
 {
-    public const string Timer = "Timer";
+    internal const string Timer = "Timer";
 }
