@@ -10,9 +10,9 @@ public partial class MeowolasEnemy : Node2D
 
 	private float _direction = 1;
 
-	RayCast2D _rightRayCast2D;
-	RayCast2D _leftRayCast2D;
-	AnimatedSprite2D _animatedSprite2D;
+    private RayCast2D _rightRayCast2D;
+    private RayCast2D _leftRayCast2D;
+    private AnimatedSprite2D _animatedSprite2D;
 
     public override void _Ready()
 	{

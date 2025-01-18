@@ -289,7 +289,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"Jump",
-"speed": 8.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -345,5 +345,7 @@ shape = SubResource("CapsuleShape2D_wab2o")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-1, -129)
 sprite_frames = SubResource("SpriteFrames_fxix3")
-animation = &"Dodge"
+animation = &"Jump"
 autoplay = "Idle"
+frame = 11
+frame_progress = 1.0
