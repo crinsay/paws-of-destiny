@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://bns5pow3xoec7"]
+
+[ext_resource type="Script" path="res://Scripts/Game/Collectables/KeyComponents/KeyCounter.cs" id="1_vlsa0"]
+[ext_resource type="Texture2D" uid="uid://c4qd56uwegsut" path="res://Assets/Objects/KeyCounterTexture/KeyCounterTexture.png" id="2_6u4ht"]
+
+[node name="KeyCounter" type="CanvasLayer"]
+scale = Vector2(2, 2)
+transform = Transform2D(2, 0, 0, 2, 0, 0)
+script = ExtResource("1_vlsa0")
+
+[node name="KeyCounterTexture" type="TextureRect" parent="."]
+offset_right = 23.0
+offset_bottom = 23.0
+texture = ExtResource("2_6u4ht")
+expand_mode = 2
+
+[node name="KeyCounterValue" type="Label" parent="."]
+offset_left = 26.6667
+offset_top = 5.33333
+offset_right = 36.6667
+offset_bottom = 28.3333
+text = "0"
+horizontal_alignment = 1

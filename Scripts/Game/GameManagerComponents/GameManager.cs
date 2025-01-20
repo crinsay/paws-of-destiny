@@ -1,22 +1,25 @@
 using Godot;
+using PawsOfDestiny.Scripts.Game.Collectables.KeyComponents;
 using System;
 
 namespace PawsOfDestiny.Scripts.Game.GameManagerComponents;
 
 public partial class GameManager : Node
 {
-    private Label _scoreLabel;
+    private KeyCounter _keyCounter;
 
-    private int _score;
+    private int _collectedKeys;
 
     public override void _Ready()
     {
-        _scoreLabel = GetNode<Label>(GameManagerConstants.ScoreLabel);
+        _keyCounter = GetNode<KeyCounter>(GameManagerConstants.KeyCounter);
     }
 
-    public void AddScore()
+
+    //Method that handles Signal emmited by a single key:
+    private void OnKeyCollected()
     {
-        _score += 1;
-        _scoreLabel.Text = $"Collected keys: {_score}";
+        _collectedKeys += 1;
+        _keyCounter.UpdateKeyCounter(_collectedKeys);
     }
 }

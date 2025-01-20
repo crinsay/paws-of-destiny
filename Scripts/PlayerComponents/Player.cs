@@ -24,15 +24,16 @@ public partial class Player : CharacterBody2D
 			velocity += GetGravity() * (float)delta;
 		}
 
-		// Handle Jump.
-		if (Input.IsActionJustPressed(InputActions.Jump) && IsOnFloor())
-		{
-			velocity.Y = PlayerConstants.Movement.JumpVelocity;
-		}
-
+		
 		if (!GameState.IsPlayerDead)
 		{
-			var direction = Input.GetAxis(InputActions.MoveLeft, InputActions.MoveRight);
+
+            if (Input.IsActionJustPressed(InputActions.Jump) && IsOnFloor())
+            {
+                velocity.Y = PlayerConstants.Movement.JumpVelocity;
+            }
+
+            var direction = Input.GetAxis(InputActions.MoveLeft, InputActions.MoveRight);
 
 			if (direction != 0f)
 			{
