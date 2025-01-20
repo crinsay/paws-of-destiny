@@ -1,17 +1,17 @@
 using Godot;
-using PawsOfDestiny.Scripts.Constants;
 using System;
 
-namespace PawsOfDestiny.Scripts;
+namespace PawsOfDestiny.Scripts.Game.GameManagerComponents;
 
 public partial class GameManager : Node
 {
     private Label _scoreLabel;
+
     private int _score;
 
     public override void _Ready()
     {
-        _scoreLabel = GetNode<Label>("ScoreLabel");
+        _scoreLabel = GetNode<Label>(GameManagerConstants.ScoreLabel);
     }
 
     public void AddScore()

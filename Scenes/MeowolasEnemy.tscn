@@ -1,8 +1,8 @@
-[gd_scene load_steps=81 format=3 uid="uid://cywwll3edceec"]
+[gd_scene load_steps=81 format=3 uid="uid://xyyu4et73e4g"]
 
+[ext_resource type="Script" path="res://Scripts/Enemies/MeowolasEnemyComponents/MeowolasEnemy.cs" id="1_1crw7"]
 [ext_resource type="Texture2D" uid="uid://ckntrhhjr3p3a" path="res://Assets/Meowolas/Attack1/Meowolas_Attack1-1.png" id="1_3ovwy"]
 [ext_resource type="Texture2D" uid="uid://33w8cbn6paju" path="res://Assets/Meowolas/Idle/Meowolas_Idle-1.png" id="1_euk6i"]
-[ext_resource type="Script" path="res://Scripts/MeowolasEnemy.cs" id="1_n2o4r"]
 [ext_resource type="Texture2D" uid="uid://dyt13kslf5w6y" path="res://Assets/Meowolas/Idle/Meowolas_Idle-2.png" id="2_h82tw"]
 [ext_resource type="Texture2D" uid="uid://bwk0idpf46dr4" path="res://Assets/Meowolas/Attack1/Meowolas_Attack1-2.png" id="2_umog1"]
 [ext_resource type="Texture2D" uid="uid://gvsftkqe2b23" path="res://Assets/Meowolas/Attack1/Meowolas_Attack1-3.png" id="3_7ahsx"]
@@ -365,7 +365,7 @@ radius = 4.0
 height = 12.0
 
 [node name="MeowolasEnemy" type="Node2D"]
-script = ExtResource("1_n2o4r")
+script = ExtResource("1_1crw7")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-28, -42)

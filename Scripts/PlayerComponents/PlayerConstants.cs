@@ -1,0 +1,35 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace PawsOfDestiny.Scripts.PlayerComponents;
+
+public static class PlayerConstants
+{
+    public class Nodes
+    {
+        public const string AnimatedSprite2D = "AnimatedSprite2D";
+    }
+
+    public static class Animations
+    {
+        public const string Idle = "Idle";
+        public const string Jump = "Jump";
+        public const string Run = "Run";
+        public const string Death = "Death";
+        public const string TakeDamage = "TakeDamage";
+        public const string Dodge = "Dodge";
+        public const string Attack1 = "Attack1";
+        public const string Attack2 = "Attack2";
+        public const string Attack3 = "Attack3";
+        public const string Attack4 = "Attack4";
+    }
+
+    public static class Movement
+    {
+        public const float Speed = 200.0f;
+        public const float JumpVelocity = -275.0f;
+    }
+}
