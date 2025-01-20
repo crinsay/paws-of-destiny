@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PawsOfDestiny.Scripts.Constants;
+namespace PawsOfDestiny.Scripts.Game.KillZoneComponents;
 
-internal class KillZoneConstants
+public class KillZoneConstants
 {
-    internal const string Timer = "Timer";
+    public const string Timer = "Timer";
 }
