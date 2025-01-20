@@ -1,7 +1,7 @@
 [gd_scene load_steps=19 format=4 uid="uid://dxftpxlghub0w"]
 
 [ext_resource type="PackedScene" uid="uid://y2c8dsi1ltud" path="res://Scenes/Player.tscn" id="1_2lsu1"]
-[ext_resource type="Script" path="res://Scripts/GameManager.cs" id="1_4eh7l"]
+[ext_resource type="Script" path="res://Scripts/Game/GameManagerComponents/GameManager.cs" id="1_8w1n6"]
 [ext_resource type="Texture2D" uid="uid://2by6ux311p0t" path="res://Assets/Tilesets/ObjectsTileset.png" id="2_j17lo"]
 [ext_resource type="Texture2D" uid="uid://cctoescqy1ard" path="res://Assets/Tilesets/SurroundingTileset.png" id="3_drlhd"]
 [ext_resource type="Texture2D" uid="uid://c077vjbaavym8" path="res://Assets/Tilesets/WallsAccesoriesTileset.png" id="4_e3yne"]
@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://b56jkl2sgm65i" path="res://Scenes/MovingLongPlatform.tscn" id="6_lg2se"]
 [ext_resource type="PackedScene" uid="uid://ck4p41k6co4wn" path="res://Scenes/Key.tscn" id="7_d0b3x"]
 [ext_resource type="PackedScene" uid="uid://bsioq6o65311k" path="res://Scenes/KillZone.tscn" id="8_dtv2o"]
-[ext_resource type="PackedScene" uid="uid://cywwll3edceec" path="res://Scenes/MeowolasEnemy.tscn" id="9_sa2po"]
+[ext_resource type="PackedScene" uid="uid://xyyu4et73e4g" path="res://Scenes/MeowolasEnemy.tscn" id="9_sa2po"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vuqpu"]
 texture = ExtResource("2_j17lo")
@@ -216,7 +216,7 @@ _data = {
 
 [node name="GameManager" type="Node" parent="."]
 unique_name_in_owner = true
-script = ExtResource("1_4eh7l")
+script = ExtResource("1_8w1n6")
 
 [node name="ScoreLabel" type="Label" parent="GameManager"]
 offset_left = 104.0
@@ -243,7 +243,6 @@ tile_map_data = PackedByteArray("AAAHABoANAABAAAAAAAIABoANAABAAAAAAAJABoANAABAAA
 tile_set = SubResource("TileSet_2o2bj")
 
 [node name="KillZone" parent="." instance=ExtResource("8_dtv2o")]
-unique_name_in_owner = true
 
 [node name="KillZoneCollisionShape2D" type="CollisionShape2D" parent="KillZone"]
 shape = SubResource("WorldBoundaryShape2D_rnwn0")
@@ -273,5 +272,3 @@ autoplay = "Move"
 [node name="MeowolasEnemy" parent="." instance=ExtResource("9_sa2po")]
 position = Vector2(577, 322)
 scale = Vector2(1.75, 1.75)
-
-[node name="Labels" type="Node" parent="."]

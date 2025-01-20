@@ -1,14 +1,16 @@
 using Godot;
-using PawsOfDestiny.Scripts.Constants;
 using System;
 
-namespace PawsOfDestiny.Scripts;
+namespace PawsOfDestiny.Scripts.Enemies.MeowolasEnemyComponents;
 
 public partial class MeowolasEnemy : Node2D
 {
-    public const float Speed = 40.0f;
-
-	private float _direction = 1;
+	private enum Direction
+	{
+		Left = -1,
+		Right = 1
+	}
+	private Direction _direction = Direction.Left;
 
     private RayCast2D _rightRayCast2D;
     private RayCast2D _leftRayCast2D;
@@ -27,18 +29,18 @@ public partial class MeowolasEnemy : Node2D
 	{
 		if (_rightRayCast2D.IsColliding()) 
 		{
-			_direction = -1;
+			_direction = Direction.Left;
 			_animatedSprite2D.FlipH = true;
 		}
 		else if (_leftRayCast2D.IsColliding())
 		{
-			_direction = 1;
+			_direction = Direction.Right;
             _animatedSprite2D.FlipH = false;
         }
 
 		Vector2 position = Position;
 
-		position.X += _direction * Speed * (float)delta;
+		position.X += (int)_direction * MeowolasEnemyConstants.Movement.Speed * (float)delta;
 
 		Position = position;
 	}
