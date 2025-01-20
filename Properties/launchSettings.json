@@ -8,6 +8,12 @@
       "executablePath": "I:\\Programy\\Godot\\Godot_v4.3-stable_mono_win64\\Godot_v4.3-stable_mono_win64.exe",
       "commandLineArgs": "--path, --verbose",
       "workingDirectory": "."
+    },
+    "PawsOfDestinyGodot2": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Program Files\\Godot_v4.3-stable_mono_win64\\Godot_v4.3-stable_mono_win64\\Godot_v4.3-stable_mono_win64.exe",
+      "commandLineArgs": "--path, --verbose",
+      "workingDirectory": "."
     }
   }
 }
