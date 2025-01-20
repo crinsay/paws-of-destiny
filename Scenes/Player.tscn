@@ -345,7 +345,5 @@ shape = SubResource("CapsuleShape2D_wab2o")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-1, -129)
 sprite_frames = SubResource("SpriteFrames_fxix3")
-animation = &"Jump"
+animation = &"Run"
 autoplay = "Idle"
-frame = 11
-frame_progress = 1.0

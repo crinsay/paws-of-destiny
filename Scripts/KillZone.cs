@@ -5,19 +5,29 @@ using System;
 namespace PawsOfDestiny.Scripts;
 public partial class KillZone : Area2D
 {
+    public static bool IsPlayerDead { get; private set; }
+
     private void OnBodyEntered(Node2D body)
     {
-        GD.Print("You died! :(");
-        Engine.TimeScale = 0.5;
-        body.GetNode("CollisionShape2D").QueueFree();
+        if (!IsPlayerDead)
+        {
+            IsPlayerDead = true;
 
-        var timer = GetNode<Timer>(KillZoneConstants.Timer);
-        timer.Start();
+            Engine.TimeScale = 0.75;
+
+            var player = body as Player;
+            player.PlayAnimation(PlayerConstants.Animations.Death);
+
+            var timer = GetNode<Timer>(KillZoneConstants.Timer);
+            timer.Start();
+        }
     }
 
     private void OnTimerTimeout()
     {
         Engine.TimeScale = 1;
         GetTree().ReloadCurrentScene();
+
+        IsPlayerDead = false;
     }
 }
