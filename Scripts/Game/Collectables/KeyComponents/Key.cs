@@ -6,15 +6,16 @@ namespace PawsOfDestiny.Scripts.Game.Collectables.KeyComponents;
 
 public partial class Key : Area2D
 {
-    private GameManager _gameManager;
+    [Signal]
+    public delegate void KeyCollectedEventHandler();
 
     public override void _Ready()
     {
-        _gameManager = GetNode<GameManager>(GameUniqueNames.GameManager);
     }
+
     private void OnBodyEntered(Node2D body)
 	{
-        _gameManager.AddKey(); //We collected a key
-		QueueFree();
+        EmitSignal(SignalName.KeyCollected);
+        QueueFree();
 	}
 }
