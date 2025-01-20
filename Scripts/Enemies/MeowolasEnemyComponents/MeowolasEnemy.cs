@@ -3,8 +3,11 @@ using System;
 
 namespace PawsOfDestiny.Scripts.Enemies.MeowolasEnemyComponents;
 
-public partial class MeowolasEnemy : Node2D
+public partial class MeowolasEnemy : CharacterBody2D
 {
+	[Signal]
+	public delegate void HitPlayerEventHandler(Node2D body);
+
 	private enum Direction
 	{
 		Left = -1,
@@ -43,5 +46,10 @@ public partial class MeowolasEnemy : Node2D
 		position.X += (int)_direction * MeowolasEnemyConstants.Movement.Speed * (float)delta;
 
 		Position = position;
+	}
+
+	private void OnArea2DBodyEntered(Node2D body)
+	{
+		EmitSignal(SignalName.HitPlayer, body);
 	}
 }

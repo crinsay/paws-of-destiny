@@ -12,7 +12,6 @@ public partial class KeyCounter : CanvasLayer
 	public override void _Ready()
 	{
 		_keyCounterValue = GetNode<Label>(KeyCounterConstants.Nodes.KeyCounterValue);
-
 		_keyCounterValue.Text = "0";
     }
 
