@@ -14,7 +14,7 @@ public partial class Key : Area2D
     }
     private void OnBodyEntered(Node2D body)
 	{
-        _gameManager.AddScore();
+        _gameManager.AddKey(); //We collected a key
 		QueueFree();
 	}
 }
