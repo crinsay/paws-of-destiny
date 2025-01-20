@@ -8,5 +8,5 @@ namespace PawsOfDestiny.Scripts.Game.GameManagerComponents;
 
 public class GameManagerConstants
 {
-    public const string ScoreLabel = "ScoreLabel";
+    public const string KeyCounter = "KeyCounter";
 }
