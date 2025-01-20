@@ -15,7 +15,9 @@ public partial class GameManager : Node
         _keyCounter = GetNode<KeyCounter>(GameManagerConstants.KeyCounter);
     }
 
-    public void AddKey()
+
+    //Method that handles Signal emmited by a single key:
+    private void OnKeyCollected()
     {
         _collectedKeys += 1;
         _keyCounter.UpdateKeyCounter(_collectedKeys);
