@@ -1,14 +1,20 @@
 using Godot;
+using PawsOfDestiny.Scripts.Constants;
 using System;
 
 namespace PawsOfDestiny.Scripts;
 
 public partial class Key : Area2D
 {
-	// Called when the node enters the scene tree for the first time.
-	private void OnBodyEntered(Node2D body)
+    private GameManager _gameManager;
+
+    public override void _Ready()
+    {
+        _gameManager = GetNode<GameManager>("%GameManager");
+    }
+    private void OnBodyEntered(Node2D body)
 	{
-		GD.Print("KEY + 1!");
+        _gameManager.AddScore();
 		QueueFree();
 	}
 }
