@@ -73,7 +73,7 @@
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wab2o"]
 radius = 29.0
-height = 108.0
+height = 78.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fxix3"]
 animations = [{
@@ -289,7 +289,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"Jump",
-"speed": 8.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -344,7 +344,6 @@ shape = SubResource("CapsuleShape2D_wab2o")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-1, -129)
-scale = Vector2(1.08, 1.08)
 sprite_frames = SubResource("SpriteFrames_fxix3")
-animation = &"Dodge"
+animation = &"Run"
 autoplay = "Idle"

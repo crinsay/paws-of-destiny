@@ -1,5 +1,5 @@
 using Godot;
-using PawsOfDestiny.Constants;
+using PawsOfDestiny.Scripts.Constants;
 using System;
 
 namespace PawsOfDestiny.Scripts;
@@ -8,6 +8,15 @@ public partial class Player : CharacterBody2D
 {
 	public const float Speed = 200.0f;
 	public const float JumpVelocity = -275.0f;
+
+    private AnimatedSprite2D _animatedSprite2D;
+	private KillZone _killZone;
+
+    public override void _Ready()
+    {
+        _animatedSprite2D = GetNode<AnimatedSprite2D>(PlayerConstants.Nodes.AnimatedSprite2D);
+		_killZone = GetNode<KillZone>("%KillZone");
+    }
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -20,27 +29,50 @@ public partial class Player : CharacterBody2D
 		}
 
 		// Handle Jump.
-		if (Input.IsActionJustPressed(nameof(MoveDirection.MoveUp)) && IsOnFloor())
+		if (Input.IsActionJustPressed(PlayerConstants.InputActions.Jump) && IsOnFloor())
 		{
 			velocity.Y = JumpVelocity;
 		}
 
-		//No Up/Down constant movement:
-		Vector2 direction = Input.GetVector(nameof(MoveDirection.MoveLeft),
-            nameof(MoveDirection.MoveRight), 
-			nameof(MoveDirection.None),
-            nameof(MoveDirection.None));
-
-		if (direction != Vector2.Zero)
+		if (!KillZone.IsPlayerDead)
 		{
-			velocity.X = direction.X * Speed;
-		}
-		else
-		{
-			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed * 0.2f);
-		}
+			var direction = Input.GetAxis(PlayerConstants.InputActions.MoveLeft,
+		 PlayerConstants.InputActions.MoveRight);
 
-		Velocity = velocity;
-		MoveAndSlide();
+			if (direction != 0f)
+			{
+				velocity.X = direction * Speed;
+
+				_animatedSprite2D.Play(PlayerConstants.Animations.Run);
+				if (direction > 0f)
+				{
+					_animatedSprite2D.FlipH = false;
+				}
+				else if (direction < 0f)
+				{
+					_animatedSprite2D.FlipH = true;
+				}
+			}
+			else
+			{
+				velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed * 0.2f);
+
+				if (IsOnFloor())
+				{
+					_animatedSprite2D.Play(PlayerConstants.Animations.Idle);
+				}
+				else
+				{
+					_animatedSprite2D.Play(PlayerConstants.Animations.Jump);
+				}
+			}
+		}
+        Velocity = velocity;
+        MoveAndSlide();
+    }
+
+	public void PlayAnimation(StringName animationName)
+	{
+		_animatedSprite2D.Play(animationName);
 	}
 }
