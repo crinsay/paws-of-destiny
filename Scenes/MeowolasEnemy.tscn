@@ -77,7 +77,6 @@
 [ext_resource type="Texture2D" uid="uid://blj20m34r78k5" path="res://Assets/Meowolas/TakeDamage/Meowolas_TakeDamage-1.png" id="74_ydyc1"]
 [ext_resource type="Texture2D" uid="uid://8t66yridmv0c" path="res://Assets/Meowolas/TakeDamage/Meowolas_TakeDamage-2.png" id="75_0t5bc"]
 [ext_resource type="Texture2D" uid="uid://d06pavbi4o35c" path="res://Assets/Meowolas/TakeDamage/Meowolas_TakeDamage-3.png" id="76_vvjwg"]
-[ext_resource type="PackedScene" uid="uid://bsioq6o65311k" path="res://Scenes/KillZone.tscn" id="77_l81fw"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_l2qdr"]
 animations = [{
@@ -361,10 +360,14 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_syxi2"]
+radius = 3.0
+height = 10.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_reyvw"]
 radius = 4.0
 height = 12.0
 
-[node name="MeowolasEnemy" type="Node2D"]
+[node name="MeowolasEnemy" type="CharacterBody2D"]
 script = ExtResource("1_1crw7")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -375,9 +378,7 @@ autoplay = "Idle"
 frame_progress = 0.680238
 offset = Vector2(28, 42)
 
-[node name="KillZone" parent="." instance=ExtResource("77_l81fw")]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
 shape = SubResource("CapsuleShape2D_syxi2")
 
@@ -386,3 +387,12 @@ target_position = Vector2(6, 0)
 
 [node name="LeftRayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(-6, 0)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_reyvw")
+
+[connection signal="body_entered" from="Area2D" to="." method="OnArea2DBodyEntered"]

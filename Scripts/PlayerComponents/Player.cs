@@ -7,7 +7,13 @@ namespace PawsOfDestiny.Scripts.PlayerComponents;
 
 public partial class Player : CharacterBody2D
 {
+	[Signal]
+	public delegate void HitEnemyEventHandler(Node2D body);
+
     private AnimatedSprite2D _animatedSprite2D;
+	private bool _isOneShotAnimationPlaying;
+
+	public int Health { get; private set; } = 9;
 
     public override void _Ready()
     {
@@ -23,7 +29,6 @@ public partial class Player : CharacterBody2D
 		{
 			velocity += GetGravity() * (float)delta;
 		}
-
 		
 		if (!GameState.IsPlayerDead)
 		{
@@ -39,8 +44,8 @@ public partial class Player : CharacterBody2D
 			{
 				velocity.X = direction * PlayerConstants.Movement.Speed;
 
-				_animatedSprite2D.Play(PlayerConstants.Animations.Run);
-				if (direction > 0f)
+                PlayAnimation(PlayerConstants.Animations.Run);
+                if (direction > 0f)
 				{
 					_animatedSprite2D.FlipH = false;
 				}
@@ -55,12 +60,12 @@ public partial class Player : CharacterBody2D
 
 				if (IsOnFloor())
 				{
-					_animatedSprite2D.Play(PlayerConstants.Animations.Idle);
-				}
+                    PlayAnimation(PlayerConstants.Animations.Idle);
+                }
 				else
 				{
-					_animatedSprite2D.Play(PlayerConstants.Animations.Jump);
-				}
+                    PlayAnimation(PlayerConstants.Animations.Jump);
+                }
 			}
 		}
 		else
@@ -75,6 +80,33 @@ public partial class Player : CharacterBody2D
 
 	public void PlayAnimation(StringName animationName)
 	{
-		_animatedSprite2D.Play(animationName);
+		if (!_isOneShotAnimationPlaying)
+		{
+            _animatedSprite2D.Play(animationName);
+        }
+	}
+
+	private void OnAnimatedSprite2DAnimationFinished()
+	{
+		_isOneShotAnimationPlaying = false;
+	}
+
+    private void OnMeowolasEnemyHitPlayer(Node2D body) //The enemy which hit the player is the body here.
+	{
+		if (!GameState.WasPlayerHit)
+		{
+            if (--Health > 0)
+            {
+                PlayAnimation(PlayerConstants.Animations.TakeDamage);
+                _isOneShotAnimationPlaying = true;
+            }
+            else
+            {
+                PlayAnimation(PlayerConstants.Animations.Death);
+                _isOneShotAnimationPlaying = true;
+            }
+
+			EmitSignal(SignalName.HitEnemy, this);
+        }		
 	}
 }

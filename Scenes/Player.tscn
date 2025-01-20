@@ -196,7 +196,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"Death",
-"speed": 8.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -345,5 +345,9 @@ shape = SubResource("CapsuleShape2D_wab2o")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-1, -129)
 sprite_frames = SubResource("SpriteFrames_fxix3")
-animation = &"Run"
+animation = &"Death"
 autoplay = "Idle"
+frame = 5
+frame_progress = 1.0
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="OnAnimatedSprite2DAnimationFinished"]
