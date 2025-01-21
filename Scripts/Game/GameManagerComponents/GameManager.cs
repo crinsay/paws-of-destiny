@@ -1,4 +1,5 @@
 using Godot;
+using PawsOfDestiny.Scripts.Enemies.MeowolasEnemyComponents;
 using PawsOfDestiny.Scripts.Game.Collectables.KeyComponents;
 using PawsOfDestiny.Scripts.PlayerComponents;
 using System;
@@ -7,6 +8,9 @@ namespace PawsOfDestiny.Scripts.Game.GameManagerComponents;
 
 public partial class GameManager : Node
 {
+    [Signal]
+    public delegate void MeowolasArrowHitPlayerEventHandler(int damage);
+
     private KeyCounter _keyCounter;
     private PlayerHealth _playerHealth;
 
@@ -31,22 +35,30 @@ public partial class GameManager : Node
         _keyCounter.UpdateKeyCounter(_collectedKeys);
     }
 
-    private void OnPlayerHitEnemy(Node2D body) //The player is the body here.
+    public void OnMeowolasArrowHitPlayer(int damage)
     {
-        if (body is Player player)
+        if (GameState.WasPlayerHit || GameState.IsPlayerDead)
         {
-            GameState.WasPlayerHit = true;
-            _playerHealth.UpdatePlayerHealthLabel(player.Health);
+            return;
+        }
 
-            if (player.Health > 0)
-            {
-                _playerHitTimer.Start();
-            }
-            else
-            {
-                Engine.TimeScale = 0.75d;
-                _playerDeathTimer.Start();
-            }        
+        EmitSignal(SignalName.MeowolasArrowHitPlayer, damage);
+        GameState.WasPlayerHit = true;
+
+        //await ToSignal(this, SignalName.MeowolasArrowHitPlayer);
+
+        _playerHealth.UpdatePlayerHealthLabel(Player.CurrentHealth);
+
+        if (Player.CurrentHealth > 0)
+        {
+            _playerHitTimer.Start();
+        }
+        else
+        {
+            GameState.IsPlayerDead = true;
+            Engine.TimeScale = 0.75d;
+
+            _playerDeathTimer.Start();
         }
     }
 
