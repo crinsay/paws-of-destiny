@@ -7,13 +7,11 @@ namespace PawsOfDestiny.Scripts.PlayerComponents;
 
 public partial class Player : CharacterBody2D
 {
-	[Signal]
-	public delegate void HitEnemyEventHandler(Node2D body);
+	public static Vector2 CurrentGlobalPosition { get; private set; }
+	public static int CurrentHealth { get; private set; } = 9;
 
     private AnimatedSprite2D _animatedSprite2D;
 	private bool _isOneShotAnimationPlaying;
-
-	public int Health { get; private set; } = 9;
 
     public override void _Ready()
     {
@@ -72,9 +70,11 @@ public partial class Player : CharacterBody2D
 		{
 			//If player is dead, stop him:
             velocity.X = Mathf.MoveToward(Velocity.X, 0, PlayerConstants.Movement.Speed);
+			CurrentHealth = 9;
         }
 
         Velocity = velocity;
+		CurrentGlobalPosition = GlobalPosition;
         MoveAndSlide();
     }
 
@@ -91,11 +91,12 @@ public partial class Player : CharacterBody2D
 		_isOneShotAnimationPlaying = false;
 	}
 
-    private void OnMeowolasEnemyHitPlayer(Node2D body) //The enemy which hit the player is the body here.
+    private void OnGameManagerMeowolasArrowHitPlayer(int damage)
 	{
-		if (!GameState.WasPlayerHit)
-		{
-            if (--Health > 0)
+        if (!GameState.WasPlayerHit)
+        {
+			CurrentHealth -= damage;
+            if (CurrentHealth > 0)
             {
                 PlayAnimation(PlayerConstants.Animations.TakeDamage);
                 _isOneShotAnimationPlaying = true;
@@ -105,8 +106,6 @@ public partial class Player : CharacterBody2D
                 PlayAnimation(PlayerConstants.Animations.Death);
                 _isOneShotAnimationPlaying = true;
             }
-
-			EmitSignal(SignalName.HitEnemy, this);
-        }		
-	}
+        }
+    }
 }

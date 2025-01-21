@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://ckntrhhjr3p3a" path="res://Assets/Meowolas/Attack1/Meowolas_Attack1-1.png" id="1_3ovwy"]
 [ext_resource type="Texture2D" uid="uid://33w8cbn6paju" path="res://Assets/Meowolas/Idle/Meowolas_Idle-1.png" id="1_euk6i"]
 [ext_resource type="Texture2D" uid="uid://dyt13kslf5w6y" path="res://Assets/Meowolas/Idle/Meowolas_Idle-2.png" id="2_h82tw"]
+[ext_resource type="PackedScene" uid="uid://b3eu45uwxphc0" path="res://Scenes/MeowolasArrow.tscn" id="2_i4ga1"]
 [ext_resource type="Texture2D" uid="uid://bwk0idpf46dr4" path="res://Assets/Meowolas/Attack1/Meowolas_Attack1-2.png" id="2_umog1"]
 [ext_resource type="Texture2D" uid="uid://gvsftkqe2b23" path="res://Assets/Meowolas/Attack1/Meowolas_Attack1-3.png" id="3_7ahsx"]
 [ext_resource type="Texture2D" uid="uid://c65fc34i8mojm" path="res://Assets/Meowolas/Idle/Meowolas_Idle-3.png" id="3_nx56b"]
@@ -12,14 +13,14 @@
 [ext_resource type="Texture2D" uid="uid://kxyd0nsjjian" path="res://Assets/Meowolas/Attack1/Meowolas_Attack1-5.png" id="5_qvrut"]
 [ext_resource type="Texture2D" uid="uid://bvgeapykt8l07" path="res://Assets/Meowolas/Idle/Meowolas_Idle-5.png" id="5_v2yce"]
 [ext_resource type="Texture2D" uid="uid://cpr03d1f6clgu" path="res://Assets/Meowolas/Idle/Meowolas_Idle-6.png" id="6_fbks0"]
-[ext_resource type="Texture2D" uid="uid://dgc4vcndm28ku" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-1.png" id="6_krwfj"]
-[ext_resource type="Texture2D" uid="uid://kqbhk1ngtqv" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-2.png" id="7_q034f"]
-[ext_resource type="Texture2D" uid="uid://x117ihb8s12t" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-3.png" id="8_wna6t"]
-[ext_resource type="Texture2D" uid="uid://dlgu6h7blmnsw" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-4.png" id="9_62vwx"]
-[ext_resource type="Texture2D" uid="uid://y7a7gmgrrweg" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-5.png" id="10_pn356"]
-[ext_resource type="Texture2D" uid="uid://cj63qff6p7u3f" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-6.png" id="11_etasl"]
-[ext_resource type="Texture2D" uid="uid://dusg83vcykh54" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-7.png" id="12_dd0qx"]
-[ext_resource type="Texture2D" uid="uid://0h5sugnford1" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-8.png" id="13_5mjvv"]
+[ext_resource type="Texture2D" uid="uid://cyhqapjocsmnu" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-8.png" id="6_krwfj"]
+[ext_resource type="Texture2D" uid="uid://dwl1snhp2jig4" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-2.png" id="7_q034f"]
+[ext_resource type="Texture2D" uid="uid://cym8rtwfehose" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-3.png" id="8_wna6t"]
+[ext_resource type="Texture2D" uid="uid://b74vtyk1uwhj" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-4.png" id="9_62vwx"]
+[ext_resource type="Texture2D" uid="uid://boyh4ej3l00vt" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-5.png" id="10_pn356"]
+[ext_resource type="Texture2D" uid="uid://67clwimhjy65" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-6.png" id="11_etasl"]
+[ext_resource type="Texture2D" uid="uid://b7cmy1pytdqfi" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-7.png" id="12_dd0qx"]
+[ext_resource type="Texture2D" uid="uid://bw14qiqebuwad" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-1.png" id="13_5mjvv"]
 [ext_resource type="Texture2D" uid="uid://tn415lqjc8uj" path="res://Assets/Meowolas/Attack3/Meowolas_Attack3-1.png" id="14_tjil7"]
 [ext_resource type="Texture2D" uid="uid://cn7ab1snfftr6" path="res://Assets/Meowolas/Attack3/Meowolas_Attack3-2.png" id="15_vlj2f"]
 [ext_resource type="Texture2D" uid="uid://0ewxa8uuna6b" path="res://Assets/Meowolas/Attack3/Meowolas_Attack3-3.png" id="16_ka7uh"]
@@ -102,7 +103,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_krwfj")
+"texture": ExtResource("13_5mjvv")
 }, {
 "duration": 1.0,
 "texture": ExtResource("7_q034f")
@@ -123,11 +124,11 @@ animations = [{
 "texture": ExtResource("12_dd0qx")
 }, {
 "duration": 1.0,
-"texture": ExtResource("13_5mjvv")
+"texture": ExtResource("6_krwfj")
 }],
-"loop": false,
+"loop": true,
 "name": &"Attack2",
-"speed": 8.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -363,19 +364,16 @@ animations = [{
 radius = 3.0
 height = 10.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_reyvw"]
-radius = 4.0
-height = 12.0
-
 [node name="MeowolasEnemy" type="CharacterBody2D"]
 script = ExtResource("1_1crw7")
+ArrowsScene = ExtResource("2_i4ga1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-28, -42)
 sprite_frames = SubResource("SpriteFrames_l2qdr")
-animation = &"Idle"
+animation = &"Attack2"
 autoplay = "Idle"
-frame_progress = 0.680238
+frame_progress = 0.159246
 offset = Vector2(28, 42)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -388,11 +386,7 @@ target_position = Vector2(6, 0)
 [node name="LeftRayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(-6, 0)
 
-[node name="Area2D" type="Area2D" parent="."]
-collision_mask = 2
+[node name="ShootCooldownTimer" type="Timer" parent="."]
+wait_time = 2.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, 2)
-shape = SubResource("CapsuleShape2D_reyvw")
-
-[connection signal="body_entered" from="Area2D" to="." method="OnArea2DBodyEntered"]
+[connection signal="timeout" from="ShootCooldownTimer" to="." method="OnShootCooldownTimerTimeout"]
