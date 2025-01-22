@@ -34,6 +34,14 @@ public partial class GameManager : Node
         _collectedKeys += 1;
         _keyCounter.UpdateKeyCounter(_collectedKeys);
     }
+    private void OnMeowolasEnemyNewArrowInstantiated(Node2D newArrow)
+    {
+        var arrow = newArrow as MeowolasArrow;
+
+        arrow.Connect(MeowolasArrow.SignalName.MeowolasArrowHitPlayer,
+            new Callable(this, nameof(OnMeowolasArrowHitPlayer)));
+    }
+
 
     public void OnMeowolasArrowHitPlayer(int damage)
     {
