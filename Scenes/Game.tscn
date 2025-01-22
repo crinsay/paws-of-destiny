@@ -277,3 +277,4 @@ scale = Vector2(1.75, 1.75)
 [connection signal="timeout" from="GameManager/PlayerDeathTimer" to="GameManager" method="OnPlayerDeathTimerTimeout"]
 [connection signal="KeyCollected" from="Keys/Key" to="GameManager" method="OnKeyCollected"]
 [connection signal="KeyCollected" from="Keys/Key2" to="GameManager" method="OnKeyCollected"]
+[connection signal="NewArrowInstantiated" from="MeowolasEnemy" to="GameManager" method="OnMeowolasEnemyNewArrowInstantiated"]

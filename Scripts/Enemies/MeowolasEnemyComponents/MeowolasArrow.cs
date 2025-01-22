@@ -6,8 +6,11 @@ using System;
 namespace PawsOfDestiny.Scripts.Enemies.MeowolasEnemyComponents;
 
 public partial class MeowolasArrow : Node2D
-{ 
-	[Export]
+{
+	[Signal]
+    public delegate void MeowolasArrowHitPlayerEventHandler(int damage);
+
+    [Export]
 	public float Speed = 360.0f;
 
     [Export]
@@ -16,12 +19,10 @@ public partial class MeowolasArrow : Node2D
     public Vector2 Direction = Vector2.Zero;
 
 	private AnimatedSprite2D _animatedSprite2D;
-	private GameManager _gameManager;
 
 	public override void _Ready()
 	{
 		_animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-		_gameManager = GetNode<GameManager>("/root/World/GameManager");
 
         Rotation = Direction.Angle();
     }
@@ -37,8 +38,8 @@ public partial class MeowolasArrow : Node2D
 		{
 			if (body is Player)
 			{
-				_gameManager.OnMeowolasArrowHitPlayer(Damage);
-			}
+				EmitSignal(SignalName.MeowolasArrowHitPlayer, Damage);
+            }
 
             QueueFree();
         }

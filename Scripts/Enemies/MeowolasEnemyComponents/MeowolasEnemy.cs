@@ -7,7 +7,10 @@ namespace PawsOfDestiny.Scripts.Enemies.MeowolasEnemyComponents;
 
 public partial class MeowolasEnemy : CharacterBody2D
 {
-	[Export]
+	[Signal]
+	public delegate void NewArrowInstantiatedEventHandler(Node2D newArrow);
+
+    [Export]
 	public PackedScene ArrowsScene { get; set; }
 
 	private enum Direction
@@ -63,6 +66,7 @@ public partial class MeowolasEnemy : CharacterBody2D
 		arrow.GlobalPosition = GlobalPosition;
 
         AddChild(arrow);
+		EmitSignal(SignalName.NewArrowInstantiated, arrow);
 
         _animatedSprite2D.FlipH = _direction == Direction.Left;
     }

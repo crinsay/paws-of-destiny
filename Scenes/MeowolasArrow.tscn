@@ -19,7 +19,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"Fly",
-"speed": 7.0
+"speed": 6.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1wsan"]
@@ -34,7 +34,7 @@ script = ExtResource("1_35vje")
 sprite_frames = SubResource("SpriteFrames_smp4w")
 animation = &"Fly"
 autoplay = "Fly"
-frame_progress = 0.0907154
+frame_progress = 0.953391
 
 [node name="ArrowHitBox" type="Area2D" parent="."]
 collision_mask = 3
