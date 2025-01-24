@@ -357,7 +357,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"TakeDamage",
-"speed": 8.0
+"speed": 6.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_syxi2"]
@@ -371,9 +371,8 @@ ArrowsScene = ExtResource("2_i4ga1")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-28, -42)
 sprite_frames = SubResource("SpriteFrames_l2qdr")
-animation = &"Attack2"
+animation = &"TakeDamage"
 autoplay = "Idle"
-frame_progress = 0.159246
 offset = Vector2(28, 42)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -389,4 +388,5 @@ target_position = Vector2(-6, 0)
 [node name="ShootCooldownTimer" type="Timer" parent="."]
 wait_time = 2.0
 
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="OnAnimatedSprite2DAnimationFinished"]
 [connection signal="timeout" from="ShootCooldownTimer" to="." method="OnShootCooldownTimerTimeout"]

@@ -9,7 +9,9 @@ namespace PawsOfDestiny.Scripts.Game.GameManagerComponents;
 public partial class GameManager : Node
 {
     [Signal]
-    public delegate void MeowolasArrowHitPlayerEventHandler(int damage);
+    public delegate void EnemyHitPlayerEventHandler(int damage);
+    [Signal]
+    public delegate void PlayerHitMeowolasEnemyEventHandler(int damage);
 
     private KeyCounter _keyCounter;
     private PlayerHealth _playerHealth;
@@ -33,25 +35,23 @@ public partial class GameManager : Node
         _collectedKeys += 1;
         _keyCounter.UpdateKeyCounter(_collectedKeys);
     }
+
     private void OnMeowolasEnemyNewArrowInstantiated(Node2D newArrow)
     {
         var arrow = newArrow as MeowolasArrow;
 
-        arrow.Connect(MeowolasArrow.SignalName.MeowolasArrowHitPlayer,
-            new Callable(this, nameof(OnMeowolasArrowHitPlayer)));
+        arrow.Connect(MeowolasArrow.SignalName.EnemyHitPlayer,
+            new Callable(this, nameof(OnEnemyHitPlayer)));
     }
 
-
-    public void OnMeowolasArrowHitPlayer(int damage)
+    public void OnEnemyHitPlayer(int damage) //Body is an enemy object that hit the player (for example MewolasArrow)
     {
-        if (GameState.WasPlayerHit || GameState.IsPlayerDead)
+        if (!Player.CanBeHit)
         {
             return;
         }
 
-        EmitSignal(SignalName.MeowolasArrowHitPlayer, damage);
-        GameState.WasPlayerHit = true;
-
+        EmitSignal(SignalName.EnemyHitPlayer, damage);
         _playerHealth.UpdatePlayerHealthLabel(Player.CurrentHealth);
 
         if (Player.State != PlayerState.Dead)
@@ -60,24 +60,27 @@ public partial class GameManager : Node
         }
         else
         {
-            GameState.IsPlayerDead = true;
             Engine.TimeScale = 0.75d;
-
             _playerDeathTimer.Start();
         }
     }
 
-    private void OnPlayerHitTimerTimeout()
+    private void OnPlayerHitEnemy(Node2D enemy, int damage)
     {
-        GameState.WasPlayerHit = false;
+        if (enemy is MeowolasEnemy meowolasEnemy)
+        {
+            if (!meowolasEnemy.CanBeHit)
+            {
+                return;
+            }
+
+            EmitSignal(SignalName.PlayerHitMeowolasEnemy, damage);
+        }
     }
 
     private void OnPlayerDeathTimerTimeout()
     {
         Engine.TimeScale = 1d;
         GetTree().ReloadCurrentScene();
-
-        GameState.WasPlayerHit = false;
-        GameState.IsPlayerDead = false;
     }
 }

@@ -269,12 +269,14 @@ libraries = {
 autoplay = "Move"
 
 [node name="MeowolasEnemy" parent="." instance=ExtResource("9_sa2po")]
-position = Vector2(964, 354)
+position = Vector2(966, 328)
 scale = Vector2(1.75, 1.75)
 
-[connection signal="MeowolasArrowHitPlayer" from="GameManager" to="Player" method="OnGameManagerMeowolasArrowHitPlayer"]
+[connection signal="EnemyHitPlayer" from="GameManager" to="Player" method="OnGameManagerEnemyHitPlayer"]
+[connection signal="PlayerHitMeowolasEnemy" from="GameManager" to="MeowolasEnemy" method="OnGameManagerPlayerHitMeowolasEnemy"]
 [connection signal="timeout" from="GameManager/PlayerHitTimer" to="GameManager" method="OnPlayerHitTimerTimeout"]
 [connection signal="timeout" from="GameManager/PlayerDeathTimer" to="GameManager" method="OnPlayerDeathTimerTimeout"]
+[connection signal="PlayerHitEnemy" from="Player" to="GameManager" method="OnPlayerHitEnemy"]
 [connection signal="KeyCollected" from="Keys/Key" to="GameManager" method="OnKeyCollected"]
 [connection signal="KeyCollected" from="Keys/Key2" to="GameManager" method="OnKeyCollected"]
 [connection signal="NewArrowInstantiated" from="MeowolasEnemy" to="GameManager" method="OnMeowolasEnemyNewArrowInstantiated"]

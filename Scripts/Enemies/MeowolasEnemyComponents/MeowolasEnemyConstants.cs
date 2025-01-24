@@ -29,14 +29,9 @@ public class MeowolasEnemyConstants
         public const string Attack3 = "Attack3";
         public const string Attack4 = "Attack4";
     }
-
-    public static class Movement
-    {
-        public const float Speed = 40.0f;
-    }
 }
 
-public enum PlayerState
+public enum EnemyState
 {
     Idle,
     Running,
@@ -44,5 +39,6 @@ public enum PlayerState
     Attacking,
     TakingDamage,
     Dodging,
-    Dead
+    Dead,
+    JustHit
 }
