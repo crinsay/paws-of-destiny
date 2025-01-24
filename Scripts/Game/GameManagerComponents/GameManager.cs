@@ -52,7 +52,7 @@ public partial class GameManager : Node
         }
 
         EmitSignal(SignalName.EnemyHitPlayer, damage);
-        _playerHealth.UpdatePlayerHealthLabel(Player.CurrentHealth);
+        _playerHealth.UpdatePlayerHealthLabel(Player.Health);
 
         if (Player.State != PlayerState.Dead)
         {

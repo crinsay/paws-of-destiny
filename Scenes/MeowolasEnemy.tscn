@@ -1,4 +1,4 @@
-[gd_scene load_steps=81 format=3 uid="uid://xyyu4et73e4g"]
+[gd_scene load_steps=82 format=3 uid="uid://xyyu4et73e4g"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/MeowolasEnemyComponents/MeowolasEnemy.cs" id="1_1crw7"]
 [ext_resource type="Texture2D" uid="uid://ckntrhhjr3p3a" path="res://Assets/Meowolas/Attack1/Meowolas_Attack1-1.png" id="1_3ovwy"]
@@ -78,6 +78,7 @@
 [ext_resource type="Texture2D" uid="uid://blj20m34r78k5" path="res://Assets/Meowolas/TakeDamage/Meowolas_TakeDamage-1.png" id="74_ydyc1"]
 [ext_resource type="Texture2D" uid="uid://8t66yridmv0c" path="res://Assets/Meowolas/TakeDamage/Meowolas_TakeDamage-2.png" id="75_0t5bc"]
 [ext_resource type="Texture2D" uid="uid://d06pavbi4o35c" path="res://Assets/Meowolas/TakeDamage/Meowolas_TakeDamage-3.png" id="76_vvjwg"]
+[ext_resource type="PackedScene" uid="uid://dwepbn264tdju" path="res://Scenes/HealthBar.tscn" id="79_omw6b"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_l2qdr"]
 animations = [{
@@ -128,7 +129,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"Attack2",
-"speed": 4.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -218,7 +219,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"Death",
-"speed": 8.0
+"speed": 6.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -371,7 +372,7 @@ ArrowsScene = ExtResource("2_i4ga1")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-28, -42)
 sprite_frames = SubResource("SpriteFrames_l2qdr")
-animation = &"TakeDamage"
+animation = &"Attack2"
 autoplay = "Idle"
 offset = Vector2(28, 42)
 
@@ -386,7 +387,17 @@ target_position = Vector2(6, 0)
 target_position = Vector2(-6, 0)
 
 [node name="ShootCooldownTimer" type="Timer" parent="."]
-wait_time = 2.0
+
+[node name="HealthBar" parent="." instance=ExtResource("79_omw6b")]
+offset_left = -7.0
+offset_top = -11.0
+offset_right = 9.0
+offset_bottom = -9.0
+
+[node name="DeathTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="OnAnimatedSprite2DAnimationFinished"]
 [connection signal="timeout" from="ShootCooldownTimer" to="." method="OnShootCooldownTimerTimeout"]
+[connection signal="timeout" from="DeathTimer" to="." method="OnDeathTimerTimeout"]
