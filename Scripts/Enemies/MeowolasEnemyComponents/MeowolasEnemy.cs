@@ -27,15 +27,16 @@ public partial class MeowolasEnemy : CharacterBody2D
 
     public override void _Ready()
 	{
-		_shootCooldownTimer = GetNode<Timer>("ShootCooldownTimer");
-		_shootCooldownTimer.Start();
-
+		_shootCooldownTimer = GetNode<Timer>(MeowolasEnemyConstants.Nodes.ShootCooldownTimer);
         _rightRayCast2D = GetNode<RayCast2D>(MeowolasEnemyConstants.Nodes.RightRayCast2D);
 		_leftRayCast2D = GetNode<RayCast2D>(MeowolasEnemyConstants.Nodes.LeftRayCast2D);
 		_animatedSprite2D = GetNode<AnimatedSprite2D>(MeowolasEnemyConstants.Nodes.AnimatedSprite2D);
 
+
+        _shootCooldownTimer.Start();
+
         _animatedSprite2D.FlipH = _direction == Direction.Left;
-        _animatedSprite2D.Play("Attack2");
+        _animatedSprite2D.Play(MeowolasEnemyConstants.Animations.Attack2);
 		_animatedSprite2D.Frame = 6;
     }
 

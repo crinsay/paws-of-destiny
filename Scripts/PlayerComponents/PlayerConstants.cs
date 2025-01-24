@@ -26,10 +26,4 @@ public static class PlayerConstants
         public const string Attack3 = "Attack3";
         public const string Attack4 = "Attack4";
     }
-
-    public static class Movement
-    {
-        public const float Speed = 200.0f;
-        public const float JumpVelocity = -275.0f;
-    }
 }
