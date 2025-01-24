@@ -7,9 +7,18 @@ namespace PawsOfDestiny.Scripts.PlayerComponents;
 
 public partial class Player : CharacterBody2D
 {
+	//Global player informations:
 	public static Vector2 CurrentGlobalPosition { get; private set; }
 	public static int CurrentHealth { get; private set; } = 9;
 
+    //Player movement constants:
+    [Export]
+    public float Speed = 200.0f;
+
+	[Export]
+    public float JumpVelocity = -275.0f;
+
+    //Player private variables:
     private AnimatedSprite2D _animatedSprite2D;
 	private bool _isOneShotAnimationPlaying;
 
@@ -33,14 +42,14 @@ public partial class Player : CharacterBody2D
 
             if (Input.IsActionJustPressed(InputActions.Jump) && IsOnFloor())
             {
-                velocity.Y = PlayerConstants.Movement.JumpVelocity;
+                velocity.Y = JumpVelocity;
             }
 
             var direction = Input.GetAxis(InputActions.MoveLeft, InputActions.MoveRight);
 
 			if (direction != 0f)
 			{
-				velocity.X = direction * PlayerConstants.Movement.Speed;
+				velocity.X = direction * Speed;
 
                 PlayAnimation(PlayerConstants.Animations.Run);
                 if (direction > 0f)
@@ -54,7 +63,7 @@ public partial class Player : CharacterBody2D
 			}
 			else
 			{
-				velocity.X = Mathf.MoveToward(Velocity.X, 0, PlayerConstants.Movement.Speed * 0.2f);
+				velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed * 0.2f);
 
 				if (IsOnFloor())
 				{
@@ -69,7 +78,7 @@ public partial class Player : CharacterBody2D
 		else
 		{
 			//If player is dead, stop him:
-            velocity.X = Mathf.MoveToward(Velocity.X, 0, PlayerConstants.Movement.Speed);
+            velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
 			CurrentHealth = 9;
         }
 

@@ -18,12 +18,8 @@ public partial class MeowolasArrow : Node2D
 
     public Vector2 Direction = Vector2.Zero;
 
-	private AnimatedSprite2D _animatedSprite2D;
-
 	public override void _Ready()
 	{
-		_animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-
         Rotation = Direction.Angle();
     }
 

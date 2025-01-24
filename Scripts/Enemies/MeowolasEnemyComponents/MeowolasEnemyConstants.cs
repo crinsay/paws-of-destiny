@@ -13,6 +13,7 @@ public class MeowolasEnemyConstants
         public const string RightRayCast2D = "RightRayCast2D";
         public const string LeftRayCast2D = "LeftRayCast2D";
         public const string AnimatedSprite2D = "AnimatedSprite2D";
+        public const string ShootCooldownTimer = "ShootCooldownTimer";
     }
 
     public class Animations

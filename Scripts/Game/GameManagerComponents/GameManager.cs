@@ -13,7 +13,6 @@ public partial class GameManager : Node
 
     private KeyCounter _keyCounter;
     private PlayerHealth _playerHealth;
-
     private Timer _playerHitTimer;
     private Timer _playerDeathTimer;
 

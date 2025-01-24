@@ -1,5 +1,6 @@
 using Godot;
 using PawsOfDestiny.Scripts.Game.Collectables.KeyComponents;
+using PawsOfDestiny.Scripts.Game.GameManagerComponents;
 using System;
 
 namespace PawsOfDestiny.Scripts.Game;
@@ -10,7 +11,7 @@ public partial class PlayerHealth : CanvasLayer
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
-        _playerHealthValue = GetNode<Label>("PlayerHealthValue");
+        _playerHealthValue = GetNode<Label>(PlayerHealthConstants.Nodes.PlayerHealthValue);
         _playerHealthValue.Text = "Health: 9";
     }
 
