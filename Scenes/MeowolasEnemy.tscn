@@ -366,6 +366,7 @@ radius = 3.0
 height = 10.0
 
 [node name="MeowolasEnemy" type="CharacterBody2D"]
+collision_layer = 2
 script = ExtResource("1_1crw7")
 ArrowsScene = ExtResource("2_i4ga1")
 
@@ -374,6 +375,7 @@ position = Vector2(-28, -42)
 sprite_frames = SubResource("SpriteFrames_l2qdr")
 animation = &"Attack2"
 autoplay = "Idle"
+frame_progress = 0.130508
 offset = Vector2(28, 42)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -381,10 +383,10 @@ position = Vector2(0, 2)
 shape = SubResource("CapsuleShape2D_syxi2")
 
 [node name="RightRayCast2D" type="RayCast2D" parent="."]
-target_position = Vector2(6, 0)
+target_position = Vector2(18, 0)
 
 [node name="LeftRayCast2D" type="RayCast2D" parent="."]
-target_position = Vector2(-6, 0)
+target_position = Vector2(-17, 0)
 
 [node name="ShootCooldownTimer" type="Timer" parent="."]
 
