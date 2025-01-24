@@ -1,5 +1,6 @@
 using Godot;
 using PawsOfDestiny.Scripts.Common;
+using PawsOfDestiny.Scripts.Common.Components;
 using PawsOfDestiny.Scripts.Enemies.MeowolasEnemyComponents;
 using PawsOfDestiny.Scripts.Game;
 using System;
@@ -12,7 +13,7 @@ public partial class Player : CharacterBody2D
 	public static Vector2 CurrentGlobalPosition { get; private set; }
     public static PlayerState State { get; private set; } = PlayerState.Idle;
     public static bool CanBeHit { get; private set; } = true;
-    public static int CurrentHealth { get; private set; } = 9;
+    public static int Health { get; private set; } = 9;
 
     //Signals:
     [Signal]
@@ -40,7 +41,7 @@ public partial class Player : CharacterBody2D
         _animationPlayer = GetNode<AnimationPlayer>(PlayerConstants.Nodes.AnimationPlayer);
 
         State = PlayerState.Idle;
-        CurrentHealth = 9;
+        Health = 9;
         CanBeHit = true;
     }
 
@@ -155,8 +156,8 @@ public partial class Player : CharacterBody2D
 
     private void OnGameManagerEnemyHitPlayer(int damage)
 	{
-        CurrentHealth -= damage;
-        if (CurrentHealth > 0)
+        Health -= damage;
+        if (Health > 0)
         {
             _animatedSprite2D.Play(PlayerConstants.Animations.TakeDamage);
             State = PlayerState.TakingDamage;

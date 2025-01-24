@@ -1,4 +1,5 @@
 using Godot;
+using PawsOfDestiny.Scripts.Common.Components;
 using PawsOfDestiny.Scripts.Game.GameManagerComponents;
 using PawsOfDestiny.Scripts.PlayerComponents;
 using System;
@@ -9,6 +10,7 @@ public partial class MeowolasEnemy : CharacterBody2D
 {
     public EnemyState State { get; private set; } = EnemyState.Attacking;
     public bool CanBeHit { get; private set; } = true;
+    public int Health { get; private set; } = 9;
 
     [Signal]
 	public delegate void NewArrowInstantiatedEventHandler(Node2D newArrow);
@@ -29,6 +31,8 @@ public partial class MeowolasEnemy : CharacterBody2D
     private RayCast2D _rightRayCast2D;
     private RayCast2D _leftRayCast2D;
     private AnimatedSprite2D _animatedSprite2D;
+    private HealthBar _healthBar;
+    private Timer _deathTimer;
     private Direction _moveDirection = Direction.Left;
     private Direction _knockbackDirection = Direction.Left;
 
@@ -38,12 +42,16 @@ public partial class MeowolasEnemy : CharacterBody2D
         _rightRayCast2D = GetNode<RayCast2D>(MeowolasEnemyConstants.Nodes.RightRayCast2D);
 		_leftRayCast2D = GetNode<RayCast2D>(MeowolasEnemyConstants.Nodes.LeftRayCast2D);
 		_animatedSprite2D = GetNode<AnimatedSprite2D>(MeowolasEnemyConstants.Nodes.AnimatedSprite2D);
+        _healthBar = GetNode<HealthBar>(MeowolasEnemyConstants.Nodes.HealthBar);
+        _deathTimer = GetNode<Timer>(MeowolasEnemyConstants.Nodes.DeathTimer);
 
         _shootCooldownTimer.Start();
 
         _animatedSprite2D.FlipH = _moveDirection == Direction.Left;
         _animatedSprite2D.Play(MeowolasEnemyConstants.Animations.Attack2);
 		_animatedSprite2D.Frame = 6;
+
+        _healthBar.InitializeHealthBarComponent(Health);
     }
 
     public override void _Process(double delta)
@@ -72,6 +80,10 @@ public partial class MeowolasEnemy : CharacterBody2D
             velocity.Y = -200.0f;
             State = EnemyState.TakingDamage;
         }
+        else if (State == EnemyState.Dead)
+        {
+            velocity.X = Mathf.MoveToward(Velocity.X, 0f, Speed);
+        }
         else if (State == EnemyState.Attacking)
         {
             _animatedSprite2D.Play(MeowolasEnemyConstants.Animations.Attack2);
@@ -93,10 +105,24 @@ public partial class MeowolasEnemy : CharacterBody2D
             _knockbackDirection = Direction.Right;
         }
 
-        State = EnemyState.JustHit;
-        CanBeHit = false;
-        _animatedSprite2D.Play(MeowolasEnemyConstants.Animations.TakeDamage);
+        Health -= damage;
+        _healthBar.Health = Health;
         _shootCooldownTimer.Stop();
+
+        if (Health > 0)
+        {
+            _animatedSprite2D.Play(MeowolasEnemyConstants.Animations.TakeDamage);
+            State = EnemyState.JustHit;
+        }
+        else
+        {
+            _animatedSprite2D.Play(MeowolasEnemyConstants.Animations.Death);
+            State = EnemyState.Dead;
+            _deathTimer.Start();
+        }
+
+
+        CanBeHit = false;
     }
 
     private void OnShootCooldownTimerTimeout()
@@ -113,10 +139,19 @@ public partial class MeowolasEnemy : CharacterBody2D
 
     private void OnAnimatedSprite2DAnimationFinished()
     {
-        State = EnemyState.Attacking;
-        CanBeHit = true;
-        _animatedSprite2D.Play(MeowolasEnemyConstants.Animations.Attack2);
-        _animatedSprite2D.Frame = 6;
-        _shootCooldownTimer.Start();
+        if (State != EnemyState.Dead)
+        {
+            State = EnemyState.Attacking;
+            CanBeHit = true;
+            _animatedSprite2D.Play(MeowolasEnemyConstants.Animations.Attack2);
+            _animatedSprite2D.Frame = 6;
+            _shootCooldownTimer.Start();
+        }
+    }
+
+    private void OnDeathTimerTimeout()
+    {
+        _deathTimer.QueueFree();
+        QueueFree();
     }
 }

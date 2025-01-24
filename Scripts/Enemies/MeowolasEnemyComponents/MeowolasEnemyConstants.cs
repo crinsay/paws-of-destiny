@@ -14,6 +14,8 @@ public class MeowolasEnemyConstants
         public const string LeftRayCast2D = "LeftRayCast2D";
         public const string AnimatedSprite2D = "AnimatedSprite2D";
         public const string ShootCooldownTimer = "ShootCooldownTimer";
+        public const string HealthBar = "HealthBar";
+        public const string DeathTimer = "DeathTimer";
     }
 
     public class Animations
