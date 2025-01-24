@@ -11,8 +11,12 @@ public partial class Player : CharacterBody2D
 	//Global player informations:
 	public static Vector2 CurrentGlobalPosition { get; private set; }
     public static PlayerState State { get; private set; } = PlayerState.Idle;
+    public static bool CanBeHit { get; private set; } = true;
     public static int CurrentHealth { get; private set; } = 9;
 
+    //Signals:
+    [Signal]
+    public delegate void PlayerHitEnemyEventHandler(Node2D enemy, int damage);
 
     //Player public variables:
     [Export]
@@ -21,17 +25,24 @@ public partial class Player : CharacterBody2D
 	[Export]
     public float JumpVelocity = -275.0f;
 
+    [Export]
+    public int Damage = 1;
+
     //Player private variables:
     private AnimatedSprite2D _animatedSprite2D;
+    private Area2D _sword;
+    private AnimationPlayer _animationPlayer;
 
     public override void _Ready()
     {
         _animatedSprite2D = GetNode<AnimatedSprite2D>(PlayerConstants.Nodes.AnimatedSprite2D);
+        _sword = GetNode<Area2D>(PlayerConstants.Nodes.Sword);  
+        _animationPlayer = GetNode<AnimationPlayer>(PlayerConstants.Nodes.AnimationPlayer);
 
         State = PlayerState.Idle;
         CurrentHealth = 9;
+        CanBeHit = true;
     }
-
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -48,7 +59,7 @@ public partial class Player : CharacterBody2D
         {
             if (velocity.X != 0f)
             {
-                velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
+                velocity.X = Mathf.MoveToward(Velocity.X, 0f, Speed);
             }
 
             MovePlayer(velocity);
@@ -62,12 +73,15 @@ public partial class Player : CharacterBody2D
             if (currentMousePosition.X > GlobalPosition.X)
             {
                 _animatedSprite2D.FlipH = false;
+                _sword.Scale = new Vector2(1, 1); //Flip the hitbox to the right.
             }
             else
             {
                 _animatedSprite2D.FlipH = true;
+                _sword.Scale = new Vector2(-1, 1); //Flip the hitbox to the left.
             }
-            PlayAnimation(PlayerConstants.Animations.Attack2);
+            _animationPlayer.Play(PlayerConstants.Animations.BasicAttack);
+            _animatedSprite2D.Play(PlayerConstants.Animations.Attack2);
             State = PlayerState.Attacking;
 
             return;
@@ -85,7 +99,7 @@ public partial class Player : CharacterBody2D
 		{
 			velocity.X = direction * Speed;
 
-            PlayAnimation(PlayerConstants.Animations.Run);
+            _animatedSprite2D.Play(PlayerConstants.Animations.Run);
             if (direction > 0f)
 			{
 				_animatedSprite2D.FlipH = false;
@@ -101,12 +115,12 @@ public partial class Player : CharacterBody2D
 
 			if (IsOnFloor())
 			{
-                PlayAnimation(PlayerConstants.Animations.Idle);
+                _animatedSprite2D.Play(PlayerConstants.Animations.Idle);
                 State = PlayerState.Idle;
             }
 			else
 			{
-                PlayAnimation(PlayerConstants.Animations.Jump);
+                _animatedSprite2D.Play(PlayerConstants.Animations.Jump);
                 State = PlayerState.Running;
             }  
 		}
@@ -121,31 +135,38 @@ public partial class Player : CharacterBody2D
         MoveAndSlide();
     }
 
-	private void PlayAnimation(StringName animationName)
-	{
-        _animatedSprite2D.Play(animationName);
-	}
-
 	private void OnAnimatedSprite2DAnimationFinished()
 	{
+        if (State == PlayerState.TakingDamage)
+        {
+            CanBeHit = true;
+        }
+
         State = PlayerState.Idle;
     }
 
-    private void OnGameManagerMeowolasArrowHitPlayer(int damage)
-	{
-        if (!GameState.WasPlayerHit)
+    private void OnSwordBodyEntered(Node2D body)
+    {
+        if (body is MeowolasEnemy enemy)
         {
-            CurrentHealth -= damage;
-            if (CurrentHealth > 0)
-            {
-                PlayAnimation(PlayerConstants.Animations.TakeDamage);
-                State = PlayerState.TakingDamage;
-            }
-            else
-            {
-                PlayAnimation(PlayerConstants.Animations.Death);
-                State = PlayerState.Dead;
-            }
+            EmitSignal(SignalName.PlayerHitEnemy, enemy, Damage);
+        }
+    }
+
+    private void OnGameManagerEnemyHitPlayer(int damage)
+	{
+        CurrentHealth -= damage;
+        if (CurrentHealth > 0)
+        {
+            _animatedSprite2D.Play(PlayerConstants.Animations.TakeDamage);
+            State = PlayerState.TakingDamage;
+            CanBeHit = false;
+        }
+        else
+        {
+            _animatedSprite2D.Play(PlayerConstants.Animations.Death);
+            State = PlayerState.Dead;
+            CanBeHit = false;
         }
     }
 }

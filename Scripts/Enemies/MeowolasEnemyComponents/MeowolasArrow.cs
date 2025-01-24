@@ -8,7 +8,7 @@ namespace PawsOfDestiny.Scripts.Enemies.MeowolasEnemyComponents;
 public partial class MeowolasArrow : Node2D
 {
 	[Signal]
-    public delegate void MeowolasArrowHitPlayerEventHandler(int damage);
+    public delegate void EnemyHitPlayerEventHandler(int damage);
 
     [Export]
 	public float Speed = 360.0f;
@@ -34,7 +34,7 @@ public partial class MeowolasArrow : Node2D
 		{
 			if (body is Player)
 			{
-				EmitSignal(SignalName.MeowolasArrowHitPlayer, Damage);
+				EmitSignal(SignalName.EnemyHitPlayer, Damage);
             }
 
             QueueFree();
