@@ -389,6 +389,8 @@ animation = &"Idle"
 autoplay = "Idle"
 
 [node name="Sword" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
 
 [node name="SwordHitbox" type="CollisionShape2D" parent="Sword"]
 position = Vector2(103.5, -22.5)

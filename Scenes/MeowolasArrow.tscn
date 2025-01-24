@@ -37,6 +37,7 @@ autoplay = "Fly"
 frame_progress = 0.953391
 
 [node name="ArrowHitBox" type="Area2D" parent="."]
+collision_layer = 0
 collision_mask = 3
 
 [node name="ArrowCollisionShape" type="CollisionShape2D" parent="ArrowHitBox"]
