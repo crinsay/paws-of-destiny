@@ -52,11 +52,9 @@ public partial class GameManager : Node
         EmitSignal(SignalName.MeowolasArrowHitPlayer, damage);
         GameState.WasPlayerHit = true;
 
-        //await ToSignal(this, SignalName.MeowolasArrowHitPlayer);
-
         _playerHealth.UpdatePlayerHealthLabel(Player.CurrentHealth);
 
-        if (Player.CurrentHealth > 0)
+        if (Player.State != PlayerState.Dead)
         {
             _playerHitTimer.Start();
         }

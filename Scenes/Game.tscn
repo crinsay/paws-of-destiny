@@ -222,7 +222,7 @@ script = ExtResource("1_8w1n6")
 [node name="KeyCounter" parent="GameManager" instance=ExtResource("11_tdom2")]
 
 [node name="PlayerHitTimer" type="Timer" parent="GameManager"]
-wait_time = 0.2
+wait_time = 0.375
 one_shot = true
 
 [node name="PlayerDeathTimer" type="Timer" parent="GameManager"]
