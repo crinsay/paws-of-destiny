@@ -9,4 +9,7 @@ namespace PawsOfDestiny.Scripts.Game.GameManagerComponents;
 public class GameManagerConstants
 {
     public const string KeyCounter = "KeyCounter";
+    public const string PlayerHealth = "PlayerHealth";
+    public const string PlayerHitTimer = "PlayerHitTimer";
+    public const string PlayerDeathTimer = "PlayerDeathTimer";
 }

@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://b3eu45uwxphc0"]
+
+[ext_resource type="Texture2D" uid="uid://c1m3wacitpqsv" path="res://Assets/Meowolas/ElectroArrow/Meowolas_ElectroArrow-1.png" id="1_0b2dv"]
+[ext_resource type="Script" path="res://Scripts/Enemies/MeowolasEnemyComponents/MeowolasArrow.cs" id="1_35vje"]
+[ext_resource type="Texture2D" uid="uid://c4r0v7oen2ryb" path="res://Assets/Meowolas/ElectroArrow/Meowolas_ElectroArrow-2.png" id="2_rh31n"]
+[ext_resource type="Texture2D" uid="uid://cngeuckcf8mo8" path="res://Assets/Meowolas/ElectroArrow/Meowolas_ElectroArrow-3.png" id="3_qvfaw"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_smp4w"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_0b2dv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_rh31n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_qvfaw")
+}],
+"loop": true,
+"name": &"Fly",
+"speed": 6.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1wsan"]
+radius = 2.0
+height = 4.0
+
+[node name="MeowolasArrow" type="Node2D" groups=["MeowolasArrows"]]
+top_level = true
+script = ExtResource("1_35vje")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_smp4w")
+animation = &"Fly"
+autoplay = "Fly"
+frame_progress = 0.953391
+
+[node name="ArrowHitBox" type="Area2D" parent="."]
+collision_mask = 3
+
+[node name="ArrowCollisionShape" type="CollisionShape2D" parent="ArrowHitBox"]
+position = Vector2(4, 0)
+shape = SubResource("CapsuleShape2D_1wsan")
+
+[connection signal="body_entered" from="ArrowHitBox" to="." method="OnArrowHitBoxBodyEntered"]
