@@ -35,3 +35,14 @@ public class MeowolasEnemyConstants
         public const float Speed = 40.0f;
     }
 }
+
+public enum PlayerState
+{
+    Idle,
+    Running,
+    Jumping,
+    Attacking,
+    TakingDamage,
+    Dodging,
+    Dead
+}

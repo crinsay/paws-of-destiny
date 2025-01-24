@@ -1,5 +1,6 @@
 using Godot;
 using PawsOfDestiny.Scripts.Common;
+using PawsOfDestiny.Scripts.Enemies.MeowolasEnemyComponents;
 using PawsOfDestiny.Scripts.Game;
 using System;
 
@@ -9,9 +10,11 @@ public partial class Player : CharacterBody2D
 {
 	//Global player informations:
 	public static Vector2 CurrentGlobalPosition { get; private set; }
-	public static int CurrentHealth { get; private set; } = 9;
+    public static PlayerState State { get; private set; } = PlayerState.Idle;
+    public static int CurrentHealth { get; private set; } = 9;
 
-    //Player movement constants:
+
+    //Player public variables:
     [Export]
     public float Speed = 200.0f;
 
@@ -20,100 +23,128 @@ public partial class Player : CharacterBody2D
 
     //Player private variables:
     private AnimatedSprite2D _animatedSprite2D;
-	private bool _isOneShotAnimationPlaying;
 
     public override void _Ready()
     {
         _animatedSprite2D = GetNode<AnimatedSprite2D>(PlayerConstants.Nodes.AnimatedSprite2D);
+
+        State = PlayerState.Idle;
+        CurrentHealth = 9;
     }
+
 
 	public override void _PhysicsProcess(double delta)
 	{
-		Vector2 velocity = Velocity;
+        Vector2 velocity = Velocity;
 
-		// Add the gravity.
 		if (!IsOnFloor())
 		{
 			velocity += GetGravity() * (float)delta;
 		}
-		
-		if (!GameState.IsPlayerDead)
-		{
 
-            if (Input.IsActionJustPressed(InputActions.Jump) && IsOnFloor())
+        if (State == PlayerState.Attacking
+            || State == PlayerState.TakingDamage
+            || State == PlayerState.Dead)
+        {
+            if (velocity.X != 0f)
             {
-                velocity.Y = JumpVelocity;
+                velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
             }
 
-            var direction = Input.GetAxis(InputActions.MoveLeft, InputActions.MoveRight);
+            MovePlayer(velocity);
+            return;
+        }
 
-			if (direction != 0f)
+        if (Input.IsActionJustPressed(InputActions.BasicAttack) && IsOnFloor())
+        {
+            var currentMousePosition = GetGlobalMousePosition();
+
+            if (currentMousePosition.X > GlobalPosition.X)
+            {
+                _animatedSprite2D.FlipH = false;
+            }
+            else
+            {
+                _animatedSprite2D.FlipH = true;
+            }
+            PlayAnimation(PlayerConstants.Animations.Attack2);
+            State = PlayerState.Attacking;
+
+            return;
+        }
+
+        if (Input.IsActionJustPressed(InputActions.Jump) && IsOnFloor())
+        {
+			velocity.Y = JumpVelocity;
+            State = PlayerState.Jumping;
+        }
+
+        var direction = Input.GetAxis(InputActions.MoveLeft, InputActions.MoveRight);
+
+		if (direction != 0f)
+		{
+			velocity.X = direction * Speed;
+
+            PlayAnimation(PlayerConstants.Animations.Run);
+            if (direction > 0f)
 			{
-				velocity.X = direction * Speed;
-
-                PlayAnimation(PlayerConstants.Animations.Run);
-                if (direction > 0f)
-				{
-					_animatedSprite2D.FlipH = false;
-				}
-				else if (direction < 0f)
-				{
-					_animatedSprite2D.FlipH = true;
-				}
+				_animatedSprite2D.FlipH = false;
 			}
-			else
+			else if (direction < 0f)
 			{
-				velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed * 0.2f);
-
-				if (IsOnFloor())
-				{
-                    PlayAnimation(PlayerConstants.Animations.Idle);
-                }
-				else
-				{
-                    PlayAnimation(PlayerConstants.Animations.Jump);
-                }
+				_animatedSprite2D.FlipH = true;
 			}
 		}
 		else
 		{
-			//If player is dead, stop him:
-            velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
-			CurrentHealth = 9;
-        }
+			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed * 0.2f);
 
+			if (IsOnFloor())
+			{
+                PlayAnimation(PlayerConstants.Animations.Idle);
+                State = PlayerState.Idle;
+            }
+			else
+			{
+                PlayAnimation(PlayerConstants.Animations.Jump);
+                State = PlayerState.Running;
+            }  
+		}
+
+        MovePlayer(velocity);
+    }
+
+    private void MovePlayer(Vector2 velocity)
+    {
         Velocity = velocity;
-		CurrentGlobalPosition = GlobalPosition;
+        CurrentGlobalPosition = GlobalPosition;
         MoveAndSlide();
     }
 
-	public void PlayAnimation(StringName animationName)
+	private void PlayAnimation(StringName animationName)
 	{
-		if (!_isOneShotAnimationPlaying)
-		{
-            _animatedSprite2D.Play(animationName);
-        }
+        _animatedSprite2D.Play(animationName);
 	}
 
 	private void OnAnimatedSprite2DAnimationFinished()
 	{
-		_isOneShotAnimationPlaying = false;
-	}
+        State = PlayerState.Idle;
+    }
 
     private void OnGameManagerMeowolasArrowHitPlayer(int damage)
 	{
         if (!GameState.WasPlayerHit)
         {
-			CurrentHealth -= damage;
+            CurrentHealth -= damage;
             if (CurrentHealth > 0)
             {
                 PlayAnimation(PlayerConstants.Animations.TakeDamage);
-                _isOneShotAnimationPlaying = true;
+                State = PlayerState.TakingDamage;
             }
             else
             {
                 PlayAnimation(PlayerConstants.Animations.Death);
-                _isOneShotAnimationPlaying = true;
+                State = PlayerState.Dead;
             }
         }
     }
