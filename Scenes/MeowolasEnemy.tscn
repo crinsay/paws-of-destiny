@@ -1,9 +1,10 @@
-[gd_scene load_steps=81 format=3 uid="uid://xyyu4et73e4g"]
+[gd_scene load_steps=82 format=3 uid="uid://xyyu4et73e4g"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/MeowolasEnemyComponents/MeowolasEnemy.cs" id="1_1crw7"]
 [ext_resource type="Texture2D" uid="uid://ckntrhhjr3p3a" path="res://Assets/Meowolas/Attack1/Meowolas_Attack1-1.png" id="1_3ovwy"]
 [ext_resource type="Texture2D" uid="uid://33w8cbn6paju" path="res://Assets/Meowolas/Idle/Meowolas_Idle-1.png" id="1_euk6i"]
 [ext_resource type="Texture2D" uid="uid://dyt13kslf5w6y" path="res://Assets/Meowolas/Idle/Meowolas_Idle-2.png" id="2_h82tw"]
+[ext_resource type="PackedScene" uid="uid://b3eu45uwxphc0" path="res://Scenes/MeowolasArrow.tscn" id="2_i4ga1"]
 [ext_resource type="Texture2D" uid="uid://bwk0idpf46dr4" path="res://Assets/Meowolas/Attack1/Meowolas_Attack1-2.png" id="2_umog1"]
 [ext_resource type="Texture2D" uid="uid://gvsftkqe2b23" path="res://Assets/Meowolas/Attack1/Meowolas_Attack1-3.png" id="3_7ahsx"]
 [ext_resource type="Texture2D" uid="uid://c65fc34i8mojm" path="res://Assets/Meowolas/Idle/Meowolas_Idle-3.png" id="3_nx56b"]
@@ -12,14 +13,14 @@
 [ext_resource type="Texture2D" uid="uid://kxyd0nsjjian" path="res://Assets/Meowolas/Attack1/Meowolas_Attack1-5.png" id="5_qvrut"]
 [ext_resource type="Texture2D" uid="uid://bvgeapykt8l07" path="res://Assets/Meowolas/Idle/Meowolas_Idle-5.png" id="5_v2yce"]
 [ext_resource type="Texture2D" uid="uid://cpr03d1f6clgu" path="res://Assets/Meowolas/Idle/Meowolas_Idle-6.png" id="6_fbks0"]
-[ext_resource type="Texture2D" uid="uid://dgc4vcndm28ku" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-1.png" id="6_krwfj"]
-[ext_resource type="Texture2D" uid="uid://kqbhk1ngtqv" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-2.png" id="7_q034f"]
-[ext_resource type="Texture2D" uid="uid://x117ihb8s12t" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-3.png" id="8_wna6t"]
-[ext_resource type="Texture2D" uid="uid://dlgu6h7blmnsw" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-4.png" id="9_62vwx"]
-[ext_resource type="Texture2D" uid="uid://y7a7gmgrrweg" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-5.png" id="10_pn356"]
-[ext_resource type="Texture2D" uid="uid://cj63qff6p7u3f" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-6.png" id="11_etasl"]
-[ext_resource type="Texture2D" uid="uid://dusg83vcykh54" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-7.png" id="12_dd0qx"]
-[ext_resource type="Texture2D" uid="uid://0h5sugnford1" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-8.png" id="13_5mjvv"]
+[ext_resource type="Texture2D" uid="uid://cyhqapjocsmnu" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-8.png" id="6_krwfj"]
+[ext_resource type="Texture2D" uid="uid://dwl1snhp2jig4" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-2.png" id="7_q034f"]
+[ext_resource type="Texture2D" uid="uid://cym8rtwfehose" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-3.png" id="8_wna6t"]
+[ext_resource type="Texture2D" uid="uid://b74vtyk1uwhj" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-4.png" id="9_62vwx"]
+[ext_resource type="Texture2D" uid="uid://boyh4ej3l00vt" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-5.png" id="10_pn356"]
+[ext_resource type="Texture2D" uid="uid://67clwimhjy65" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-6.png" id="11_etasl"]
+[ext_resource type="Texture2D" uid="uid://b7cmy1pytdqfi" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-7.png" id="12_dd0qx"]
+[ext_resource type="Texture2D" uid="uid://bw14qiqebuwad" path="res://Assets/Meowolas/Attack2/Meowolas_Attack2-1.png" id="13_5mjvv"]
 [ext_resource type="Texture2D" uid="uid://tn415lqjc8uj" path="res://Assets/Meowolas/Attack3/Meowolas_Attack3-1.png" id="14_tjil7"]
 [ext_resource type="Texture2D" uid="uid://cn7ab1snfftr6" path="res://Assets/Meowolas/Attack3/Meowolas_Attack3-2.png" id="15_vlj2f"]
 [ext_resource type="Texture2D" uid="uid://0ewxa8uuna6b" path="res://Assets/Meowolas/Attack3/Meowolas_Attack3-3.png" id="16_ka7uh"]
@@ -77,7 +78,7 @@
 [ext_resource type="Texture2D" uid="uid://blj20m34r78k5" path="res://Assets/Meowolas/TakeDamage/Meowolas_TakeDamage-1.png" id="74_ydyc1"]
 [ext_resource type="Texture2D" uid="uid://8t66yridmv0c" path="res://Assets/Meowolas/TakeDamage/Meowolas_TakeDamage-2.png" id="75_0t5bc"]
 [ext_resource type="Texture2D" uid="uid://d06pavbi4o35c" path="res://Assets/Meowolas/TakeDamage/Meowolas_TakeDamage-3.png" id="76_vvjwg"]
-[ext_resource type="PackedScene" uid="uid://bsioq6o65311k" path="res://Scenes/KillZone.tscn" id="77_l81fw"]
+[ext_resource type="PackedScene" uid="uid://dwepbn264tdju" path="res://Scenes/HealthBar.tscn" id="79_omw6b"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_l2qdr"]
 animations = [{
@@ -103,7 +104,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_krwfj")
+"texture": ExtResource("13_5mjvv")
 }, {
 "duration": 1.0,
 "texture": ExtResource("7_q034f")
@@ -124,9 +125,9 @@ animations = [{
 "texture": ExtResource("12_dd0qx")
 }, {
 "duration": 1.0,
-"texture": ExtResource("13_5mjvv")
+"texture": ExtResource("6_krwfj")
 }],
-"loop": false,
+"loop": true,
 "name": &"Attack2",
 "speed": 8.0
 }, {
@@ -218,7 +219,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"Death",
-"speed": 8.0
+"speed": 6.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -357,27 +358,25 @@ animations = [{
 }],
 "loop": false,
 "name": &"TakeDamage",
-"speed": 8.0
+"speed": 6.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_syxi2"]
-radius = 4.0
-height = 12.0
+radius = 3.0
+height = 10.0
 
-[node name="MeowolasEnemy" type="Node2D"]
+[node name="MeowolasEnemy" type="CharacterBody2D"]
 script = ExtResource("1_1crw7")
+ArrowsScene = ExtResource("2_i4ga1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-28, -42)
 sprite_frames = SubResource("SpriteFrames_l2qdr")
-animation = &"Idle"
+animation = &"Attack2"
 autoplay = "Idle"
-frame_progress = 0.680238
 offset = Vector2(28, 42)
 
-[node name="KillZone" parent="." instance=ExtResource("77_l81fw")]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
 shape = SubResource("CapsuleShape2D_syxi2")
 
@@ -386,3 +385,19 @@ target_position = Vector2(6, 0)
 
 [node name="LeftRayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(-6, 0)
+
+[node name="ShootCooldownTimer" type="Timer" parent="."]
+
+[node name="HealthBar" parent="." instance=ExtResource("79_omw6b")]
+offset_left = -7.0
+offset_top = -11.0
+offset_right = 9.0
+offset_bottom = -9.0
+
+[node name="DeathTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="OnAnimatedSprite2DAnimationFinished"]
+[connection signal="timeout" from="ShootCooldownTimer" to="." method="OnShootCooldownTimerTimeout"]
+[connection signal="timeout" from="DeathTimer" to="." method="OnDeathTimerTimeout"]

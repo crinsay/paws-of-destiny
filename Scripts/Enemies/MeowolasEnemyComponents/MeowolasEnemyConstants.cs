@@ -13,6 +13,9 @@ public class MeowolasEnemyConstants
         public const string RightRayCast2D = "RightRayCast2D";
         public const string LeftRayCast2D = "LeftRayCast2D";
         public const string AnimatedSprite2D = "AnimatedSprite2D";
+        public const string ShootCooldownTimer = "ShootCooldownTimer";
+        public const string HealthBar = "HealthBar";
+        public const string DeathTimer = "DeathTimer";
     }
 
     public class Animations
@@ -28,9 +31,16 @@ public class MeowolasEnemyConstants
         public const string Attack3 = "Attack3";
         public const string Attack4 = "Attack4";
     }
+}
 
-    public static class Movement
-    {
-        public const float Speed = 40.0f;
-    }
+public enum EnemyState
+{
+    Idle,
+    Running,
+    Jumping,
+    Attacking,
+    TakingDamage,
+    Dodging,
+    Dead,
+    JustHit
 }

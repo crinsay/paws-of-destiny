@@ -12,4 +12,5 @@ public class InputActions
     public const string MoveRight = "MoveRight";
     public const string Jump = "Jump";
     public const string MoveDown = "MoveDown";
+    public const string BasicAttack = "BasicAttack";
 }
