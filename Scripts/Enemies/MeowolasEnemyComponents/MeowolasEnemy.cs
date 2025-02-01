@@ -63,16 +63,38 @@ public partial class MeowolasEnemy : CharacterBody2D
             velocity += GetGravity() * (float)delta;
         }
 
-        if (_rightRayCast2D.IsColliding()) 
-		{
-            _moveDirection = Direction.Left;
-			_animatedSprite2D.FlipH = true;
-		}
-		else if (_leftRayCast2D.IsColliding())
-		{
-            _moveDirection = Direction.Right;
-            _animatedSprite2D.FlipH = false;
+        if (Math.Abs(GlobalPosition.X - Player.CurrentGlobalPosition.X) > 10.0f)
+        {
+            if (GlobalPosition.X < Player.CurrentGlobalPosition.X)
+            {
+                _moveDirection = Direction.Right;
+                _animatedSprite2D.FlipH = false;
+            }
+            else
+            {
+                _moveDirection = Direction.Left;
+                _animatedSprite2D.FlipH = true;
+            }
         }
+       
+
+        if (_rightRayCast2D.IsColliding()
+            && velocity.X > 0
+            && IsOnFloor()) 
+		{
+            velocity.Y = -275.0f;
+        }
+        else if (_leftRayCast2D.IsColliding()
+                 && velocity.X < 0
+                 && IsOnFloor())
+        {
+            velocity.Y = -275.0f;
+        }
+		//else if ()
+		//{
+  //          _moveDirection = Direction.Right;
+  //          _animatedSprite2D.FlipH = false;
+  //      }
 
 		if (State == EnemyState.JustHit)
         {
