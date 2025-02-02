@@ -3,6 +3,7 @@ using PawsOfDestiny.Scripts.Enemies.MeowolasEnemyComponents;
 using PawsOfDestiny.Scripts.Game.Collectables.KeyComponents;
 using PawsOfDestiny.Scripts.PlayerComponents;
 using System;
+using System.Collections.Generic;
 
 namespace PawsOfDestiny.Scripts.Game.GameManagerComponents;
 
@@ -83,4 +84,12 @@ public partial class GameManager : Node
         Engine.TimeScale = 1d;
         GetTree().ReloadCurrentScene();
     }
+
+
+    private void OnDoorsBodyEntered(Node2D body)
+    {
+        var gameManagerSingleton = GD.Load<GameManagerSingleton>("res://Singletons/GameManagerSingleton.cs");
+        gameManagerSingleton.LoadNextLevel();
+    }
+
 }

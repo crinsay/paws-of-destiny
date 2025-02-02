@@ -1,0 +1,57 @@
+[gd_scene load_steps=6 format=3 uid="uid://ch1xg5kqa1xmy"]
+
+[ext_resource type="Texture2D" uid="uid://illh1m7rybql" path="res://Assets/Objects/Doors/doorsOpened.png" id="1_njr2o"]
+[ext_resource type="Script" path="res://Scripts/Common/Components/Doors.cs" id="1_o8c7e"]
+[ext_resource type="Texture2D" uid="uid://d3xlg8ffxa8fi" path="res://Assets/Objects/Doors/doorsClosed.png" id="2_m4il5"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3xp63"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_njr2o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_m4il5")
+}],
+"loop": false,
+"name": &"Closing",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_m4il5")
+}],
+"loop": false,
+"name": &"Idle",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_m4il5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_njr2o")
+}],
+"loop": false,
+"name": &"Opening",
+"speed": 4.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5d540"]
+size = Vector2(18, 32)
+
+[node name="Doors" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_o8c7e")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_3xp63")
+animation = &"Idle"
+autoplay = "Idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 0
+position = Vector2(-6, 0)
+shape = SubResource("RectangleShape2D_5d540")
+
+[connection signal="body_entered" from="." to="." method="OnDoorsBodyEntered"]
