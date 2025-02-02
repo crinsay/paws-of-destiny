@@ -50,7 +50,10 @@ public enum EnemyState
     Patrol,
     Chase,
     Shoot,
+    WantToAttack,
+    Dodge,
     Kick,
+    TakeDamage,
     RunAway,
     Death
 }

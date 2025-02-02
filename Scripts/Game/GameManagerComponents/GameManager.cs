@@ -47,15 +47,16 @@ public partial class GameManager : Node
 
     public void OnEnemyHitPlayer(HitInformation hitInfo)
     {
-        if (!Player.CanBeHit)
+        var player = hitInfo.Body as Player;
+        if (!player.CanBeHit)
         {
             return;
         }
 
         EmitSignal(SignalName.EnemyHitPlayer, hitInfo);
-        _playerHealth.UpdatePlayerHealthLabel(Player.Health);
+        _playerHealth.UpdatePlayerHealthLabel(player.Health);
 
-        if (Player.State != PlayerState.Dead)
+        if (player.State != PlayerState.Dead)
         {
             _playerHitTimer.Start();
         }
@@ -66,16 +67,16 @@ public partial class GameManager : Node
         }
     }
 
-    private void OnPlayerHitEnemy(Node2D enemy, int damage)
+    private void OnPlayerHitEnemy(HitInformation hitInfo)
     {
-        if (enemy is MeowolasEnemy meowolasEnemy)
+        if (hitInfo.Body is MeowolasEnemy meowolasEnemy)
         {
             if (!meowolasEnemy.CanBeHit)
             {
                 return;
             }
 
-            EmitSignal(SignalName.PlayerHitMeowolasEnemy, damage);
+            EmitSignal(SignalName.PlayerHitMeowolasEnemy, hitInfo);
         }
     }
 

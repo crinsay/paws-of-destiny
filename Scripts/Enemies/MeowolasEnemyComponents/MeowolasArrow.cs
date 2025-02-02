@@ -39,6 +39,7 @@ public partial class MeowolasArrow : Node2D
 			{
                 var hitInfo = new HitInformation
                 {
+                    Body = body,
                     Damage = Damage,
                     KnockbackStrength = KnockbackStrength,
                     KnockbackDirection = Player.CurrentGlobalPosition.X < GlobalPosition.X ? Common.Direction.Left : Common.Direction.Right
