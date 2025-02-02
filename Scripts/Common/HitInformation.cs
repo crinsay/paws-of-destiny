@@ -9,6 +9,7 @@ namespace PawsOfDestiny.Scripts.Common;
 
 public partial class HitInformation : GodotObject
 {
+    public Node2D Body { get; init; }
     public int Damage { get; init; }
     public float KnockbackStrength { get; init; }
     public Direction KnockbackDirection { get; init; }
