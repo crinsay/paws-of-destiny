@@ -11,13 +11,13 @@ public partial class Player : CharacterBody2D
 {
 	//Global player informations:
 	public static Vector2 CurrentGlobalPosition { get; private set; }
-    public static PlayerState State { get; private set; } = PlayerState.Idle;
-    public static bool CanBeHit { get; private set; } = true;
-    public static int Health { get; private set; } = 9;
+    public PlayerState State { get; private set; } = PlayerState.Idle;
+    public bool CanBeHit { get; private set; } = true;
+    public int Health { get; private set; } = 9;
 
     //Signals:
     [Signal]
-    public delegate void PlayerHitEnemyEventHandler(Node2D enemy, int damage);
+    public delegate void PlayerHitEnemyEventHandler(HitInformation hitinfo);
 
     //Player public variables:
     [Export]
@@ -27,12 +27,18 @@ public partial class Player : CharacterBody2D
     public float JumpVelocity = -275.0f;
 
     [Export]
+    public float KnockbackStrength = 120.0f;
+
+    [Export]
     public int Damage = 1;
 
     //Player private variables:
     private AnimatedSprite2D _animatedSprite2D;
     private Area2D _sword;
     private AnimationPlayer _animationPlayer;
+
+    private bool _isPlayerJustHit = false;
+    private HitInformation _hitInfo;
 
     public override void _Ready()
     {
@@ -54,9 +60,20 @@ public partial class Player : CharacterBody2D
 			velocity += GetGravity() * (float)delta;
 		}
 
-        if (State == PlayerState.Attacking
-            || State == PlayerState.TakingDamage
-            || State == PlayerState.Dead)
+        if (_isPlayerJustHit)
+        {
+            velocity.X = (int)_hitInfo.KnockbackDirection * _hitInfo.KnockbackStrength;
+            velocity.Y = -_hitInfo.KnockbackStrength * 1.5f;
+            _isPlayerJustHit = false;
+        }
+
+        if (State == PlayerState.TakingDamage)
+        {
+            MovePlayer(velocity);
+            return;
+        }
+
+        if (State == PlayerState.Attacking || State == PlayerState.Dead)
         {
             if (velocity.X != 0f)
             {
@@ -140,9 +157,9 @@ public partial class Player : CharacterBody2D
 	{
         if (State == PlayerState.TakingDamage)
         {
-            CanBeHit = true;
+            _animatedSprite2D.Modulate = new Color(1.2f, 1.2f, 1.2f);
+            GetNode<Timer>("InvincibilityAfterTakeDamageTimer").Start();
         }
-
         State = PlayerState.Idle;
     }
 
@@ -150,17 +167,28 @@ public partial class Player : CharacterBody2D
     {
         if (body is MeowolasEnemy enemy)
         {
-            EmitSignal(SignalName.PlayerHitEnemy, enemy, Damage);
+            var hitInfo = new HitInformation
+            {
+                Body = body,
+                Damage = Damage,
+                KnockbackStrength = KnockbackStrength,
+                KnockbackDirection = enemy.GlobalPosition.X < GlobalPosition.X ? Direction.Left : Direction.Right
+            };
+
+            EmitSignal(SignalName.PlayerHitEnemy, hitInfo);
         }
     }
 
-    private void OnGameManagerEnemyHitPlayer(int damage)
+    private void OnGameManagerEnemyHitPlayer(HitInformation hitInfo)
 	{
-        Health -= damage;
+        _hitInfo = hitInfo;
+
+        Health -= _hitInfo.Damage;
         if (Health > 0)
         {
             _animatedSprite2D.Play(PlayerConstants.Animations.TakeDamage);
             State = PlayerState.TakingDamage;
+            _isPlayerJustHit = true;
             CanBeHit = false;
         }
         else
@@ -169,5 +197,11 @@ public partial class Player : CharacterBody2D
             State = PlayerState.Dead;
             CanBeHit = false;
         }
+    }
+
+    private void OnInvincibilityAfterTakeDamageTimerTimeout()
+    {
+        _animatedSprite2D.Modulate = new Color(1.0f, 1.0f, 1.0f);
+        CanBeHit = true;
     }
 }

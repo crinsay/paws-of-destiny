@@ -1,4 +1,5 @@
 using Godot;
+using PawsOfDestiny.Scripts.Common;
 using PawsOfDestiny.Scripts.Enemies.MeowolasEnemyComponents;
 using PawsOfDestiny.Scripts.Game.Collectables.KeyComponents;
 using PawsOfDestiny.Scripts.PlayerComponents;
@@ -10,7 +11,7 @@ namespace PawsOfDestiny.Scripts.Game.GameManagerComponents;
 public partial class GameManager : Node
 {
     [Signal]
-    public delegate void EnemyHitPlayerEventHandler(int damage);
+    public delegate void EnemyHitPlayerEventHandler(int damage, float knockbackStrength);
     [Signal]
     public delegate void PlayerHitMeowolasEnemyEventHandler(int damage);
 
@@ -45,17 +46,18 @@ public partial class GameManager : Node
             new Callable(this, nameof(OnEnemyHitPlayer)));
     }
 
-    public void OnEnemyHitPlayer(int damage) //Body is an enemy object that hit the player (for example MewolasArrow)
+    public void OnEnemyHitPlayer(HitInformation hitInfo)
     {
-        if (!Player.CanBeHit)
+        var player = hitInfo.Body as Player;
+        if (!player.CanBeHit)
         {
             return;
         }
 
-        EmitSignal(SignalName.EnemyHitPlayer, damage);
-        _playerHealth.UpdatePlayerHealthLabel(Player.Health);
+        EmitSignal(SignalName.EnemyHitPlayer, hitInfo);
+        _playerHealth.UpdatePlayerHealthLabel(player.Health);
 
-        if (Player.State != PlayerState.Dead)
+        if (player.State != PlayerState.Dead)
         {
             _playerHitTimer.Start();
         }
@@ -66,16 +68,16 @@ public partial class GameManager : Node
         }
     }
 
-    private void OnPlayerHitEnemy(Node2D enemy, int damage)
+    private void OnPlayerHitEnemy(HitInformation hitInfo)
     {
-        if (enemy is MeowolasEnemy meowolasEnemy)
+        if (hitInfo.Body is MeowolasEnemy meowolasEnemy)
         {
             if (!meowolasEnemy.CanBeHit)
             {
                 return;
             }
 
-            EmitSignal(SignalName.PlayerHitMeowolasEnemy, damage);
+            EmitSignal(SignalName.PlayerHitMeowolasEnemy, hitInfo);
         }
     }
 
