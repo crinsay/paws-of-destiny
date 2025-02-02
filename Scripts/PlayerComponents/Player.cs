@@ -34,6 +34,9 @@ public partial class Player : CharacterBody2D
     private Area2D _sword;
     private AnimationPlayer _animationPlayer;
 
+    private bool _isPlayerJustHit = false;
+    private HitInformation _hitInfo;
+
     public override void _Ready()
     {
         _animatedSprite2D = GetNode<AnimatedSprite2D>(PlayerConstants.Nodes.AnimatedSprite2D);
@@ -54,9 +57,20 @@ public partial class Player : CharacterBody2D
 			velocity += GetGravity() * (float)delta;
 		}
 
-        if (State == PlayerState.Attacking
-            || State == PlayerState.TakingDamage
-            || State == PlayerState.Dead)
+        if (_isPlayerJustHit)
+        {
+            velocity.X = (int)_hitInfo.KnockbackDirection * _hitInfo.KnockbackStrength;
+            velocity.Y = -_hitInfo.KnockbackStrength * 2;
+            _isPlayerJustHit = false;
+        }
+
+        if (State == PlayerState.TakingDamage)
+        {
+            MovePlayer(velocity);
+            return;
+        }
+
+        if (State == PlayerState.Attacking || State == PlayerState.Dead)
         {
             if (velocity.X != 0f)
             {
@@ -154,13 +168,16 @@ public partial class Player : CharacterBody2D
         }
     }
 
-    private void OnGameManagerEnemyHitPlayer(int damage)
+    private void OnGameManagerEnemyHitPlayer(HitInformation hitInfo)
 	{
-        Health -= damage;
+        _hitInfo = hitInfo;
+
+        Health -= _hitInfo.Damage;
         if (Health > 0)
         {
             _animatedSprite2D.Play(PlayerConstants.Animations.TakeDamage);
             State = PlayerState.TakingDamage;
+            _isPlayerJustHit = true;
             CanBeHit = false;
         }
         else

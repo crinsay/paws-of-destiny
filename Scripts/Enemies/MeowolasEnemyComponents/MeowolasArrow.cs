@@ -1,4 +1,5 @@
 using Godot;
+using PawsOfDestiny.Scripts.Common;
 using PawsOfDestiny.Scripts.Game.GameManagerComponents;
 using PawsOfDestiny.Scripts.PlayerComponents;
 using System;
@@ -8,10 +9,12 @@ namespace PawsOfDestiny.Scripts.Enemies.MeowolasEnemyComponents;
 public partial class MeowolasArrow : Node2D
 {
 	[Signal]
-    public delegate void EnemyHitPlayerEventHandler(int damage);
+    public delegate void EnemyHitPlayerEventHandler(HitInformation hitInfo);
 
     [Export]
 	public float Speed = 360.0f;
+    [Export]
+    public float KnockbackStrength = 60.0f;
 
     [Export]
     public int Damage = 1;
@@ -34,7 +37,13 @@ public partial class MeowolasArrow : Node2D
 		{
 			if (body is Player)
 			{
-				EmitSignal(SignalName.EnemyHitPlayer, Damage);
+                var hitInfo = new HitInformation
+                {
+                    Damage = Damage,
+                    KnockbackStrength = KnockbackStrength,
+                    KnockbackDirection = Player.CurrentGlobalPosition.X < GlobalPosition.X ? Common.Direction.Left : Common.Direction.Right
+                };
+                EmitSignal(SignalName.EnemyHitPlayer, hitInfo);
             }
 
             QueueFree();
