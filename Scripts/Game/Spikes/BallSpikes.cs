@@ -4,7 +4,7 @@ using System;
 public partial class BallSpikes : PathFollow2D
 {
     [Export]
-    public float Speed = 0.04f;
+    public float Speed = 0.02f;
     [Export]
     public float SpinSpeed = 400f;
 
