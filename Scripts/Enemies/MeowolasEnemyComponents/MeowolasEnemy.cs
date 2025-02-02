@@ -27,7 +27,8 @@ public partial class MeowolasEnemy : CharacterBody2D
 		Right = 1
 	}
 
-	private Timer _shootCooldownTimer;
+    private GameManagerSingleton _gameManagerSingleton;
+    private Timer _shootCooldownTimer;
     private RayCast2D _rightRayCast2D;
     private RayCast2D _leftRayCast2D;
     private AnimatedSprite2D _animatedSprite2D;
@@ -38,7 +39,9 @@ public partial class MeowolasEnemy : CharacterBody2D
 
     public override void _Ready()
 	{
-		_shootCooldownTimer = GetNode<Timer>(MeowolasEnemyConstants.Nodes.ShootCooldownTimer);
+        _gameManagerSingleton = GetNode<GameManagerSingleton>("/root/GameManagerSingleton");
+
+        _shootCooldownTimer = GetNode<Timer>(MeowolasEnemyConstants.Nodes.ShootCooldownTimer);
         _rightRayCast2D = GetNode<RayCast2D>(MeowolasEnemyConstants.Nodes.RightRayCast2D);
 		_leftRayCast2D = GetNode<RayCast2D>(MeowolasEnemyConstants.Nodes.LeftRayCast2D);
 		_animatedSprite2D = GetNode<AnimatedSprite2D>(MeowolasEnemyConstants.Nodes.AnimatedSprite2D);
@@ -154,7 +157,8 @@ public partial class MeowolasEnemy : CharacterBody2D
 		arrow.GlobalPosition = GlobalPosition;
 
         AddChild(arrow);
-		EmitSignal(SignalName.NewArrowInstantiated, arrow);
+        _gameManagerSingleton.OnMeowolasEnemyNewArrowInstantiated(arrow);
+		//EmitSignal(SignalName.NewArrowInstantiated, arrow);
 
         _animatedSprite2D.FlipH = _moveDirection == Direction.Left;
     }
