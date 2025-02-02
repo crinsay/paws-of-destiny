@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=3 uid="uid://xyyu4et73e4g"]
+[gd_scene load_steps=88 format=3 uid="uid://xyyu4et73e4g"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/MeowolasEnemyComponents/MeowolasEnemy.cs" id="1_1crw7"]
 [ext_resource type="Texture2D" uid="uid://ckntrhhjr3p3a" path="res://Assets/Meowolas/Attack1/Meowolas_Attack1-1.png" id="1_3ovwy"]
@@ -158,7 +158,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"Attack3",
-"speed": 8.0
+"speed": 16.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -365,6 +365,43 @@ animations = [{
 radius = 3.0
 height = 10.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_g1n7k"]
+radius = 135.004
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3mtwu"]
+radius = 75.0067
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i1aau"]
+radius = 14.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7e47p"]
+size = Vector2(9, 16)
+
+[sub_resource type="Animation" id="Animation_ehej1"]
+resource_name = "Kick"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"EnableKickCollision"
+}, {
+"args": [],
+"method": &"DisableKickCollision"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xupsc"]
+_data = {
+"Kick": SubResource("Animation_ehej1")
+}
+
 [node name="MeowolasEnemy" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_1crw7")
@@ -373,9 +410,10 @@ ArrowsScene = ExtResource("2_i4ga1")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-28, -42)
 sprite_frames = SubResource("SpriteFrames_l2qdr")
-animation = &"Attack2"
+animation = &"Attack3"
 autoplay = "Idle"
-frame_progress = 0.130508
+frame = 7
+frame_progress = 1.0
 offset = Vector2(28, 42)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -400,6 +438,61 @@ offset_bottom = -9.0
 wait_time = 1.5
 one_shot = true
 
+[node name="KnockbackTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="ChangeStateTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="StateForDebug" type="Label" parent="."]
+offset_left = -12.0
+offset_top = -29.0
+offset_right = 35.0
+offset_bottom = -6.0
+theme_override_font_sizes/font_size = 11
+text = "state"
+
+[node name="SightRange" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SightRange"]
+shape = SubResource("CircleShape2D_g1n7k")
+
+[node name="ShootRange" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ShootRange"]
+shape = SubResource("CircleShape2D_3mtwu")
+
+[node name="KickRange" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KickRange"]
+shape = SubResource("CircleShape2D_i1aau")
+
+[node name="Kick" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="KickHitbox" type="CollisionShape2D" parent="Kick"]
+position = Vector2(6.5, 0)
+shape = SubResource("RectangleShape2D_7e47p")
+disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_xupsc")
+}
+
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="OnAnimatedSprite2DAnimationFinished"]
 [connection signal="timeout" from="ShootCooldownTimer" to="." method="OnShootCooldownTimerTimeout"]
 [connection signal="timeout" from="DeathTimer" to="." method="OnDeathTimerTimeout"]
+[connection signal="timeout" from="KnockbackTimer" to="." method="OnKnockbackTimerTimeout"]
+[connection signal="timeout" from="ChangeStateTimer" to="." method="OnChangeStateTimerTimeout"]
+[connection signal="body_entered" from="SightRange" to="." method="OnSightRangeBodyEntered"]
+[connection signal="body_exited" from="SightRange" to="." method="OnSightRangeBodyExited"]
+[connection signal="body_entered" from="ShootRange" to="." method="OnShootRangeBodyEntered"]
+[connection signal="body_exited" from="ShootRange" to="." method="OnShootRangeBodyExited"]
+[connection signal="body_entered" from="KickRange" to="." method="OnKickRangeBodyEntered"]
+[connection signal="body_exited" from="KickRange" to="." method="OnKickRangeBodyExited"]
+[connection signal="body_entered" from="Kick" to="." method="OnKickBodyEntered"]

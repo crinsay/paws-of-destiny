@@ -1,4 +1,5 @@
 using Godot;
+using PawsOfDestiny.Scripts.Common;
 using PawsOfDestiny.Scripts.Enemies.MeowolasEnemyComponents;
 using PawsOfDestiny.Scripts.Game.Collectables.KeyComponents;
 using PawsOfDestiny.Scripts.PlayerComponents;
@@ -9,7 +10,7 @@ namespace PawsOfDestiny.Scripts.Game.GameManagerComponents;
 public partial class GameManager : Node
 {
     [Signal]
-    public delegate void EnemyHitPlayerEventHandler(int damage);
+    public delegate void EnemyHitPlayerEventHandler(int damage, float knockbackStrength);
     [Signal]
     public delegate void PlayerHitMeowolasEnemyEventHandler(int damage);
 
@@ -44,14 +45,14 @@ public partial class GameManager : Node
             new Callable(this, nameof(OnEnemyHitPlayer)));
     }
 
-    public void OnEnemyHitPlayer(int damage) //Body is an enemy object that hit the player (for example MewolasArrow)
+    public void OnEnemyHitPlayer(HitInformation hitInfo)
     {
         if (!Player.CanBeHit)
         {
             return;
         }
 
-        EmitSignal(SignalName.EnemyHitPlayer, damage);
+        EmitSignal(SignalName.EnemyHitPlayer, hitInfo);
         _playerHealth.UpdatePlayerHealthLabel(Player.Health);
 
         if (Player.State != PlayerState.Dead)
