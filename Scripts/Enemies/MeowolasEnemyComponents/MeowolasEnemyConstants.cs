@@ -33,14 +33,27 @@ public class MeowolasEnemyConstants
     }
 }
 
-public enum EnemyState
+/*public enum EnemyState
 {
     Idle,
-    Running,
+    Patroling,
     Jumping,
     Attacking,
     TakingDamage,
     Dodging,
     Dead,
     JustHit
+}*/
+
+public enum EnemyState
+{
+    Patrol,
+    Chase,
+    Shoot,
+    WantToAttack,
+    Dodge,
+    Kick,
+    TakeDamage,
+    RunAway,
+    Death
 }

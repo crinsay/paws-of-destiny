@@ -279,4 +279,5 @@ scale = Vector2(1.75, 1.75)
 [connection signal="PlayerHitEnemy" from="Player" to="GameManager" method="OnPlayerHitEnemy"]
 [connection signal="KeyCollected" from="Keys/Key" to="GameManager" method="OnKeyCollected"]
 [connection signal="KeyCollected" from="Keys/Key2" to="GameManager" method="OnKeyCollected"]
+[connection signal="EnemyHitPlayer" from="MeowolasEnemy" to="GameManager" method="OnEnemyHitPlayer"]
 [connection signal="NewArrowInstantiated" from="MeowolasEnemy" to="GameManager" method="OnMeowolasEnemyNewArrowInstantiated"]
