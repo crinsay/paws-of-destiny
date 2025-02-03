@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dq6ecwtt20iks"
-path="res://.godot/imported/MeowTarTheBlue_TakeDamage-2.png-ec854414e0eaa8f6f7bfddb640fa7b60.ctex"
+uid="uid://dv7p4ptod3lv6"
+path="res://.godot/imported/MeowTarTheBlue33.png-a328817a250dfc4e895d25622ff47461.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/MeowtarTheBlue/TakeDemage/MeowTarTheBlue_TakeDamage-2.png"
-dest_files=["res://.godot/imported/MeowTarTheBlue_TakeDamage-2.png-ec854414e0eaa8f6f7bfddb640fa7b60.ctex"]
+source_file="res://Assets/MeowtarTheBlue/ChangedAttack2/MeowTarTheBlue33.png"
+dest_files=["res://.godot/imported/MeowTarTheBlue33.png-a328817a250dfc4e895d25622ff47461.ctex"]
 
 [params]
 
