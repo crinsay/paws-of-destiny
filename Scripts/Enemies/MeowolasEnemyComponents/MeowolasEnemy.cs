@@ -3,6 +3,7 @@ using PawsOfDestiny.Scripts.Common;
 using PawsOfDestiny.Scripts.Common.Components;
 using PawsOfDestiny.Scripts.Game.GameManagerComponents;
 using PawsOfDestiny.Scripts.PlayerComponents;
+using PawsOfDestiny.Singletons;
 using System;
 
 namespace PawsOfDestiny.Scripts.Enemies.MeowolasEnemyComponents;
@@ -11,7 +12,7 @@ public partial class MeowolasEnemy : CharacterBody2D
 {
     public EnemyState State { get; private set; } = EnemyState.Patrol;
     public bool CanBeHit { get; private set; } = true;
-    public int Health { get; private set; } = 9;
+    public int Health { get; private set; }
 
     [Signal]
     public delegate void NewArrowInstantiatedEventHandler(Node2D newArrow);
@@ -29,7 +30,7 @@ public partial class MeowolasEnemy : CharacterBody2D
     public float JumpVelocity = -275.0f;
 
 
-    private GameManagerSingleton _gameManagerSingleton;
+    private GameManager _gameManager;
 
     [Export]
     public int Damage = 1;
@@ -55,9 +56,17 @@ public partial class MeowolasEnemy : CharacterBody2D
     private bool _wasPlayerKickedOutOfKickRange = false;
     private Label _stateForDebug;
 
+    private MeowolasEnemyStats _meowolasStats;
+
     public override void _Ready()
 	{
-        _gameManagerSingleton = GetNode<GameManagerSingleton>("/root/GameManagerSingleton");
+        _gameManager = GetNode<GameManager>("/root/GameManager");
+        _gameManager.Connect(GameManager.SignalName.PlayerHitMeowolasEnemy,
+            new Callable(this, nameof(OnGameManagerPlayerHitMeowolasEnemy)));
+
+        _meowolasStats = GetNode<MeowolasEnemyStats>("/root/MeowolasEnemyStats");
+        Health = _meowolasStats.Health;
+
         _shootCooldownTimer = GetNode<Timer>(MeowolasEnemyConstants.Nodes.ShootCooldownTimer);
         _kickCooldownTimer = GetNode<Timer>("KickCooldownTimer");
         _animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
@@ -73,7 +82,7 @@ public partial class MeowolasEnemy : CharacterBody2D
         _animatedSprite2D.FlipH = _moveDirection == Direction.Left;
         _animatedSprite2D.Play(MeowolasEnemyConstants.Animations.Run);
 
-        _healthBar.InitializeHealthBarComponent(Health);
+        _healthBar.InitializeHealthBarComponent(9.0d, Health);
     }
 
     public override void _Process(double delta)
@@ -220,7 +229,8 @@ public partial class MeowolasEnemy : CharacterBody2D
     {
         _hitInfo = hitInfo;
 
-        Health -= _hitInfo.Damage;
+        _meowolasStats.Health -= Damage;
+        Health = _meowolasStats.Health;
         _healthBar.Health = Health;
         if (Health > 0)
         {
@@ -266,8 +276,7 @@ public partial class MeowolasEnemy : CharacterBody2D
         arrow.GlobalPosition = GlobalPosition;
 
         AddChild(arrow);
-        //_gameManagerSingleton.OnMeowolasEnemyNewArrowInstantiated(arrow);
-        EmitSignal(SignalName.NewArrowInstantiated, arrow);
+        _gameManager.OnMeowolasEnemyNewArrowInstantiated(arrow);
     }
 
     //Enemy died, so queue free:
@@ -438,7 +447,7 @@ public partial class MeowolasEnemy : CharacterBody2D
                 KnockbackDirection = Player.CurrentGlobalPosition.X < GlobalPosition.X ? Direction.Left : Direction.Right
             };
 
-            EmitSignal(SignalName.EnemyHitPlayer, hitInfo);
+            _gameManager.OnEnemyHitPlayer(hitInfo);
         }
     }
 

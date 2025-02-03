@@ -1,13 +1,16 @@
 using Godot;
+using PawsOfDestiny.Scripts.Common;
+using PawsOfDestiny.Scripts.Enemies.MeowolasEnemyComponents;
 using PawsOfDestiny.Scripts.Game.Collectables.KeyComponents;
 using PawsOfDestiny.Scripts.Game.GameManagerComponents;
 using PawsOfDestiny.Scripts.Game;
+using PawsOfDestiny.Scripts.PlayerComponents;
 using System;
 using System.Collections.Generic;
-using PawsOfDestiny.Scripts.Enemies.MeowolasEnemyComponents;
-using PawsOfDestiny.Scripts.PlayerComponents;
 
-public partial class GameManagerSingleton : Node
+namespace PawsOfDestiny.Singletons;
+
+public partial class GameManager : Node
 {
     [Signal]
     public delegate void EnemyHitPlayerEventHandler(int damage);
@@ -66,7 +69,7 @@ public partial class GameManagerSingleton : Node
 
 
     //Method that handles Signal emmited by a single key:
-    private void OnKeyCollected()
+    public void OnKeyCollected()
     {
         _collectedKeys += 1;
         _keyCounter.UpdateKeyCounter(_collectedKeys);
@@ -80,17 +83,18 @@ public partial class GameManagerSingleton : Node
             new Callable(this, nameof(OnEnemyHitPlayer)));
     }
 
-    public void OnEnemyHitPlayer(int damage) //Body is an enemy object that hit the player (for example MewolasArrow)
+    public void OnEnemyHitPlayer(HitInformation hitInfo) //Body is an enemy object that hit the player (for example MewolasArrow)
     {
-        if (!Player.CanBeHit)
+        var player = hitInfo.Body as Player;
+        if (!player.CanBeHit)
         {
             return;
         }
 
-        EmitSignal(SignalName.EnemyHitPlayer, damage);
-        _playerHealth.UpdatePlayerHealthLabel(Player.Health);
+        EmitSignal(SignalName.EnemyHitPlayer, hitInfo);
+        _playerHealth.UpdatePlayerHealthLabel(player.Health);
 
-        if (Player.State != PlayerState.Dead)
+        if (player.State != PlayerState.Dead)
         {
             _playerHitTimer.Start();
         }
@@ -101,16 +105,16 @@ public partial class GameManagerSingleton : Node
         }
     }
 
-    private void OnPlayerHitEnemy(Node2D enemy, int damage)
+    public void OnPlayerHitEnemy(HitInformation hitInfo)
     {
-        if (enemy is MeowolasEnemy meowolasEnemy)
+        if (hitInfo.Body is MeowolasEnemy meowolasEnemy)
         {
             if (!meowolasEnemy.CanBeHit)
             {
                 return;
             }
 
-            EmitSignal(SignalName.PlayerHitMeowolasEnemy, damage);
+            EmitSignal(SignalName.PlayerHitMeowolasEnemy, hitInfo);
         }
     }
 
@@ -119,21 +123,4 @@ public partial class GameManagerSingleton : Node
         Engine.TimeScale = 1d;
         GetTree().ReloadCurrentScene();
     }
-
-
-    private void OnDoorsBodyEntered(Node2D body)
-    {
-        var gameManagerSingleton = GetNode<GameManagerSingleton>("/root/GameManagerSingleton");
-        gameManagerSingleton.LoadNextLevel();
-    }
-
-    //public void DoorsCreated(Area2D area)
-    //{
-    //    if (area is Doors door)
-    //    {
-    //        door.Connect(Doors.SignalName.PlayerEntered,
-    //           new Callable(this, nameof(OnDoorsBodyEntered)));
-    //    }
-    //}
-
 }

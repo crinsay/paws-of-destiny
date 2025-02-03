@@ -36,12 +36,14 @@ public partial class HealthBar : ProgressBar
         _damageTimer = GetNode<Timer>("DamageTimer");
     }
 
-    public void InitializeHealthBarComponent(double health)
+    public void InitializeHealthBarComponent(double maxHealth, double currentHealth)
     {
-        Health = health;
-        MaxValue = Health;
+        Health = currentHealth;
+
+        MaxValue = maxHealth;
         Value = Health;
-        _damageBar.MaxValue = Health;
+
+        _damageBar.MaxValue = maxHealth;
         _damageBar.Value = Health;
     }
 
