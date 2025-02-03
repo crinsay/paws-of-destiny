@@ -372,6 +372,18 @@ position = Vector2(-600, 304)
 [node name="Heart5" parent="Hearts" instance=ExtResource("6_1upsx")]
 position = Vector2(-216, 304)
 
+[node name="Doors" parent="." instance=ExtResource("8_x6b1m")]
+position = Vector2(1041, 288)
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_7d4a1")
+
+[node name="BallSpikes" parent="Path2D" instance=ExtResource("7_5rke4")]
+position = Vector2(245, 397)
+
+[node name="MeowolasEnemy" parent="." instance=ExtResource("9_wkj38")]
+position = Vector2(-421, 395)
+
 [node name="Player" parent="." instance=ExtResource("4_h5xt4")]
 z_index = 100
 position = Vector2(-1203, 403)
@@ -385,15 +397,3 @@ limit_bottom = 532
 limit_smoothed = true
 position_smoothing_speed = 0.1
 metadata/_edit_lock_ = true
-
-[node name="Doors" parent="." instance=ExtResource("8_x6b1m")]
-position = Vector2(1041, 288)
-
-[node name="MeowolasEnemy" parent="." instance=ExtResource("9_wkj38")]
-position = Vector2(-421, 395)
-
-[node name="Path2D" type="Path2D" parent="."]
-curve = SubResource("Curve2D_7d4a1")
-
-[node name="BallSpikes" parent="Path2D" instance=ExtResource("7_5rke4")]
-position = Vector2(245, 397)
