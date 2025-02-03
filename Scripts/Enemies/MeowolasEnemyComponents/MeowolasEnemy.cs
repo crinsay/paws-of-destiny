@@ -1,6 +1,7 @@
 using Godot;
 using PawsOfDestiny.Scripts.Common;
 using PawsOfDestiny.Scripts.Common.Components;
+using PawsOfDestiny.Scripts.Enemies.MeowtarTheBlueEnemyComponents;
 using PawsOfDestiny.Scripts.PlayerComponents;
 using PawsOfDestiny.Singletons;
 using System;
@@ -9,15 +10,9 @@ namespace PawsOfDestiny.Scripts.Enemies.MeowolasEnemyComponents;
 
 public partial class MeowolasEnemy : CharacterBody2D
 {
-    public EnemyState State { get; private set; } = EnemyState.Patrol;
+    public MeowolasState State { get; private set; } = MeowolasState.Patrol;
     public bool CanBeHit { get; private set; } = true;
     public int Health { get; private set; }
-
-    [Signal]
-    public delegate void NewArrowInstantiatedEventHandler(Node2D newArrow);
-
-    [Signal]
-    public delegate void EnemyHitPlayerEventHandler(HitInformation hitInfo);
 
     [Export]
     public PackedScene ArrowsScene { get; set; }
@@ -48,7 +43,7 @@ public partial class MeowolasEnemy : CharacterBody2D
     private Timer _deathTimer;
     private Timer _changeStateTimer;
     private Direction _moveDirection = Direction.Left;
-    private EnemyState _awaitingState;
+    private MeowolasState _awaitingState;
     private HitInformation _hitInfo;
 
     private bool _isEnemyJustHit = false;
@@ -99,31 +94,29 @@ public partial class MeowolasEnemy : CharacterBody2D
         {
             HandleKnockback(ref velocity);
         }
-        else if (State != EnemyState.Kick && State != EnemyState.TakeDamage && State != EnemyState.Dodge)
+
+        switch(State)
         {
-            switch(State)
-            {
-                case EnemyState.Patrol:
-                    HandlePatrol(ref velocity);
-                    break;
-                case EnemyState.Chase:
-                    HandleChase(ref velocity);
-                    break;
-                case EnemyState.Shoot:
-                    HandleShoot(ref velocity);
-                    break;
-                case EnemyState.WantToAttack:
-                    HandleWantToAttack(ref velocity);
-                    break;
-                case EnemyState.RunAway:
-                    HandleRunAway(ref velocity);
-                    break;
-                case EnemyState.Death:
-                    HandleDeath(ref velocity);
-                    break;
-                default:
-                    break;
-            }
+            case MeowolasState.Patrol:
+                HandlePatrol(ref velocity);
+                break;
+            case MeowolasState.Chase:
+                HandleChase(ref velocity);
+                break;
+            case MeowolasState.Shoot:
+                HandleShoot(ref velocity);
+                break;
+            case MeowolasState.WantToAttack:
+                HandleWantToAttack(ref velocity);
+                break;
+            case MeowolasState.RunAway:
+                HandleRunAway(ref velocity);
+                break;
+            case MeowolasState.Death:
+                HandleDeath(ref velocity);
+                break;
+            default:
+                break;
         }
         
         Velocity = velocity;
@@ -133,7 +126,7 @@ public partial class MeowolasEnemy : CharacterBody2D
     //Handle every behavior:
     private void HandlePatrol(ref Vector2 velocity)
     {
-        _stateForDebug.Text = nameof(EnemyState.Patrol);
+        _stateForDebug.Text = nameof(MeowolasState.Patrol);
         velocity.X = (int)_moveDirection * Speed;
 
         //RayCast2D collision detection:
@@ -152,7 +145,7 @@ public partial class MeowolasEnemy : CharacterBody2D
 
     private void HandleChase(ref Vector2 velocity)
     {
-        _stateForDebug.Text = nameof(EnemyState.Chase);
+        _stateForDebug.Text = nameof(MeowolasState.Chase);
         velocity.X = (int)_moveDirection * Speed;
 
         //RayCast2D collision detection:
@@ -172,7 +165,7 @@ public partial class MeowolasEnemy : CharacterBody2D
 
     private void HandleShoot(ref Vector2 velocity)
     {
-        _stateForDebug.Text = nameof(EnemyState.Shoot);
+        _stateForDebug.Text = nameof(MeowolasState.Shoot);
         velocity.X = 0.0f;
 
         //Animation and direction:
@@ -182,7 +175,7 @@ public partial class MeowolasEnemy : CharacterBody2D
 
     private void HandleWantToAttack(ref Vector2 velocity)
     {
-        _stateForDebug.Text = nameof(EnemyState.WantToAttack);
+        _stateForDebug.Text = nameof(MeowolasState.WantToAttack);
         velocity.X = (int)_moveDirection * Speed;
 
         if (_rightRayCast2D.IsColliding() && IsOnFloor())
@@ -201,7 +194,7 @@ public partial class MeowolasEnemy : CharacterBody2D
 
     private void HandleKick()
     {
-        _stateForDebug.Text = nameof(EnemyState.Kick);
+        _stateForDebug.Text = nameof(MeowolasState.Kick);
 
         Vector2 velocity = Velocity;
         velocity.X = 0.0f;
@@ -209,6 +202,7 @@ public partial class MeowolasEnemy : CharacterBody2D
 
         //Animation and direction:
         SetDirectionTowardPlayer();
+        _animationPlayer.Stop();
         _kick.Scale = _moveDirection == Direction.Left ? new Vector2(-1, 1) : new Vector2(1, 1);
         _animationPlayer.Play("Kick");
         PlayAnimation(MeowolasEnemyConstants.Animations.Attack3);
@@ -223,7 +217,7 @@ public partial class MeowolasEnemy : CharacterBody2D
 
     private void HandleRunAway(ref Vector2 velocity)
     {
-        _stateForDebug.Text = nameof(EnemyState.RunAway);
+        _stateForDebug.Text = nameof(MeowolasState.RunAway);
         velocity.X = (int)_moveDirection * Speed;
         if (_rightRayCast2D.IsColliding() && IsOnFloor())
         {
@@ -239,7 +233,7 @@ public partial class MeowolasEnemy : CharacterBody2D
 
     private void HandleDeath(ref Vector2 velocity)
     {
-        _stateForDebug.Text = nameof(EnemyState.Death);
+        _stateForDebug.Text = nameof(MeowolasState.Death);
         velocity.X = Mathf.MoveToward(Velocity.X, 0f, Speed);
     }
 
@@ -249,19 +243,20 @@ public partial class MeowolasEnemy : CharacterBody2D
     {
         _hitInfo = hitInfo;
 
-        _meowolasStats.Health -= Damage;
+        _meowolasStats.Health -= _hitInfo.Damage;
         Health = _meowolasStats.Health;
         _healthBar.Health = Health;
         if (Health > 0)
         {
-            State = EnemyState.TakeDamage;
+            _stateForDebug.Text = nameof(MeowolasState.TakeDamage);
+            State = MeowolasState.TakeDamage;
             PlayAnimation(MeowolasEnemyConstants.Animations.TakeDamage);
             _isEnemyJustHit = true;
         }
         else
         {
-            _stateForDebug.Text = nameof(EnemyState.Death);         
-            State = EnemyState.Death;
+            _stateForDebug.Text = nameof(MeowolasState.Death);         
+            State = MeowolasState.Death;
             PlayAnimation(MeowolasEnemyConstants.Animations.Death);
             _deathTimer.Start();
             GetNode<CollisionShape2D>("SightRange/CollisionShape2D").SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
@@ -310,7 +305,7 @@ public partial class MeowolasEnemy : CharacterBody2D
     {
         if (body is Player)
         {
-            State = EnemyState.Chase;
+            State = MeowolasState.Chase;
             Speed = 100.0f;
         }
     }
@@ -318,9 +313,9 @@ public partial class MeowolasEnemy : CharacterBody2D
     //Player lost from sight, so start patroling again:
     private void OnSightRangeBodyExited(Node2D body)
     {
-        if (body is Player && State != EnemyState.Death && State != EnemyState.RunAway)
+        if (body is Player && State != MeowolasState.Death && State != MeowolasState.RunAway)
         {
-            State = EnemyState.Patrol;
+            State = MeowolasState.Patrol;
             Speed = 50.0f;
         }
     }
@@ -330,7 +325,7 @@ public partial class MeowolasEnemy : CharacterBody2D
     {
         if (body is Player)
         {
-            _awaitingState = EnemyState.Shoot;
+            _awaitingState = MeowolasState.Shoot;
             _changeStateTimer.Start();
         }
     }
@@ -338,10 +333,10 @@ public partial class MeowolasEnemy : CharacterBody2D
     //Stop shooting and start chasing again:
     private void OnShootRangeBodyExited(Node2D body)
     {
-        if (body is Player && State != EnemyState.Death && State != EnemyState.RunAway)
+        if (body is Player && State != MeowolasState.Death && State != MeowolasState.RunAway)
         {
             Speed = 100.0f;
-            State = EnemyState.Chase;
+            State = MeowolasState.Chase;
 
             //Stop shooting:
             _shootCooldownTimer.Stop();
@@ -353,7 +348,7 @@ public partial class MeowolasEnemy : CharacterBody2D
     {
         if (body is Player)
         {
-            State = EnemyState.WantToAttack;
+            State = MeowolasState.WantToAttack;
             Speed = 150.0f;
 
             //Stop shooting:
@@ -364,20 +359,20 @@ public partial class MeowolasEnemy : CharacterBody2D
 
     private void OnWantToAttackRangeBodyExited(Node2D body)
     {
-        if (body is Player && State != EnemyState.Death && State != EnemyState.RunAway)
+        if (body is Player && State != MeowolasState.Death && State != MeowolasState.RunAway)
         {
-            _awaitingState = EnemyState.Shoot;
+            _awaitingState = MeowolasState.Shoot;
             _changeStateTimer.Start();
         }
     }
 
     private void OnAttackDecisionRangeBodyEntered(Node2D body)
     {
-        if (body is Player && State != EnemyState.Kick)
+        if (body is Player && State != MeowolasState.Kick)
         {
             if (GD.Randf() < 0.35f && IsOnFloor())
             {
-                State = EnemyState.Dodge;
+                State = MeowolasState.Dodge;
                 SetDirectionTowardPlayer();
 
                 Vector2 velocity = Velocity;
@@ -401,9 +396,9 @@ public partial class MeowolasEnemy : CharacterBody2D
 
     private void OnAttackDecisionRangeBodyExited(Node2D body)
     {
-        if (body is Player && State != EnemyState.Kick && State != EnemyState.Dodge && State != EnemyState.TakeDamage && State != EnemyState.Death && State != EnemyState.RunAway)
+        if (body is Player && State != MeowolasState.Kick && State != MeowolasState.Dodge && State != MeowolasState.TakeDamage && State != MeowolasState.Death && State != MeowolasState.RunAway)
         {
-            State = EnemyState.WantToAttack;
+            State = MeowolasState.WantToAttack;
             Speed = 150.0f;
         }
     }
@@ -413,7 +408,7 @@ public partial class MeowolasEnemy : CharacterBody2D
     {
         if (body is Player)
         {
-            State = EnemyState.Kick;
+            State = MeowolasState.Kick;
             HandleKick();
 
             _shootCooldownTimer.Stop();
@@ -425,7 +420,7 @@ public partial class MeowolasEnemy : CharacterBody2D
 
     private void OnKickRangeBodyExited(Node2D body)
     {
-        if (body is Player && State != EnemyState.Death && State != EnemyState.RunAway)
+        if (body is Player && State != MeowolasState.Death && State != MeowolasState.RunAway)
         {
             _wasPlayerKickedOutOfKickRange = true;
             _kickCooldownTimer.Stop();
@@ -439,7 +434,7 @@ public partial class MeowolasEnemy : CharacterBody2D
 
     private void OnGameManagerMeowolasEnemyRunAway()
     {
-        State = EnemyState.RunAway;
+        State = MeowolasState.RunAway;
         Speed = 150.0f;
         SetDirectionTowardDoors();
         _animatedSprite2D.Modulate = new Color(1.2f, 1.2f, 1.2f);
@@ -522,11 +517,11 @@ public partial class MeowolasEnemy : CharacterBody2D
     //After TakeDamage / Kick animation finish continue:
     private void OnAnimatedSprite2DAnimationFinished()
     {
-        if ((State == EnemyState.Kick && _wasPlayerKickedOutOfKickRange)
-            || State == EnemyState.TakeDamage
-            || State == EnemyState.Dodge)
+        if ((State == MeowolasState.Kick && _wasPlayerKickedOutOfKickRange)
+            || State == MeowolasState.TakeDamage
+            || State == MeowolasState.Dodge)
         {
-            State = EnemyState.WantToAttack;
+            State = MeowolasState.WantToAttack;
             Speed = 150.0f;
 
             _wasPlayerKickedOutOfKickRange = false;
@@ -537,7 +532,7 @@ public partial class MeowolasEnemy : CharacterBody2D
     //To change state after a little delay to make it look more natural (in this case only for Shoot and only when entering ShootRange):
     private void OnChangeStateTimerTimeout()
     {
-        if (_awaitingState == EnemyState.Shoot)
+        if (_awaitingState == MeowolasState.Shoot)
         {
             State = _awaitingState;
             _shootCooldownTimer.Start();

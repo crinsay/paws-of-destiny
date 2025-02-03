@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=4 uid="uid://dner4lor3sqhi"]
+[gd_scene load_steps=78 format=4 uid="uid://dner4lor3sqhi"]
 
 [ext_resource type="Script" path="res://Scripts/Game/Levels/Level1.cs" id="1_npf6r"]
 [ext_resource type="PackedScene" uid="uid://y2c8dsi1ltud" path="res://Scenes/Player.tscn" id="4_ighji"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://cdoogeinuvkmb" path="res://Scenes/MovingMediumPlatform.tscn" id="11_yq525"]
 [ext_resource type="PackedScene" uid="uid://v24gc8rrhei5" path="res://Scenes/MovingShortPlatform.tscn" id="12_8efpt"]
 [ext_resource type="PackedScene" uid="uid://xyyu4et73e4g" path="res://Scenes/MeowolasEnemy.tscn" id="13_wrgud"]
+[ext_resource type="PackedScene" uid="uid://ckei1rgvimrnd" path="res://Scenes/MeowtarTheBlueEnemy.tscn" id="15_d15tl"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vuqpu"]
 texture = ExtResource("5_pmnle")
@@ -1247,5 +1248,8 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeowolasFightStart"]
 position = Vector2(1246, -1049)
 shape = SubResource("RectangleShape2D_4fnmq")
+
+[node name="MeowtarTheBlueEnemy" parent="." instance=ExtResource("15_d15tl")]
+position = Vector2(616, -865)
 
 [connection signal="body_entered" from="MeowolasFightStart" to="." method="OnMeowolasFightStartBodyEntered"]
