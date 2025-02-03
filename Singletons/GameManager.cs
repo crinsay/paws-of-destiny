@@ -7,6 +7,7 @@ using PawsOfDestiny.Scripts.Game;
 using PawsOfDestiny.Scripts.PlayerComponents;
 using System;
 using System.Collections.Generic;
+using System.Runtime;
 
 namespace PawsOfDestiny.Singletons;
 
@@ -24,10 +25,9 @@ public partial class GameManager : Node
 
     private int _collectedKeys;
 
-    private PackedScene _gamePackedScene; //TODO: change it to main menu screen
     private List<PackedScene> _levelScenes;
 
-    private int _numberOfLevels = 5;
+    private int _numberOfLevels = 6;
     private int _currentLevel = 0;
     public override void _Ready()
     {
@@ -38,7 +38,7 @@ public partial class GameManager : Node
 
         _levelScenes = [];
 
-        for (int i = 1; i <= _numberOfLevels; i++)
+        for (int i = 0; i <= _numberOfLevels; i++)
         {
             var level = GD.Load<PackedScene>($"res://Scenes/Level{i}.tscn");
             _levelScenes.Add(level);
@@ -50,21 +50,19 @@ public partial class GameManager : Node
         _currentLevel++;
         if (_currentLevel > _numberOfLevels)
         {
-            _currentLevel = 1;
+            _currentLevel = 0;
         }
-    }
-
-    private void LoadMainMenu()
-    {
-        //TODO: change it to load to main menu (starting page)
-        _currentLevel = 0;
-        GetTree().ChangeSceneToPacked(_gamePackedScene);
     }
 
     public void LoadNextLevel()
     {
-        SetNextLevel();
-        GetTree().ChangeSceneToPacked(_levelScenes[_currentLevel - 1]);
+        //if (_collectedKeys == 3)
+        //{
+            _collectedKeys = 0;
+            _keyCounter.UpdateKeyCounter(_collectedKeys);
+            SetNextLevel();
+            GetTree().ChangeSceneToPacked(_levelScenes[_currentLevel]);
+        //}
     }
 
 
@@ -121,6 +119,33 @@ public partial class GameManager : Node
     private void OnPlayerDeathTimerTimeout()
     {
         Engine.TimeScale = 1d;
+
+        _collectedKeys = 0;
+        _keyCounter.UpdateKeyCounter(_collectedKeys);
+        var DeathLevel = GD.Load<PackedScene>($"res://Scenes/LevelDeath.tscn");
+        _currentLevel = 0;
+        GetTree().ChangeSceneToPacked(DeathLevel);
+    }
+
+    public void OnSpikesHitPlayer(HitInformation hitInfo)
+    {
+        var player = hitInfo.Body as Player;
+        EmitSignal(SignalName.EnemyHitPlayer, hitInfo);
+        _playerHealth.UpdatePlayerHealthLabel(player.Health);
+        if (player.State != PlayerState.Dead)
+        {
+            GetNode<Timer>("PlayerHitBySpikeTimer").Start();
+        }
+        else
+        {
+            _playerDeathTimer.Start();
+        }
+    }
+
+    private void OnPlayerHitBySpikeTimerTimeout()
+    {
         GetTree().ReloadCurrentScene();
+        _collectedKeys = 0;
+        _keyCounter.UpdateKeyCounter(_collectedKeys);
     }
 }

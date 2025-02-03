@@ -19,5 +19,10 @@ one_shot = true
 wait_time = 1.5
 one_shot = true
 
+[node name="PlayerHitBySpikeTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [connection signal="timeout" from="PlayerHitTimer" to="." method="OnPlayerHitTimerTimeout"]
 [connection signal="timeout" from="PlayerDeathTimer" to="." method="OnPlayerDeathTimerTimeout"]
+[connection signal="timeout" from="PlayerHitBySpikeTimer" to="." method="OnPlayerHitBySpikeTimerTimeout"]
