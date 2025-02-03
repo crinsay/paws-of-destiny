@@ -2,6 +2,7 @@ using Godot;
 using PawsOfDestiny.Scripts.Common;
 using PawsOfDestiny.Scripts.Common.Components;
 using PawsOfDestiny.Scripts.Enemies.MeowolasEnemyComponents;
+using PawsOfDestiny.Scripts.Enemies.MeowtarTheBlueComponents;
 using PawsOfDestiny.Scripts.Game;
 using PawsOfDestiny.Singletons;
 using System;
@@ -177,7 +178,7 @@ public partial class Player : CharacterBody2D
 
     private void OnSwordBodyEntered(Node2D body)
     {
-        if (body is MeowolasEnemy enemy)
+        if (body is Node2D enemy && (enemy is MeowolasEnemy || enemy is MeowtarTheBlueEnemy ))
         {
             var hitInfo = new HitInformation
             {
