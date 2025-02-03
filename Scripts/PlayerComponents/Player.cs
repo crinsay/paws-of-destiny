@@ -3,6 +3,7 @@ using PawsOfDestiny.Scripts.Common;
 using PawsOfDestiny.Scripts.Common.Components;
 using PawsOfDestiny.Scripts.Enemies.MeowolasEnemyComponents;
 using PawsOfDestiny.Scripts.Game;
+using PawsOfDestiny.Singletons;
 using System;
 
 namespace PawsOfDestiny.Scripts.PlayerComponents;
@@ -13,7 +14,7 @@ public partial class Player : CharacterBody2D
 	public static Vector2 CurrentGlobalPosition { get; private set; }
     public PlayerState State { get; private set; } = PlayerState.Idle;
     public bool CanBeHit { get; private set; } = true;
-    public int Health { get; private set; } = 9;
+    public int Health { get; private set; }
 
     //Signals:
     [Signal]
@@ -39,15 +40,23 @@ public partial class Player : CharacterBody2D
 
     private bool _isPlayerJustHit = false;
     private HitInformation _hitInfo;
+    private GameManager _gameManager;
+    private PlayerStats _playerStats;
 
     public override void _Ready()
     {
+        _gameManager = GetNode<GameManager>("/root/GameManager");
+        _gameManager.Connect(GameManager.SignalName.EnemyHitPlayer,
+           new Callable(this, nameof(OnGameManagerEnemyHitPlayer)));
+
+        _playerStats = GetNode<PlayerStats>("/root/PlayerStats");
+        Health = _playerStats.Health;
+
         _animatedSprite2D = GetNode<AnimatedSprite2D>(PlayerConstants.Nodes.AnimatedSprite2D);
         _sword = GetNode<Area2D>(PlayerConstants.Nodes.Sword);  
         _animationPlayer = GetNode<AnimationPlayer>(PlayerConstants.Nodes.AnimationPlayer);
 
         State = PlayerState.Idle;
-        Health = 9;
         CanBeHit = true;
     }
 
@@ -175,7 +184,7 @@ public partial class Player : CharacterBody2D
                 KnockbackDirection = enemy.GlobalPosition.X < GlobalPosition.X ? Direction.Left : Direction.Right
             };
 
-            EmitSignal(SignalName.PlayerHitEnemy, hitInfo);
+            _gameManager.OnPlayerHitEnemy(hitInfo);
         }
     }
 
@@ -183,7 +192,8 @@ public partial class Player : CharacterBody2D
 	{
         _hitInfo = hitInfo;
 
-        Health -= _hitInfo.Damage;
+        _playerStats.Health -= _hitInfo.Damage;
+        Health = _playerStats.Health;
         if (Health > 0)
         {
             _animatedSprite2D.Play(PlayerConstants.Animations.TakeDamage);
