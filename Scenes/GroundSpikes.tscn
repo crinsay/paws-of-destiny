@@ -1,11 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://cvciw6s1wlgm1"]
+[gd_scene load_steps=5 format=3 uid="uid://cvciw6s1wlgm1"]
 
 [ext_resource type="Texture2D" uid="uid://cn4tpamic3mjq" path="res://Assets/Objects/Spikes/GroundSpikes.png" id="1_g5tu8"]
+[ext_resource type="Script" path="res://Scripts/Game/Spikes/GroundSpikes.cs" id="1_pnbg1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vb5dv"]
 size = Vector2(16, 11)
 
-[node name="Area2D" type="Area2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q3wxd"]
+size = Vector2(16, 10)
+
+[node name="GroundSpikes" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_pnbg1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_g5tu8")
@@ -13,3 +19,11 @@ texture = ExtResource("1_g5tu8")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2.5)
 shape = SubResource("RectangleShape2D_vb5dv")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_q3wxd")
+
+[connection signal="body_entered" from="." to="." method="OnGroundSpikesBodyEntered"]

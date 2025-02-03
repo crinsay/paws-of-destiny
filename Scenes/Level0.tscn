@@ -210,7 +210,6 @@ offset_bottom = 395.0
 theme_override_fonts/font = ExtResource("5_ssuok")
 theme_override_font_sizes/font_size = 20
 text = "After a long journey, you finally return to the kingdom.
-
                                                             But something is wrong..."
 vertical_alignment = 1
 justification_flags = 0
@@ -223,7 +222,6 @@ offset_bottom = 395.0
 theme_override_fonts/font = ExtResource("5_ssuok")
 theme_override_font_sizes/font_size = 20
 text = "The once-glorious palace now stands silent.
-
 Whispers in the wind speak of treachery."
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -237,7 +235,6 @@ offset_bottom = 395.0
 theme_override_fonts/font = ExtResource("5_ssuok")
 theme_override_font_sizes/font_size = 20
 text = "The King has been captured.
-
 Two dark forces have taken control."
 horizontal_alignment = 1
 vertical_alignment = 1
