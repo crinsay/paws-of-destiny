@@ -1,4 +1,6 @@
 using Godot;
+using PawsOfDestiny.Scripts.Enemies.MeowolasEnemyComponents;
+using PawsOfDestiny.Scripts.PlayerComponents;
 using PawsOfDestiny.Singletons;
 using System;
 
@@ -14,9 +16,16 @@ public partial class Doors : Area2D
         //gameManagerSingleton.DoorsCreated(this);
     }
 
-    private void OnDoorsBodyEntered(Node2D _)
+    private void OnDoorsBodyEntered(Node2D body)
     {
-        GD.Print("on area entered");
-        _gameManager.CallDeferred(nameof(_gameManager.LoadNextLevel));
+        if (body is Player)
+        {
+            GD.Print("on area entered");
+            _gameManager.CallDeferred(nameof(_gameManager.LoadNextLevel));
+        }
+        else if (body is MeowolasEnemy meowolasEnemy)
+        {
+            meowolasEnemy.QueueFree();
+        }
     }
 }

@@ -2,7 +2,6 @@ using Godot;
 using PawsOfDestiny.Scripts.Common;
 using PawsOfDestiny.Scripts.Enemies.MeowolasEnemyComponents;
 using PawsOfDestiny.Scripts.Game.Collectables.KeyComponents;
-using PawsOfDestiny.Scripts.Game.GameManagerComponents;
 using PawsOfDestiny.Scripts.Game;
 using PawsOfDestiny.Scripts.PlayerComponents;
 using System;
@@ -13,13 +12,15 @@ namespace PawsOfDestiny.Singletons;
 public partial class GameManager : Node
 {
     [Signal]
-    public delegate void EnemyHitPlayerEventHandler(int damage);
+    public delegate void EnemyHitPlayerEventHandler(HitInformation hitInfo);
     [Signal]
-    public delegate void PlayerHitMeowolasEnemyEventHandler(int damage);
+    public delegate void PlayerHitMeowolasEnemyEventHandler(HitInformation hitInfo);
+    [Signal]
+    public delegate void MeowolasEnemyRunAwayEventHandler();
 
     private KeyCounter _keyCounter;
     private PlayerHealth _playerHealth;
-    private Timer _playerHitTimer;
+    private Timer _meowolasEnemyAndPlayerFightTimer;
     private Timer _playerDeathTimer;
 
     private int _collectedKeys;
@@ -31,10 +32,10 @@ public partial class GameManager : Node
     private int _currentLevel = 0;
     public override void _Ready()
     {
-        _keyCounter = GetNode<KeyCounter>(GameManagerConstants.KeyCounter);
-        _playerHealth = GetNode<PlayerHealth>(GameManagerConstants.PlayerHealth);
-        _playerHitTimer = GetNode<Timer>(GameManagerConstants.PlayerHitTimer);
-        _playerDeathTimer = GetNode<Timer>(GameManagerConstants.PlayerDeathTimer);
+        _keyCounter = GetNode<KeyCounter>("KeyCounter");
+        _playerHealth = GetNode<PlayerHealth>("PlayerHealth");
+        _meowolasEnemyAndPlayerFightTimer = GetNode<Timer>("MeowolasEnemyAndPlayerFightTimer");
+        _playerDeathTimer = GetNode<Timer>("PlayerDeathTimer");
 
         _levelScenes = [];
 
@@ -94,15 +95,11 @@ public partial class GameManager : Node
         EmitSignal(SignalName.EnemyHitPlayer, hitInfo);
         _playerHealth.UpdatePlayerHealthLabel(player.Health);
 
-        if (player.State != PlayerState.Dead)
-        {
-            _playerHitTimer.Start();
-        }
-        else
+        if (player.State == PlayerState.Dead)
         {
             Engine.TimeScale = 0.75d;
             _playerDeathTimer.Start();
-        }
+        }        
     }
 
     public void OnPlayerHitEnemy(HitInformation hitInfo)
@@ -115,6 +112,13 @@ public partial class GameManager : Node
             }
 
             EmitSignal(SignalName.PlayerHitMeowolasEnemy, hitInfo);
+
+            if (meowolasEnemy.Health == 1)
+            {
+                GD.Print("Boss fight!");
+                EmitSignal(SignalName.MeowolasEnemyRunAway);
+                _meowolasEnemyAndPlayerFightTimer.Stop();
+            }
         }
     }
 
@@ -122,5 +126,16 @@ public partial class GameManager : Node
     {
         Engine.TimeScale = 1d;
         GetTree().ReloadCurrentScene();
+    }
+
+    public void OnLevelMeowolasEnemyFightStart()
+    {
+        _meowolasEnemyAndPlayerFightTimer.Start();
+    }
+
+    private void OnMeowolasEnemyAndPlayerFightTimerTimeout()
+    {
+        GD.Print("End of fight!");
+        EmitSignal(SignalName.MeowolasEnemyRunAway);
     }
 }
