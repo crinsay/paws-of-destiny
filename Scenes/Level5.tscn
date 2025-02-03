@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://c83c5isikqdlx"]
+[gd_scene load_steps=14 format=4 uid="uid://c83c5isikqdlx"]
 
 [ext_resource type="PackedScene" uid="uid://y2c8dsi1ltud" path="res://Scenes/Player.tscn" id="4_h5xt4"]
 [ext_resource type="PackedScene" uid="uid://dsjqr8m254ndm" path="res://Scenes/LongPlatform.tscn" id="5_mtr8i"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cctoescqy1ard" path="res://Assets/Tilesets/SurroundingTileset.png" id="6_xj81d"]
 [ext_resource type="PackedScene" uid="uid://dtcyqk5rrbm7d" path="res://Scenes/BallSpikes.tscn" id="7_5rke4"]
 [ext_resource type="Texture2D" uid="uid://c077vjbaavym8" path="res://Assets/Tilesets/WallsAccesoriesTileset.png" id="7_j8q14"]
+[ext_resource type="PackedScene" uid="uid://ck4p41k6co4wn" path="res://Scenes/Key.tscn" id="8_rc46a"]
 [ext_resource type="PackedScene" uid="uid://ch1xg5kqa1xmy" path="res://Scenes/Doors.tscn" id="8_x6b1m"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c7wxq"]
@@ -365,3 +366,12 @@ curve = SubResource("Curve2D_7d4a1")
 
 [node name="BallSpikes" parent="Path2D" instance=ExtResource("7_5rke4")]
 position = Vector2(245, 397)
+
+[node name="Key" parent="Path2D" instance=ExtResource("8_rc46a")]
+position = Vector2(1034, 290)
+
+[node name="Key2" parent="Path2D" instance=ExtResource("8_rc46a")]
+position = Vector2(1034, 290)
+
+[node name="Key3" parent="Path2D" instance=ExtResource("8_rc46a")]
+position = Vector2(1034, 290)
