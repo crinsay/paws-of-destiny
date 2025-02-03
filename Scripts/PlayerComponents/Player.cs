@@ -50,6 +50,9 @@ public partial class Player : CharacterBody2D
         _gameManager.Connect(GameManager.SignalName.EnemyHitPlayer,
            new Callable(this, nameof(OnGameManagerEnemyHitPlayer)));
 
+        _gameManager.Connect(GameManager.SignalName.PlayerCollectHeart,
+            new Callable(this, nameof(OnGameManagerPlayerCollectHeart)));
+
         _playerStats = GetNode<PlayerStats>("/root/PlayerStats");
         Health = _playerStats.Health;
 
@@ -215,4 +218,11 @@ public partial class Player : CharacterBody2D
         _animatedSprite2D.Modulate = new Color(1.0f, 1.0f, 1.0f);
         CanBeHit = true;
     }
+
+    private void OnGameManagerPlayerCollectHeart()
+    {
+        _playerStats.Health++;
+        Health = _playerStats.Health;
+    }
+
 }

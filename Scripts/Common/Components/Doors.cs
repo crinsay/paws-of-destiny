@@ -13,14 +13,12 @@ public partial class Doors : Area2D
     public override void _Ready()
     {
         _gameManager = GetNode<GameManager>("/root/GameManager");
-        //gameManagerSingleton.DoorsCreated(this);
     }
 
     private void OnDoorsBodyEntered(Node2D body)
     {
         if (body is Player)
         {
-            GD.Print("on area entered");
             _gameManager.CallDeferred(nameof(_gameManager.LoadNextLevel));
         }
         else if (body is MeowolasEnemy meowolasEnemy)

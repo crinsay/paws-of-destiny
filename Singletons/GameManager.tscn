@@ -15,9 +15,14 @@ script = ExtResource("1_n133e")
 wait_time = 1.5
 one_shot = true
 
+[node name="PlayerHitBySpikeTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [node name="MeowolasEnemyAndPlayerFightTimer" type="Timer" parent="."]
 wait_time = 20.0
 one_shot = true
 
 [connection signal="timeout" from="PlayerDeathTimer" to="." method="OnPlayerDeathTimerTimeout"]
+[connection signal="timeout" from="PlayerHitBySpikeTimer" to="." method="OnPlayerHitBySpikeTimerTimeout"]
 [connection signal="timeout" from="MeowolasEnemyAndPlayerFightTimer" to="." method="OnMeowolasEnemyAndPlayerFightTimerTimeout"]
