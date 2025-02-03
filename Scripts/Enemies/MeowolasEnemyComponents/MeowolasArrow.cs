@@ -1,6 +1,5 @@
 using Godot;
 using PawsOfDestiny.Scripts.Common;
-using PawsOfDestiny.Scripts.Game.GameManagerComponents;
 using PawsOfDestiny.Scripts.PlayerComponents;
 using System;
 
