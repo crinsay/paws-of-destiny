@@ -1,19 +1,22 @@
 using Godot;
+using PawsOfDestiny.Singletons;
 using System;
+
+namespace PawsOfDestiny.Scripts.Common;
 
 public partial class Doors : Area2D
 {
-    private GameManagerSingleton _gameManagerSingleton;
+    private GameManager _gameManager;
 
     public override void _Ready()
     {
-        _gameManagerSingleton = GetNode<GameManagerSingleton>("/root/GameManagerSingleton");
+        _gameManager = GetNode<GameManager>("/root/GameManager");
         //gameManagerSingleton.DoorsCreated(this);
     }
 
-    private void OnDoorsBodyEntered(Node2D node)
+    private void OnDoorsBodyEntered(Node2D _)
     {
         GD.Print("on area entered");
-        _gameManagerSingleton.LoadNextLevel();
+        _gameManager.CallDeferred(nameof(_gameManager.LoadNextLevel));
     }
 }

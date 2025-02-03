@@ -371,8 +371,9 @@ radius = 202.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_3mtwu"]
 radius = 157.115
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_uifbw"]
-radius = 88.0057
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jpaq4"]
+radius = 25.7143
+height = 146.286
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5irmp"]
 radius = 7.0
@@ -411,7 +412,9 @@ _data = {
 }
 
 [node name="MeowolasEnemy" type="CharacterBody2D"]
+scale = Vector2(1.75, 1.75)
 collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_1crw7")
 ArrowsScene = ExtResource("2_i4ga1")
 
@@ -475,7 +478,8 @@ shape = SubResource("CircleShape2D_3mtwu")
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WantToAttackRange"]
-shape = SubResource("CircleShape2D_uifbw")
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_jpaq4")
 
 [node name="AttackDecisionRange" type="Area2D" parent="."]
 collision_mask = 2

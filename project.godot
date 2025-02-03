@@ -17,7 +17,9 @@ config/icon="res://Assets/icon.svg"
 
 [autoload]
 
-GameManagerSingleton="*res://Singletons/GameManagerSingleton.cs"
+GameManager="*res://Singletons/GameManager.tscn"
+PlayerStats="*res://Singletons/PlayerStats.cs"
+MeowolasEnemyStats="*res://Singletons/MeowolasEnemyStats.cs"
 
 [dotnet]
 

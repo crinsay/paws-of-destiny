@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=4 uid="uid://dner4lor3sqhi"]
+[gd_scene load_steps=75 format=4 uid="uid://dner4lor3sqhi"]
 
 [ext_resource type="PackedScene" uid="uid://y2c8dsi1ltud" path="res://Scenes/Player.tscn" id="4_ighji"]
 [ext_resource type="Texture2D" uid="uid://2by6ux311p0t" path="res://Assets/Tilesets/ObjectsTileset.png" id="5_pmnle"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://ck4p41k6co4wn" path="res://Scenes/Key.tscn" id="10_bi5my"]
 [ext_resource type="PackedScene" uid="uid://cdoogeinuvkmb" path="res://Scenes/MovingMediumPlatform.tscn" id="11_yq525"]
 [ext_resource type="PackedScene" uid="uid://v24gc8rrhei5" path="res://Scenes/MovingShortPlatform.tscn" id="12_8efpt"]
+[ext_resource type="PackedScene" uid="uid://xyyu4et73e4g" path="res://Scenes/MeowolasEnemy.tscn" id="13_wrgud"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vuqpu"]
 texture = ExtResource("5_pmnle")
@@ -916,7 +917,7 @@ metadata/_edit_lock_ = true
 
 [node name="Player" parent="." instance=ExtResource("4_ighji")]
 z_index = 100
-position = Vector2(-448, -1008)
+position = Vector2(1256, -1048)
 scale = Vector2(0.25, 0.25)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
@@ -1230,3 +1231,6 @@ position = Vector2(1216, -496)
 
 [node name="Doors" parent="." instance=ExtResource("8_ifr8t")]
 position = Vector2(-368, -1016)
+
+[node name="MeowolasEnemy" parent="." instance=ExtResource("13_wrgud")]
+position = Vector2(896, -872)
