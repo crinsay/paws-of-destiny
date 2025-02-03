@@ -1,0 +1,328 @@
+[gd_scene load_steps=59 format=3 uid="uid://ckei1rgvimrnd"]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/MeowtarTheBlueEnemyComponents/MeowtarTheBlueEnemy.cs" id="1_6qrmi"]
+[ext_resource type="Texture2D" uid="uid://dlycooct3xc55" path="res://Assets/MeowtarTheBlue/ChangedAttack1/MeowTarTheBlue15.png" id="2_w5g1w"]
+[ext_resource type="Texture2D" uid="uid://bmeruke735u36" path="res://Assets/MeowtarTheBlue/ChangedAttack1/MeowTarTheBlue16.png" id="3_4du0r"]
+[ext_resource type="Texture2D" uid="uid://c3ocnpb3s6ot6" path="res://Assets/MeowtarTheBlue/ChangedAttack1/MeowTarTheBlue17.png" id="4_wovy4"]
+[ext_resource type="Texture2D" uid="uid://caak5evn4imdu" path="res://Assets/MeowtarTheBlue/ChangedAttack1/MeowTarTheBlue18.png" id="5_dj52d"]
+[ext_resource type="Texture2D" uid="uid://dlnkg3ralh5up" path="res://Assets/MeowtarTheBlue/ChangedAttack1/MeowTarTheBlue19.png" id="6_y8t4a"]
+[ext_resource type="Texture2D" uid="uid://bcx8kk1f3rost" path="res://Assets/MeowtarTheBlue/ChangedAttack2/MeowTarTheBlue25.png" id="7_8nk50"]
+[ext_resource type="Texture2D" uid="uid://ympjkrpxsj4c" path="res://Assets/MeowtarTheBlue/ChangedAttack2/MeowTarTheBlue26.png" id="8_pjsm7"]
+[ext_resource type="Texture2D" uid="uid://b7lxwx6kdke38" path="res://Assets/MeowtarTheBlue/ChangedAttack2/MeowTarTheBlue27.png" id="9_43rqs"]
+[ext_resource type="Texture2D" uid="uid://dwp5a1c5rpj1v" path="res://Assets/MeowtarTheBlue/ChangedAttack2/MeowTarTheBlue28.png" id="10_x6esx"]
+[ext_resource type="Texture2D" uid="uid://cvbxadqlf3pmk" path="res://Assets/MeowtarTheBlue/ChangedAttack2/MeowTarTheBlue29.png" id="11_lieox"]
+[ext_resource type="Texture2D" uid="uid://b0e1y42xevp8d" path="res://Assets/MeowtarTheBlue/ChangedAttack2/MeowTarTheBlue30.png" id="12_3mj1c"]
+[ext_resource type="Texture2D" uid="uid://bn53q8nek70mb" path="res://Assets/MeowtarTheBlue/ChangedAttack2/MeowTarTheBlue31.png" id="13_lm24p"]
+[ext_resource type="Texture2D" uid="uid://bp08ylg4jbolx" path="res://Assets/MeowtarTheBlue/ChangedAttack2/MeowTarTheBlue32.png" id="14_rcu4v"]
+[ext_resource type="Texture2D" uid="uid://dv7p4ptod3lv6" path="res://Assets/MeowtarTheBlue/ChangedAttack2/MeowTarTheBlue33.png" id="15_qbd6j"]
+[ext_resource type="Texture2D" uid="uid://c6y6sd3nrow76" path="res://Assets/MeowtarTheBlue/ChangedDeath/MeowTarTheBlue43.png" id="26_h37jb"]
+[ext_resource type="Texture2D" uid="uid://csbnobcxvngiq" path="res://Assets/MeowtarTheBlue/ChangedDeath/MeowTarTheBlue44.png" id="27_afjkp"]
+[ext_resource type="Texture2D" uid="uid://bj2muq4p004ge" path="res://Assets/MeowtarTheBlue/ChangedDeath/MeowTarTheBlue45.png" id="28_0jx8a"]
+[ext_resource type="Texture2D" uid="uid://hsjr8bvqo0lr" path="res://Assets/MeowtarTheBlue/ChangedDeath/MeowTarTheBlue46.png" id="29_k3vx8"]
+[ext_resource type="Texture2D" uid="uid://b2nj14hhryynl" path="res://Assets/MeowtarTheBlue/ChangedDeath/MeowTarTheBlue47.png" id="30_5uawg"]
+[ext_resource type="Texture2D" uid="uid://nhnn3fr7e82h" path="res://Assets/MeowtarTheBlue/ChangedDeath/MeowTarTheBlue48.png" id="31_r1hba"]
+[ext_resource type="Texture2D" uid="uid://dun8sc1m1advq" path="res://Assets/MeowtarTheBlue/ChangedDeath/MeowTarTheBlue49.png" id="32_un3nc"]
+[ext_resource type="Texture2D" uid="uid://cpoqjek3neiit" path="res://Assets/MeowtarTheBlue/ChangedDeath/MeowTarTheBlue50.png" id="33_j6xg3"]
+[ext_resource type="Texture2D" uid="uid://deusay65y4b0i" path="res://Assets/MeowtarTheBlue/ChangedDeath/MeowTarTheBlue51.png" id="34_1tyfc"]
+[ext_resource type="Texture2D" uid="uid://dbevcsjtr0mdw" path="res://Assets/MeowtarTheBlue/ChangedDeath/MeowTarTheBlue52.png" id="35_ovbup"]
+[ext_resource type="Texture2D" uid="uid://c8xsi11dhh7m7" path="res://Assets/MeowtarTheBlue/ChangedDodge/MeowTarTheBlue1.png" id="36_cxww7"]
+[ext_resource type="Texture2D" uid="uid://cebjlm44ejiog" path="res://Assets/MeowtarTheBlue/ChangedDodge/MeowTarTheBlue2.png" id="37_8kn1a"]
+[ext_resource type="Texture2D" uid="uid://c57j4q7ui4lmv" path="res://Assets/MeowtarTheBlue/ChangedDodge/MeowTarTheBlue3.png" id="38_6y3wy"]
+[ext_resource type="Texture2D" uid="uid://c53eo4hbw2cuo" path="res://Assets/MeowtarTheBlue/ChangedDodge/MeowTarTheBlue4.png" id="39_8md3y"]
+[ext_resource type="Texture2D" uid="uid://dkl4wymbvdb41" path="res://Assets/MeowtarTheBlue/ChangedDodge/MeowTarTheBlue5.png" id="40_p6mvc"]
+[ext_resource type="Texture2D" uid="uid://dwteisb2x84ve" path="res://Assets/MeowtarTheBlue/ChangedDodge/MeowTarTheBlue6.png" id="41_hp44n"]
+[ext_resource type="Texture2D" uid="uid://0ph22868fwj" path="res://Assets/MeowtarTheBlue/ChangedDodge/MeowTarTheBlue7.png" id="42_u4sij"]
+[ext_resource type="Texture2D" uid="uid://curlqn2c85bb4" path="res://Assets/MeowtarTheBlue/ChangedDodge/MeowTarTheBlue8.png" id="43_o6phk"]
+[ext_resource type="Texture2D" uid="uid://b8ckmvfunpldq" path="res://Assets/MeowtarTheBlue/ChangedDodge/MeowTarTheBlue9.png" id="44_s4mqt"]
+[ext_resource type="Texture2D" uid="uid://17ocpmr00e5p" path="res://Assets/MeowtarTheBlue/ChangedDodge/MeowTarTheBlue10.png" id="45_e0vcj"]
+[ext_resource type="Texture2D" uid="uid://jt8ce6gyd354" path="res://Assets/MeowtarTheBlue/ChangedDodge/MeowTarTheBlue11.png" id="46_5lrx5"]
+[ext_resource type="Texture2D" uid="uid://bum0faeh7e262" path="res://Assets/MeowtarTheBlue/ChangedDodge/MeowTarTheBlue12.png" id="47_4g0f1"]
+[ext_resource type="Texture2D" uid="uid://c4ubiyjxabx4y" path="res://Assets/MeowtarTheBlue/ChangedDodge/MeowTarTheBlue13.png" id="48_51v4b"]
+[ext_resource type="Texture2D" uid="uid://c28oakyhsw7ri" path="res://Assets/MeowtarTheBlue/ChangedDodge/MeowTarTheBlue14.png" id="49_ketgx"]
+[ext_resource type="Texture2D" uid="uid://be3hg5lc88miv" path="res://Assets/MeowtarTheBlue/ChangedFireball/MeowTarTheBlue20.png" id="50_pfy46"]
+[ext_resource type="Texture2D" uid="uid://uq4irqikqxyx" path="res://Assets/MeowtarTheBlue/ChangedFireball/MeowTarTheBlue21.png" id="51_alghb"]
+[ext_resource type="Texture2D" uid="uid://6vifjsnc5aaj" path="res://Assets/MeowtarTheBlue/ChangedFireball/MeowTarTheBlue22.png" id="52_iv45p"]
+[ext_resource type="Texture2D" uid="uid://b5n7atlviyhpk" path="res://Assets/MeowtarTheBlue/ChangedFireball/MeowTarTheBlue23.png" id="53_0rhci"]
+[ext_resource type="Texture2D" uid="uid://dkohmp7kgyjxu" path="res://Assets/MeowtarTheBlue/ChangedFireball/MeowTarTheBlue24.png" id="54_mjdvh"]
+[ext_resource type="Texture2D" uid="uid://co5cqvdqa6l54" path="res://Assets/MeowtarTheBlue/ChangedHealing/MeowTarTheBlue34.png" id="55_i7h1d"]
+[ext_resource type="Texture2D" uid="uid://cempqd38beuo2" path="res://Assets/MeowtarTheBlue/ChangedHealing/MeowTarTheBlue35.png" id="56_50vfb"]
+[ext_resource type="Texture2D" uid="uid://c3sqbjl3n3im7" path="res://Assets/MeowtarTheBlue/ChangedHealing/MeowTarTheBlue36.png" id="57_f2cyu"]
+[ext_resource type="Texture2D" uid="uid://b5lx5ygek5lot" path="res://Assets/MeowtarTheBlue/ChangedHealing/MeowTarTheBlue37.png" id="58_4qbvc"]
+[ext_resource type="Texture2D" uid="uid://cnxtrgkak0x68" path="res://Assets/MeowtarTheBlue/ChangedHealing/MeowTarTheBlue38.png" id="59_ufivl"]
+[ext_resource type="Texture2D" uid="uid://cvk4ttb0wa10e" path="res://Assets/MeowtarTheBlue/ChangedHealing/MeowTarTheBlue39.png" id="60_woh6h"]
+[ext_resource type="Texture2D" uid="uid://boibtancu64ep" path="res://Assets/MeowtarTheBlue/ChangedTakeDamage/MeowTarTheBlue40.png" id="98_j3vrk"]
+[ext_resource type="Texture2D" uid="uid://8oju0kx7jpca" path="res://Assets/MeowtarTheBlue/ChangedTakeDamage/MeowTarTheBlue41.png" id="99_qfrix"]
+[ext_resource type="Texture2D" uid="uid://tash5b1mjqfw" path="res://Assets/MeowtarTheBlue/ChangedTakeDamage/MeowTarTheBlue42.png" id="100_bxxuh"]
+[ext_resource type="PackedScene" uid="uid://dwepbn264tdju" path="res://Scenes/HealthBar.tscn" id="105_y3lvr"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jaakf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_w5g1w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_4du0r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_wovy4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_dj52d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_y8t4a")
+}],
+"loop": true,
+"name": &"Attack1",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_8nk50")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_pjsm7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_43rqs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_x6esx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_lieox")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_3mj1c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_lm24p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_rcu4v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_qbd6j")
+}],
+"loop": false,
+"name": &"Attack2",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("26_h37jb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_afjkp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_0jx8a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_k3vx8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_5uawg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_r1hba")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_un3nc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_j6xg3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_1tyfc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_ovbup")
+}],
+"loop": false,
+"name": &"Death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("36_cxww7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_8kn1a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_6y3wy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_8md3y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_p6mvc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_hp44n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_u4sij")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_o6phk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_s4mqt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_e0vcj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_5lrx5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_4g0f1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_51v4b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("49_ketgx")
+}],
+"loop": false,
+"name": &"Dodge",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("50_pfy46")
+}, {
+"duration": 1.0,
+"texture": ExtResource("51_alghb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("52_iv45p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("53_0rhci")
+}, {
+"duration": 1.0,
+"texture": ExtResource("54_mjdvh")
+}],
+"loop": true,
+"name": &"FireBall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("55_i7h1d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("56_50vfb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("57_f2cyu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("58_4qbvc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("59_ufivl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("60_woh6h")
+}],
+"loop": true,
+"name": &"Healing",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("98_j3vrk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("99_qfrix")
+}, {
+"duration": 1.0,
+"texture": ExtResource("100_bxxuh")
+}],
+"loop": false,
+"name": &"TakeDamage",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mnmvw"]
+radius = 2.85714
+height = 12.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xqi20"]
+radius = 226.312
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3m4l7"]
+radius = 23.4286
+height = 92.5714
+
+[node name="MeowtarTheBlueEnemy" type="CharacterBody2D"]
+scale = Vector2(1.75, 1.75)
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_6qrmi")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(3.8147e-06, -1.90735e-06)
+sprite_frames = SubResource("SpriteFrames_jaakf")
+animation = &"Attack1"
+autoplay = "Attack1"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(5.96046e-08, 1.19209e-07)
+shape = SubResource("CapsuleShape2D_mnmvw")
+
+[node name="HealthbarCanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HealthBar" parent="HealthbarCanvasLayer" instance=ExtResource("105_y3lvr")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -199.0
+offset_top = -51.0
+offset_right = 380.0
+offset_bottom = -26.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="BossName" type="Label" parent="HealthbarCanvasLayer"]
+offset_left = 377.0
+offset_top = 572.0
+offset_right = 510.0
+offset_bottom = 595.0
+text = "MeowtarTheBlue"
+
+[node name="FireballRange" type="Area2D" parent="."]
+position = Vector2(8, 2.28571)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FireballRange"]
+position = Vector2(-8, -2.28571)
+shape = SubResource("CircleShape2D_xqi20")
+
+[node name="GroundFireAttackOrDodgeRangeDecision" type="Area2D" parent="."]
+position = Vector2(32.5714, -6.28571)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GroundFireAttackOrDodgeRangeDecision"]
+position = Vector2(-32.5714, 6.28571)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_3m4l7")
+
+[node name="StateForDebug" type="Label" parent="."]
+offset_left = -59.4286
+offset_top = -16.5714
+offset_right = -19.4286
+offset_bottom = 6.42857
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="OnAnimatedSprite2DAnimationFinished"]
+[connection signal="body_entered" from="GroundFireAttackOrDodgeRangeDecision" to="." method="OnGroundFireAttackOrDodgeRangeDecisionBodyEntered"]
+[connection signal="body_exited" from="GroundFireAttackOrDodgeRangeDecision" to="." method="OnGroundFireAttackOrDodgeRangeDecisionBodyExited"]
