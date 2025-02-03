@@ -1,6 +1,7 @@
 using Godot;
 using PawsOfDestiny.Scripts.Common;
 using PawsOfDestiny.Scripts.Common.Components;
+using PawsOfDestiny.Scripts.Enemies.MeowtarTheBlueEnemyComponents;
 using PawsOfDestiny.Scripts.PlayerComponents;
 using PawsOfDestiny.Singletons;
 using System;
@@ -93,31 +94,29 @@ public partial class MeowolasEnemy : CharacterBody2D
         {
             HandleKnockback(ref velocity);
         }
-        else if (State != MeowolasState.Kick && State != MeowolasState.TakeDamage && State != MeowolasState.Dodge)
+
+        switch(State)
         {
-            switch(State)
-            {
-                case MeowolasState.Patrol:
-                    HandlePatrol(ref velocity);
-                    break;
-                case MeowolasState.Chase:
-                    HandleChase(ref velocity);
-                    break;
-                case MeowolasState.Shoot:
-                    HandleShoot(ref velocity);
-                    break;
-                case MeowolasState.WantToAttack:
-                    HandleWantToAttack(ref velocity);
-                    break;
-                case MeowolasState.RunAway:
-                    HandleRunAway(ref velocity);
-                    break;
-                case MeowolasState.Death:
-                    HandleDeath(ref velocity);
-                    break;
-                default:
-                    break;
-            }
+            case MeowolasState.Patrol:
+                HandlePatrol(ref velocity);
+                break;
+            case MeowolasState.Chase:
+                HandleChase(ref velocity);
+                break;
+            case MeowolasState.Shoot:
+                HandleShoot(ref velocity);
+                break;
+            case MeowolasState.WantToAttack:
+                HandleWantToAttack(ref velocity);
+                break;
+            case MeowolasState.RunAway:
+                HandleRunAway(ref velocity);
+                break;
+            case MeowolasState.Death:
+                HandleDeath(ref velocity);
+                break;
+            default:
+                break;
         }
         
         Velocity = velocity;
@@ -203,6 +202,7 @@ public partial class MeowolasEnemy : CharacterBody2D
 
         //Animation and direction:
         SetDirectionTowardPlayer();
+        _animationPlayer.Stop();
         _kick.Scale = _moveDirection == Direction.Left ? new Vector2(-1, 1) : new Vector2(1, 1);
         _animationPlayer.Play("Kick");
         PlayAnimation(MeowolasEnemyConstants.Animations.Attack3);
@@ -243,11 +243,12 @@ public partial class MeowolasEnemy : CharacterBody2D
     {
         _hitInfo = hitInfo;
 
-        _meowolasStats.Health -= Damage;
+        _meowolasStats.Health -= _hitInfo.Damage;
         Health = _meowolasStats.Health;
         _healthBar.Health = Health;
         if (Health > 0)
         {
+            _stateForDebug.Text = nameof(MeowolasState.TakeDamage);
             State = MeowolasState.TakeDamage;
             PlayAnimation(MeowolasEnemyConstants.Animations.TakeDamage);
             _isEnemyJustHit = true;

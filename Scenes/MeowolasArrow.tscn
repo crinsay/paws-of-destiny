@@ -34,7 +34,7 @@ script = ExtResource("1_35vje")
 sprite_frames = SubResource("SpriteFrames_smp4w")
 animation = &"Fly"
 autoplay = "Fly"
-frame_progress = 0.953391
+frame_progress = 0.536895
 
 [node name="ArrowHitBox" type="Area2D" parent="."]
 collision_layer = 0
