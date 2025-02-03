@@ -130,6 +130,11 @@ public partial class GameManager : Node
     public void OnSpikesHitPlayer(HitInformation hitInfo)
     {
         var player = hitInfo.Body as Player;
+        if (!player.CanBeHit)
+        {
+            return;
+        }
+
         EmitSignal(SignalName.EnemyHitPlayer, hitInfo);
         _playerHealth.UpdatePlayerHealthLabel(player.Health);
         if (player.State != PlayerState.Dead)
