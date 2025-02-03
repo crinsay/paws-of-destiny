@@ -252,7 +252,6 @@ autoplay = "Move"
 
 [node name="MeowolasEnemy" parent="." instance=ExtResource("9_sa2po")]
 position = Vector2(966, 328)
-scale = Vector2(1.75, 1.75)
 
 [node name="Doors" parent="." instance=ExtResource("12_cs4yp")]
 position = Vector2(133, 393)
