@@ -11,13 +11,13 @@ script = ExtResource("1_n133e")
 
 [node name="KeyCounter" parent="." instance=ExtResource("3_lu5q6")]
 
-[node name="PlayerHitTimer" type="Timer" parent="."]
-wait_time = 0.375
-one_shot = true
-
 [node name="PlayerDeathTimer" type="Timer" parent="."]
 wait_time = 1.5
 one_shot = true
 
-[connection signal="timeout" from="PlayerHitTimer" to="." method="OnPlayerHitTimerTimeout"]
+[node name="MeowolasEnemyAndPlayerFightTimer" type="Timer" parent="."]
+wait_time = 20.0
+one_shot = true
+
 [connection signal="timeout" from="PlayerDeathTimer" to="." method="OnPlayerDeathTimerTimeout"]
+[connection signal="timeout" from="MeowolasEnemyAndPlayerFightTimer" to="." method="OnMeowolasEnemyAndPlayerFightTimerTimeout"]
