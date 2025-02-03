@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://becv2pjtcsino"]
+
+[ext_resource type="Texture2D" uid="uid://be3hg5lc88miv" path="res://Assets/MeowtarTheBlue/ChangedFireball/MeowTarTheBlue20.png" id="1_aib1c"]
+[ext_resource type="Script" path="res://Scripts/Enemies/MeowtarTheBlueEnemyComponents/MeowtarTheBlueFireball.cs" id="1_dqliw"]
+[ext_resource type="Texture2D" uid="uid://uq4irqikqxyx" path="res://Assets/MeowtarTheBlue/ChangedFireball/MeowTarTheBlue21.png" id="2_vs1qo"]
+[ext_resource type="Texture2D" uid="uid://6vifjsnc5aaj" path="res://Assets/MeowtarTheBlue/ChangedFireball/MeowTarTheBlue22.png" id="3_ga74o"]
+[ext_resource type="Texture2D" uid="uid://b5n7atlviyhpk" path="res://Assets/MeowtarTheBlue/ChangedFireball/MeowTarTheBlue23.png" id="4_es5s0"]
+[ext_resource type="Texture2D" uid="uid://dkohmp7kgyjxu" path="res://Assets/MeowtarTheBlue/ChangedFireball/MeowTarTheBlue24.png" id="5_uye3m"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5rofl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_aib1c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_vs1qo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ga74o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_es5s0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_uye3m")
+}],
+"loop": true,
+"name": &"Fly",
+"speed": 7.5
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_as8cr"]
+radius = 3.0
+
+[node name="MeowtarTheBlueFireball" type="Node2D" groups=["MeowtarTheBlueFireballs"]]
+top_level = true
+script = ExtResource("1_dqliw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1.75, 1.75)
+sprite_frames = SubResource("SpriteFrames_5rofl")
+animation = &"Fly"
+autoplay = "Fly"
+frame_progress = 0.855807
+
+[node name="FireballHitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 3
+
+[node name="FireballCollisionShape" type="CollisionShape2D" parent="FireballHitbox"]
+position = Vector2(1, 2)
+shape = SubResource("CircleShape2D_as8cr")
+
+[connection signal="body_entered" from="FireballHitbox" to="." method="OnFireballHitboxBodyEntered"]

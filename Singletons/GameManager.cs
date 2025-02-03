@@ -6,6 +6,8 @@ using PawsOfDestiny.Scripts.Game;
 using PawsOfDestiny.Scripts.PlayerComponents;
 using System;
 using System.Collections.Generic;
+using PawsOfDestiny.Scripts.Enemies.MeowtarTheBlueComponents;
+using PawsOfDestiny.Scripts.Common.MeowtarTheBlueComponents;
 
 namespace PawsOfDestiny.Singletons;
 
@@ -15,6 +17,8 @@ public partial class GameManager : Node
     public delegate void EnemyHitPlayerEventHandler(HitInformation hitInfo);
     [Signal]
     public delegate void PlayerHitMeowolasEnemyEventHandler(HitInformation hitInfo);
+    [Signal]
+    public delegate void PlayerHitMeowtarTheBlueEnemyEventHandler(HitInformation hitInfo);
     [Signal]
     public delegate void MeowolasEnemyRunAwayEventHandler();
 
@@ -84,6 +88,14 @@ public partial class GameManager : Node
             new Callable(this, nameof(OnEnemyHitPlayer)));
     }
 
+    public void OnMeowtarTheBlueEnemyNewFireballInstantiated(Node2D newFireball)
+    {
+        var fireball = newFireball as MeowtarTheBlueFireball;
+
+        fireball.Connect(MeowtarTheBlueFireball.SignalName.EnemyHitPlayer,
+            new Callable(this, nameof(OnEnemyHitPlayer)));
+    }
+
     public void OnEnemyHitPlayer(HitInformation hitInfo) //Body is an enemy object that hit the player (for example MewolasArrow)
     {
         var player = hitInfo.Body as Player;
@@ -104,21 +116,30 @@ public partial class GameManager : Node
 
     public void OnPlayerHitEnemy(HitInformation hitInfo)
     {
-        if (hitInfo.Body is MeowolasEnemy meowolasEnemy)
+        if (hitInfo.Body is MeowolasEnemy meowolas)
         {
-            if (!meowolasEnemy.CanBeHit)
+            if (!meowolas.CanBeHit)
             {
                 return;
             }
 
             EmitSignal(SignalName.PlayerHitMeowolasEnemy, hitInfo);
 
-            if (meowolasEnemy.Health == 1)
+            if (meowolas.Health == 1)
             {
                 GD.Print("Boss fight!");
                 EmitSignal(SignalName.MeowolasEnemyRunAway);
                 _meowolasEnemyAndPlayerFightTimer.Stop();
             }
+        }
+        else if (hitInfo.Body is MeowtarTheBlueEnemy meowtarTheBlue)
+        {
+            if (!meowtarTheBlue.CanBeHit)
+            {  
+                return; 
+            }
+
+            EmitSignal(SignalName.PlayerHitMeowtarTheBlueEnemy, hitInfo);
         }
     }
 
