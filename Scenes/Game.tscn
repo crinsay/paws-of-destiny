@@ -1,7 +1,6 @@
-[gd_scene load_steps=19 format=4 uid="uid://dxftpxlghub0w"]
+[gd_scene load_steps=17 format=4 uid="uid://dxftpxlghub0w"]
 
 [ext_resource type="PackedScene" uid="uid://y2c8dsi1ltud" path="res://Scenes/Player.tscn" id="1_2lsu1"]
-[ext_resource type="Script" path="res://Scripts/Game/GameManagerComponents/GameManager.cs" id="1_8w1n6"]
 [ext_resource type="Texture2D" uid="uid://2by6ux311p0t" path="res://Assets/Tilesets/ObjectsTileset.png" id="2_j17lo"]
 [ext_resource type="Texture2D" uid="uid://cctoescqy1ard" path="res://Assets/Tilesets/SurroundingTileset.png" id="3_drlhd"]
 [ext_resource type="Texture2D" uid="uid://c077vjbaavym8" path="res://Assets/Tilesets/WallsAccesoriesTileset.png" id="4_e3yne"]
@@ -9,8 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://b56jkl2sgm65i" path="res://Scenes/MovingLongPlatform.tscn" id="6_lg2se"]
 [ext_resource type="PackedScene" uid="uid://ck4p41k6co4wn" path="res://Scenes/Key.tscn" id="7_d0b3x"]
 [ext_resource type="PackedScene" uid="uid://xyyu4et73e4g" path="res://Scenes/MeowolasEnemy.tscn" id="9_sa2po"]
-[ext_resource type="PackedScene" uid="uid://coneacdb1i6t3" path="res://Scenes/PlayerHealth.tscn" id="11_1rpic"]
-[ext_resource type="PackedScene" uid="uid://bns5pow3xoec7" path="res://Scenes/KeyCounter.tscn" id="11_tdom2"]
+[ext_resource type="PackedScene" uid="uid://ch1xg5kqa1xmy" path="res://Scenes/Doors.tscn" id="12_cs4yp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vuqpu"]
 texture = ExtResource("2_j17lo")
@@ -213,22 +211,6 @@ _data = {
 
 [node name="World" type="Node2D"]
 
-[node name="GameManager" type="Node" parent="."]
-unique_name_in_owner = true
-script = ExtResource("1_8w1n6")
-
-[node name="PlayerHealth" parent="GameManager" instance=ExtResource("11_1rpic")]
-
-[node name="KeyCounter" parent="GameManager" instance=ExtResource("11_tdom2")]
-
-[node name="PlayerHitTimer" type="Timer" parent="GameManager"]
-wait_time = 0.375
-one_shot = true
-
-[node name="PlayerDeathTimer" type="Timer" parent="GameManager"]
-wait_time = 1.5
-one_shot = true
-
 [node name="Player" parent="." instance=ExtResource("1_2lsu1")]
 z_index = 100
 position = Vector2(157, 395)
@@ -272,12 +254,5 @@ autoplay = "Move"
 position = Vector2(966, 328)
 scale = Vector2(1.75, 1.75)
 
-[connection signal="EnemyHitPlayer" from="GameManager" to="Player" method="OnGameManagerEnemyHitPlayer"]
-[connection signal="PlayerHitMeowolasEnemy" from="GameManager" to="MeowolasEnemy" method="OnGameManagerPlayerHitMeowolasEnemy"]
-[connection signal="timeout" from="GameManager/PlayerHitTimer" to="GameManager" method="OnPlayerHitTimerTimeout"]
-[connection signal="timeout" from="GameManager/PlayerDeathTimer" to="GameManager" method="OnPlayerDeathTimerTimeout"]
-[connection signal="PlayerHitEnemy" from="Player" to="GameManager" method="OnPlayerHitEnemy"]
-[connection signal="KeyCollected" from="Keys/Key" to="GameManager" method="OnKeyCollected"]
-[connection signal="KeyCollected" from="Keys/Key2" to="GameManager" method="OnKeyCollected"]
-[connection signal="EnemyHitPlayer" from="MeowolasEnemy" to="GameManager" method="OnEnemyHitPlayer"]
-[connection signal="NewArrowInstantiated" from="MeowolasEnemy" to="GameManager" method="OnMeowolasEnemyNewArrowInstantiated"]
+[node name="Doors" parent="." instance=ExtResource("12_cs4yp")]
+position = Vector2(133, 393)

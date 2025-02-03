@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://c1bjwb82uqd0r"]
+
+[ext_resource type="Script" path="res://Singletons/GameManager.cs" id="1_n133e"]
+[ext_resource type="PackedScene" uid="uid://coneacdb1i6t3" path="res://Scenes/PlayerHealth.tscn" id="2_hdi6k"]
+[ext_resource type="PackedScene" uid="uid://bns5pow3xoec7" path="res://Scenes/KeyCounter.tscn" id="3_lu5q6"]
+
+[node name="GameManager" type="Node"]
+script = ExtResource("1_n133e")
+
+[node name="PlayerHealth" parent="." instance=ExtResource("2_hdi6k")]
+
+[node name="KeyCounter" parent="." instance=ExtResource("3_lu5q6")]
+
+[node name="PlayerHitTimer" type="Timer" parent="."]
+wait_time = 0.375
+one_shot = true
+
+[node name="PlayerDeathTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[connection signal="timeout" from="PlayerHitTimer" to="." method="OnPlayerHitTimerTimeout"]
+[connection signal="timeout" from="PlayerDeathTimer" to="." method="OnPlayerDeathTimerTimeout"]
