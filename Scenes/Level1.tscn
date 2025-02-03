@@ -1250,6 +1250,6 @@ position = Vector2(1246, -1049)
 shape = SubResource("RectangleShape2D_4fnmq")
 
 [node name="MeowtarTheBlueEnemy" parent="." instance=ExtResource("15_d15tl")]
-position = Vector2(1083, -1000)
+position = Vector2(616, -865)
 
 [connection signal="body_entered" from="MeowolasFightStart" to="." method="OnMeowolasFightStartBodyEntered"]

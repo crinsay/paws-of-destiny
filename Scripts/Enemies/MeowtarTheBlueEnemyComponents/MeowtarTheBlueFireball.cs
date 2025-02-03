@@ -1,18 +1,17 @@
 using Godot;
-using PawsOfDestiny.Scripts.Common;
+using PawsOfDestiny.Scripts.Enemies.MeowolasEnemyComponents;
 using PawsOfDestiny.Scripts.Enemies.MeowtarTheBlueComponents;
 using PawsOfDestiny.Scripts.PlayerComponents;
 using System;
 
-namespace PawsOfDestiny.Scripts.Enemies.MeowolasEnemyComponents;
-
-public partial class MeowolasArrow : Node2D
+namespace PawsOfDestiny.Scripts.Common.MeowtarTheBlueComponents;
+public partial class MeowtarTheBlueFireball : Node2D
 {
-	[Signal]
+    [Signal]
     public delegate void EnemyHitPlayerEventHandler(HitInformation hitInfo);
 
     [Export]
-	public float Speed = 360.0f;
+    public float Speed = 360.0f;
     [Export]
     public float KnockbackStrength = 60.0f;
 
@@ -21,22 +20,22 @@ public partial class MeowolasArrow : Node2D
 
     public Vector2 Direction = Vector2.Zero;
 
-	public override void _Ready()
-	{
+    public override void _Ready()
+    {
         Rotation = Direction.Angle();
     }
 
     public override void _Process(double delta)
-	{
-		Position += Direction * Speed * (float)delta;
+    {
+        Position += Direction * Speed * (float)delta;
     }
 
-	private void OnArrowHitBoxBodyEntered(Node2D body)
-	{
-        if (body is not MeowolasEnemy && body is not MeowtarTheBlueEnemy)
-		{
-			if (body is Player)
-			{
+    private void OnFireballHitboxBodyEntered(Node2D body)
+    {
+        if (body is not MeowtarTheBlueEnemy && body is not MeowolasEnemy)
+        {
+            if (body is Player)
+            {
                 var hitInfo = new HitInformation
                 {
                     Body = body,
