@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=4 uid="uid://dner4lor3sqhi"]
+[gd_scene load_steps=86 format=4 uid="uid://dner4lor3sqhi"]
 
 [ext_resource type="PackedScene" uid="uid://y2c8dsi1ltud" path="res://Scenes/Player.tscn" id="4_ighji"]
 [ext_resource type="Texture2D" uid="uid://2by6ux311p0t" path="res://Assets/Tilesets/ObjectsTileset.png" id="5_pmnle"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://xyyu4et73e4g" path="res://Scenes/MeowolasEnemy.tscn" id="13_wrgud"]
 [ext_resource type="PackedScene" uid="uid://dtcyqk5rrbm7d" path="res://Scenes/BallSpikes.tscn" id="14_twhi6"]
 [ext_resource type="PackedScene" uid="uid://cvciw6s1wlgm1" path="res://Scenes/GroundSpikes.tscn" id="15_phj1n"]
+[ext_resource type="PackedScene" uid="uid://dydc3dtp5y0tb" path="res://Scenes/Heart.tscn" id="16_kreir"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vuqpu"]
 texture = ExtResource("5_pmnle")
@@ -1266,62 +1267,58 @@ position = Vector2(976, -496)
 [node name="LongPlatform22" parent="Platforms" instance=ExtResource("6_yus7x")]
 position = Vector2(1216, -496)
 
-[node name="Doors" parent="." instance=ExtResource("8_ifr8t")]
-position = Vector2(272, -1008)
+[node name="BallSpikes" type="Node" parent="."]
 
-[node name="Path2D" type="Path2D" parent="."]
+[node name="Path2D" type="Path2D" parent="BallSpikes"]
 position = Vector2(-16, 0)
 curve = SubResource("Curve2D_47d6c")
 
-[node name="BallSpikes" parent="Path2D" instance=ExtResource("14_twhi6")]
+[node name="BallSpikes" parent="BallSpikes/Path2D" instance=ExtResource("14_twhi6")]
 position = Vector2(1024, -256)
 
-[node name="Path2D4" type="Path2D" parent="."]
+[node name="Path2D4" type="Path2D" parent="BallSpikes"]
 position = Vector2(80, 0)
 curve = SubResource("Curve2D_mvr4v")
 
-[node name="BallSpikes" parent="Path2D4" instance=ExtResource("14_twhi6")]
+[node name="BallSpikes" parent="BallSpikes/Path2D4" instance=ExtResource("14_twhi6")]
 position = Vector2(768, -256)
 
-[node name="Path2D5" type="Path2D" parent="."]
+[node name="Path2D5" type="Path2D" parent="BallSpikes"]
 position = Vector2(48, 0)
 curve = SubResource("Curve2D_wlhl7")
 
-[node name="BallSpikes" parent="Path2D5" instance=ExtResource("14_twhi6")]
+[node name="BallSpikes" parent="BallSpikes/Path2D5" instance=ExtResource("14_twhi6")]
 position = Vector2(576, -256)
 
-[node name="Path2D6" type="Path2D" parent="."]
+[node name="Path2D6" type="Path2D" parent="BallSpikes"]
 curve = SubResource("Curve2D_qoja7")
 
-[node name="BallSpikes" parent="Path2D6" instance=ExtResource("14_twhi6")]
+[node name="BallSpikes" parent="BallSpikes/Path2D6" instance=ExtResource("14_twhi6")]
 position = Vector2(672, -472)
 
-[node name="Path2D7" type="Path2D" parent="."]
+[node name="Path2D7" type="Path2D" parent="BallSpikes"]
 curve = SubResource("Curve2D_7nxqo")
 
-[node name="BallSpikes" parent="Path2D7" instance=ExtResource("14_twhi6")]
+[node name="BallSpikes" parent="BallSpikes/Path2D7" instance=ExtResource("14_twhi6")]
 position = Vector2(800, -576)
 
-[node name="Path2D8" type="Path2D" parent="."]
+[node name="Path2D8" type="Path2D" parent="BallSpikes"]
 curve = SubResource("Curve2D_oggf6")
 
-[node name="BallSpikes" parent="Path2D8" instance=ExtResource("14_twhi6")]
+[node name="BallSpikes" parent="BallSpikes/Path2D8" instance=ExtResource("14_twhi6")]
 position = Vector2(928, -472)
 
-[node name="Path2D9" type="Path2D" parent="."]
+[node name="Path2D9" type="Path2D" parent="BallSpikes"]
 curve = SubResource("Curve2D_eof7f")
 
-[node name="BallSpikes" parent="Path2D9" instance=ExtResource("14_twhi6")]
+[node name="BallSpikes" parent="BallSpikes/Path2D9" instance=ExtResource("14_twhi6")]
 position = Vector2(1040, -576)
 
-[node name="Path2D10" type="Path2D" parent="."]
+[node name="Path2D10" type="Path2D" parent="BallSpikes"]
 curve = SubResource("Curve2D_adpfh")
 
-[node name="BallSpikes" parent="Path2D10" instance=ExtResource("14_twhi6")]
+[node name="BallSpikes" parent="BallSpikes/Path2D10" instance=ExtResource("14_twhi6")]
 position = Vector2(1160, -472)
-
-[node name="MeowolasEnemy" parent="." instance=ExtResource("13_wrgud")]
-position = Vector2(904, -864)
 
 [node name="GroundSpikes" type="Node" parent="."]
 
@@ -1663,6 +1660,23 @@ position = Vector2(1224, -456)
 
 [node name="GroundSpikes115" parent="GroundSpikes" instance=ExtResource("15_phj1n")]
 position = Vector2(1240, -456)
+
+[node name="Hearts" type="Node" parent="."]
+
+[node name="Heart" parent="Hearts" instance=ExtResource("16_kreir")]
+position = Vector2(832, -952)
+
+[node name="Heart2" parent="Hearts" instance=ExtResource("16_kreir")]
+position = Vector2(960, -952)
+
+[node name="Heart3" parent="Hearts" instance=ExtResource("16_kreir")]
+position = Vector2(896, -920)
+
+[node name="Doors" parent="." instance=ExtResource("8_ifr8t")]
+position = Vector2(272, -1008)
+
+[node name="MeowolasEnemy" parent="." instance=ExtResource("13_wrgud")]
+position = Vector2(904, -864)
 
 [node name="Player" parent="." instance=ExtResource("4_ighji")]
 z_index = 100

@@ -17,6 +17,8 @@ public partial class GameManager : Node
     public delegate void EnemyHitPlayerEventHandler(int damage);
     [Signal]
     public delegate void PlayerHitMeowolasEnemyEventHandler(int damage);
+    [Signal]
+    public delegate void PlayerCollectHeartEventHandler();
 
     private KeyCounter _keyCounter;
     private PlayerHealth _playerHealth;
@@ -152,5 +154,21 @@ public partial class GameManager : Node
         GetTree().ReloadCurrentScene();
         _collectedKeys = 0;
         _keyCounter.UpdateKeyCounter(_collectedKeys);
+    }
+
+    public void OnHeartCollected(Node2D body)
+    {
+        var player = body as Player;
+        EmitSignal(SignalName.PlayerCollectHeart);
+        _playerHealth.UpdatePlayerHealthLabel(player.Health);
+    }
+
+    public void PlayerHealthReset()
+    {
+        if (_collectedKeys == 3)
+        {
+            GetNode<PlayerStats>("/root/PlayerStats").Health = 9;
+            _playerHealth.UpdatePlayerHealthLabel(9);
+        }
     }
 }

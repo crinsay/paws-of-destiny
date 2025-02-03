@@ -414,7 +414,7 @@ _data = {
 [node name="MeowolasEnemy" type="CharacterBody2D"]
 scale = Vector2(1.75, 1.75)
 collision_layer = 2
-collision_mask = 5
+collision_mask = 13
 script = ExtResource("1_1crw7")
 ArrowsScene = ExtResource("2_i4ga1")
 

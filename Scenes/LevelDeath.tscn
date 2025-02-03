@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://cymgihwjy7iat"]
+[gd_scene load_steps=14 format=4 uid="uid://cymgihwjy7iat"]
 
 [ext_resource type="PackedScene" uid="uid://y2c8dsi1ltud" path="res://Scenes/Player.tscn" id="1_ork26"]
 [ext_resource type="Texture2D" uid="uid://2by6ux311p0t" path="res://Assets/Tilesets/ObjectsTileset.png" id="2_d6hx7"]
@@ -7,6 +7,7 @@
 [ext_resource type="FontFile" uid="uid://nxxq244ebva4" path="res://Assets/Font/OldEnglishGothicPixelRegular.ttf" id="5_thrpa"]
 [ext_resource type="PackedScene" uid="uid://ch1xg5kqa1xmy" path="res://Scenes/Doors.tscn" id="6_mrjgp"]
 [ext_resource type="PackedScene" uid="uid://ck4p41k6co4wn" path="res://Scenes/Key.tscn" id="7_6wkv2"]
+[ext_resource type="Script" path="res://Scripts/Game/GameManagerComponents/PlayerResetStats.cs" id="8_greym"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6ty7i"]
 texture = ExtResource("2_d6hx7")
@@ -169,6 +170,9 @@ sources/51 = SubResource("TileSetAtlasSource_6ty7i")
 sources/52 = SubResource("TileSetAtlasSource_04yne")
 sources/54 = SubResource("TileSetAtlasSource_n60j3")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s4y3n"]
+size = Vector2(18, 32)
+
 [node name="World" type="Node2D"]
 position = Vector2(0, 16)
 
@@ -202,6 +206,15 @@ tile_set = SubResource("TileSet_2o2bj")
 metadata/_edit_lock_ = true
 
 [node name="Keys" type="Node" parent="."]
+
+[node name="Key" parent="Keys" instance=ExtResource("7_6wkv2")]
+position = Vector2(1192, 416)
+
+[node name="Key2" parent="Keys" instance=ExtResource("7_6wkv2")]
+position = Vector2(1192, 416)
+
+[node name="Key3" parent="Keys" instance=ExtResource("7_6wkv2")]
+position = Vector2(1192, 416)
 
 [node name="Platforms" type="Node" parent="."]
 
@@ -246,11 +259,16 @@ vertical_alignment = 1
 justification_flags = 0
 metadata/_edit_use_anchors_ = true
 
-[node name="Key" parent="." instance=ExtResource("7_6wkv2")]
-position = Vector2(1192, 400)
+[node name="PlayerResetStats" type="Area2D" parent="."]
+position = Vector2(1224, 400)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("8_greym")
 
-[node name="Key2" parent="." instance=ExtResource("7_6wkv2")]
-position = Vector2(1192, 400)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerResetStats"]
+light_mask = 0
+visibility_layer = 0
+position = Vector2(2, 0)
+shape = SubResource("RectangleShape2D_s4y3n")
 
-[node name="Key3" parent="." instance=ExtResource("7_6wkv2")]
-position = Vector2(1192, 400)
+[connection signal="body_entered" from="PlayerResetStats" to="PlayerResetStats" method="OnBodyEntered"]

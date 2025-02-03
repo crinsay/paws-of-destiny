@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://bcekb8em6bvrh"]
+[gd_scene load_steps=21 format=4 uid="uid://bcekb8em6bvrh"]
 
 [ext_resource type="PackedScene" uid="uid://y2c8dsi1ltud" path="res://Scenes/Player.tscn" id="4_naalj"]
 [ext_resource type="Texture2D" uid="uid://2by6ux311p0t" path="res://Assets/Tilesets/ObjectsTileset.png" id="5_doclh"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://c077vjbaavym8" path="res://Assets/Tilesets/WallsAccesoriesTileset.png" id="7_1jviq"]
 [ext_resource type="PackedScene" uid="uid://dsjqr8m254ndm" path="res://Scenes/LongPlatform.tscn" id="7_s63h3"]
 [ext_resource type="PackedScene" uid="uid://v24gc8rrhei5" path="res://Scenes/MovingShortPlatform.tscn" id="8_67e84"]
+[ext_resource type="PackedScene" uid="uid://dydc3dtp5y0tb" path="res://Scenes/Heart.tscn" id="8_atnwk"]
 [ext_resource type="PackedScene" uid="uid://ch1xg5kqa1xmy" path="res://Scenes/Doors.tscn" id="8_okn0h"]
 [ext_resource type="PackedScene" uid="uid://xyyu4et73e4g" path="res://Scenes/MeowolasEnemy.tscn" id="10_7c81i"]
 [ext_resource type="PackedScene" uid="uid://cvciw6s1wlgm1" path="res://Scenes/GroundSpikes.tscn" id="11_ic6ac"]
@@ -236,19 +237,6 @@ tile_map_data = PackedByteArray("AAAIABoANAABAAEAAAAJABoANAABAAEAAAAKABoANAABAAE
 tile_set = SubResource("TileSet_rx1ig")
 metadata/_edit_lock_ = true
 
-[node name="Player" parent="." instance=ExtResource("4_naalj")]
-z_index = 100
-position = Vector2(-96, 399)
-scale = Vector2(0.25, 0.25)
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2(16, 8)
-scale = Vector2(4, 4)
-zoom = Vector2(2.5, 2.5)
-limit_bottom = 532
-limit_smoothed = true
-position_smoothing_speed = 0.1
-
 [node name="Keys" type="Node" parent="."]
 
 [node name="Key" parent="Keys" instance=ExtResource("5_qcsj8")]
@@ -342,20 +330,6 @@ position = Vector2(5224, 24)
 
 [node name="LongPlatform44" parent="Platforms" instance=ExtResource("7_s63h3")]
 position = Vector2(4968, -104)
-
-[node name="Doors" parent="." instance=ExtResource("8_okn0h")]
-position = Vector2(5344, 319)
-
-[node name="Path2D" type="Path2D" parent="."]
-position = Vector2(-624, -57)
-scale = Vector2(1, 1.0711)
-curve = SubResource("Curve2D_1evel")
-
-[node name="BallSpikes" parent="Path2D" instance=ExtResource("6_m1nfb")]
-position = Vector2(232, 417)
-
-[node name="MeowolasEnemy" parent="." instance=ExtResource("10_7c81i")]
-position = Vector2(4960, 399)
 
 [node name="GroundSpikes" type="Node" parent="."]
 
@@ -826,3 +800,41 @@ position = Vector2(4496, 72)
 
 [node name="GroundSpikes159" parent="GroundSpikes" instance=ExtResource("11_ic6ac")]
 position = Vector2(4512, 72)
+
+[node name="Hearts" type="Node" parent="."]
+
+[node name="Heart" parent="Hearts" instance=ExtResource("8_atnwk")]
+position = Vector2(4968, -56)
+
+[node name="Heart2" parent="Hearts" instance=ExtResource("8_atnwk")]
+position = Vector2(4904, -24)
+
+[node name="Heart3" parent="Hearts" instance=ExtResource("8_atnwk")]
+position = Vector2(5032, -24)
+
+[node name="Doors" parent="." instance=ExtResource("8_okn0h")]
+position = Vector2(5344, 319)
+
+[node name="Path2D" type="Path2D" parent="."]
+position = Vector2(-624, -57)
+scale = Vector2(1, 1.0711)
+curve = SubResource("Curve2D_1evel")
+
+[node name="BallSpikes" parent="Path2D" instance=ExtResource("6_m1nfb")]
+position = Vector2(232, 417)
+
+[node name="MeowolasEnemy" parent="." instance=ExtResource("10_7c81i")]
+position = Vector2(4960, 399)
+
+[node name="Player" parent="." instance=ExtResource("4_naalj")]
+z_index = 100
+position = Vector2(5328, 287)
+scale = Vector2(0.25, 0.25)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(16, 8)
+scale = Vector2(4, 4)
+zoom = Vector2(2.5, 2.5)
+limit_bottom = 532
+limit_smoothed = true
+position_smoothing_speed = 0.1
