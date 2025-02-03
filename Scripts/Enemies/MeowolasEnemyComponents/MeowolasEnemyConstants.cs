@@ -33,19 +33,7 @@ public class MeowolasEnemyConstants
     }
 }
 
-/*public enum EnemyState
-{
-    Idle,
-    Patroling,
-    Jumping,
-    Attacking,
-    TakingDamage,
-    Dodging,
-    Dead,
-    JustHit
-}*/
-
-public enum EnemyState
+public enum MeowolasState
 {
     Patrol,
     Chase,

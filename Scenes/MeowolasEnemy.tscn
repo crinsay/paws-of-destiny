@@ -421,7 +421,7 @@ ArrowsScene = ExtResource("2_i4ga1")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-28, -42)
 sprite_frames = SubResource("SpriteFrames_l2qdr")
-animation = &"TakeDamage"
+animation = &"Death"
 autoplay = "Idle"
 offset = Vector2(28, 42)
 

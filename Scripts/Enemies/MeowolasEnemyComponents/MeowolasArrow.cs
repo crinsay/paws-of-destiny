@@ -1,6 +1,6 @@
 using Godot;
 using PawsOfDestiny.Scripts.Common;
-using PawsOfDestiny.Scripts.Game.GameManagerComponents;
+using PawsOfDestiny.Scripts.Enemies.MeowtarTheBlueComponents;
 using PawsOfDestiny.Scripts.PlayerComponents;
 using System;
 
@@ -33,7 +33,7 @@ public partial class MeowolasArrow : Node2D
 
 	private void OnArrowHitBoxBodyEntered(Node2D body)
 	{
-        if (body is not MeowolasEnemy)
+        if (body is not MeowolasEnemy && body is not MeowtarTheBlueEnemy)
 		{
 			if (body is Player)
 			{

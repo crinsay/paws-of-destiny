@@ -1,42 +1,46 @@
 using Godot;
 using PawsOfDestiny.Scripts.Common;
+using PawsOfDestiny.Scripts.Common.MeowtarTheBlueComponents;
 using PawsOfDestiny.Scripts.Enemies.MeowolasEnemyComponents;
-using PawsOfDestiny.Scripts.Game.Collectables.KeyComponents;
-using PawsOfDestiny.Scripts.Game.GameManagerComponents;
+using PawsOfDestiny.Scripts.Enemies.MeowtarTheBlueComponents;
 using PawsOfDestiny.Scripts.Game;
+using PawsOfDestiny.Scripts.Game.Collectables.KeyComponents;
 using PawsOfDestiny.Scripts.PlayerComponents;
-using System;
 using System.Collections.Generic;
-using System.Runtime;
 
 namespace PawsOfDestiny.Singletons;
 
 public partial class GameManager : Node
 {
     [Signal]
-    public delegate void EnemyHitPlayerEventHandler(int damage);
+    public delegate void EnemyHitPlayerEventHandler(HitInformation hitInfo);
     [Signal]
-    public delegate void PlayerHitMeowolasEnemyEventHandler(int damage);
+    public delegate void PlayerHitMeowolasEnemyEventHandler(HitInformation hitInfo);
+    [Signal]
+    public delegate void PlayerHitMeowtarTheBlueEnemyEventHandler(HitInformation hitInfo);
+    [Signal]
+    public delegate void MeowolasEnemyRunAwayEventHandler();
     [Signal]
     public delegate void PlayerCollectHeartEventHandler();
 
     private KeyCounter _keyCounter;
     private PlayerHealth _playerHealth;
-    private Timer _playerHitTimer;
+    private Timer _meowolasEnemyAndPlayerFightTimer;
     private Timer _playerDeathTimer;
 
     private int _collectedKeys;
 
+    private PackedScene _gamePackedScene; //TODO: change it to main menu screen
     private List<PackedScene> _levelScenes;
 
     private int _numberOfLevels = 6;
     private int _currentLevel = 0;
     public override void _Ready()
     {
-        _keyCounter = GetNode<KeyCounter>(GameManagerConstants.KeyCounter);
-        _playerHealth = GetNode<PlayerHealth>(GameManagerConstants.PlayerHealth);
-        _playerHitTimer = GetNode<Timer>(GameManagerConstants.PlayerHitTimer);
-        _playerDeathTimer = GetNode<Timer>(GameManagerConstants.PlayerDeathTimer);
+        _keyCounter = GetNode<KeyCounter>("KeyCounter");
+        _playerHealth = GetNode<PlayerHealth>("PlayerHealth");
+        _meowolasEnemyAndPlayerFightTimer = GetNode<Timer>("MeowolasEnemyAndPlayerFightTimer");
+        _playerDeathTimer = GetNode<Timer>("PlayerDeathTimer");
 
         _levelScenes = [];
 
@@ -52,19 +56,19 @@ public partial class GameManager : Node
         _currentLevel++;
         if (_currentLevel > _numberOfLevels)
         {
-            _currentLevel = 0;
+            _currentLevel = 1;
         }
     }
 
     public void LoadNextLevel()
     {
-        //if (_collectedKeys == 3)
-        //{
+        if (_collectedKeys == 3)
+        {
             _collectedKeys = 0;
             _keyCounter.UpdateKeyCounter(_collectedKeys);
             SetNextLevel();
             GetTree().ChangeSceneToPacked(_levelScenes[_currentLevel]);
-        //}
+        }
     }
 
 
@@ -83,6 +87,14 @@ public partial class GameManager : Node
             new Callable(this, nameof(OnEnemyHitPlayer)));
     }
 
+    public void OnMeowtarTheBlueEnemyNewFireballInstantiated(Node2D newFireball)
+    {
+        var fireball = newFireball as MeowtarTheBlueFireball;
+
+        fireball.Connect(MeowtarTheBlueFireball.SignalName.EnemyHitPlayer,
+            new Callable(this, nameof(OnEnemyHitPlayer)));
+    }
+
     public void OnEnemyHitPlayer(HitInformation hitInfo) //Body is an enemy object that hit the player (for example MewolasArrow)
     {
         var player = hitInfo.Body as Player;
@@ -94,11 +106,7 @@ public partial class GameManager : Node
         EmitSignal(SignalName.EnemyHitPlayer, hitInfo);
         _playerHealth.UpdatePlayerHealthLabel(player.Health);
 
-        if (player.State != PlayerState.Dead)
-        {
-            _playerHitTimer.Start();
-        }
-        else
+        if (player.State == PlayerState.Dead)
         {
             Engine.TimeScale = 0.75d;
             _playerDeathTimer.Start();
@@ -107,15 +115,42 @@ public partial class GameManager : Node
 
     public void OnPlayerHitEnemy(HitInformation hitInfo)
     {
-        if (hitInfo.Body is MeowolasEnemy meowolasEnemy)
+        if (hitInfo.Body is MeowolasEnemy meowolas)
         {
-            if (!meowolasEnemy.CanBeHit)
+            if (!meowolas.CanBeHit)
             {
                 return;
             }
 
             EmitSignal(SignalName.PlayerHitMeowolasEnemy, hitInfo);
+
+            if (meowolas.Health == 1)
+            {
+                GD.Print("Boss fight!");
+                EmitSignal(SignalName.MeowolasEnemyRunAway);
+                _meowolasEnemyAndPlayerFightTimer.Stop();
+            }
         }
+        else if (hitInfo.Body is MeowtarTheBlueEnemy meowtarTheBlue)
+        {
+            if (!meowtarTheBlue.CanBeHit)
+            {
+                return;
+            }
+
+            EmitSignal(SignalName.PlayerHitMeowtarTheBlueEnemy, hitInfo);
+        }
+    }
+
+    public void OnLevelMeowolasEnemyFightStart()
+    {
+        _meowolasEnemyAndPlayerFightTimer.Start();
+    }
+
+    private void OnMeowolasEnemyAndPlayerFightTimerTimeout()
+    {
+        GD.Print("End of fight!");
+        EmitSignal(SignalName.MeowolasEnemyRunAway);
     }
 
     private void OnPlayerDeathTimerTimeout()
