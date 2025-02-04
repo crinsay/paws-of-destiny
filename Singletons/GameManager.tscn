@@ -1,7 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://c1bjwb82uqd0r"]
+[gd_scene load_steps=8 format=3 uid="uid://c1bjwb82uqd0r"]
 
 [ext_resource type="Script" path="res://Singletons/GameManager.cs" id="1_n133e"]
-[ext_resource type="PackedScene" uid="uid://coneacdb1i6t3" path="res://Scenes/PlayerHealth.tscn" id="2_hdi6k"]
 [ext_resource type="PackedScene" uid="uid://bns5pow3xoec7" path="res://Scenes/KeyCounter.tscn" id="3_lu5q6"]
 [ext_resource type="AudioStream" uid="uid://c5bpra3fp7dod" path="res://Assets/Audio/Music/14 - Tales of Firelight Town.wav" id="5_eyqxs"]
 [ext_resource type="AudioStream" uid="uid://dta4iis68006l" path="res://Assets/Audio/Effects/Key.wav" id="5_orq88"]
@@ -11,8 +10,6 @@
 
 [node name="GameManager" type="Node"]
 script = ExtResource("1_n133e")
-
-[node name="PlayerHealth" parent="." instance=ExtResource("2_hdi6k")]
 
 [node name="KeyCounter" parent="." instance=ExtResource("3_lu5q6")]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cjg78ldjk8rdh"
-path="res://.godot/imported/MeowTarTheBlue_TakeDamage-3.png-80f28866b62fc53de6181522e028f201.ctex"
+path="res://.godot/imported/MeowTarTheBlue_TakeDamage-3.png-901a253f9672e6ec1893679ad96a5e32.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/MeowtarTheBlue/TakeDamage/MeowTarTheBlue_TakeDamage-3.png"
-dest_files=["res://.godot/imported/MeowTarTheBlue_TakeDamage-3.png-80f28866b62fc53de6181522e028f201.ctex"]
+source_file="res://Assets/MeowtarTheBlue/TakeDemage/MeowTarTheBlue_TakeDamage-3.png"
+dest_files=["res://.godot/imported/MeowTarTheBlue_TakeDamage-3.png-901a253f9672e6ec1893679ad96a5e32.ctex"]
 
 [params]
 

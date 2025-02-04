@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bns5pow3xoec7"]
+[gd_scene load_steps=4 format=3 uid="uid://bns5pow3xoec7"]
 
 [ext_resource type="Script" path="res://Scripts/Game/Collectables/KeyComponents/KeyCounter.cs" id="1_vlsa0"]
 [ext_resource type="Texture2D" uid="uid://c4qd56uwegsut" path="res://Assets/Objects/KeyCounterTexture/KeyCounterTexture.png" id="2_6u4ht"]
+[ext_resource type="FontFile" uid="uid://nxxq244ebva4" path="res://Assets/Font/OldEnglishGothicPixelRegular.ttf" id="3_cxp0k"]
 
 [node name="KeyCounter" type="CanvasLayer"]
 scale = Vector2(2, 2)
@@ -15,9 +16,11 @@ texture = ExtResource("2_6u4ht")
 expand_mode = 2
 
 [node name="KeyCounterValue" type="Label" parent="."]
-offset_left = 26.6667
-offset_top = 5.33333
-offset_right = 36.6667
-offset_bottom = 28.3333
+offset_left = 28.0
+offset_top = 8.0
+offset_right = 44.0
+offset_bottom = 32.0
+theme_override_fonts/font = ExtResource("3_cxp0k")
+theme_override_font_sizes/font_size = 20
 text = "0"
 horizontal_alignment = 1
