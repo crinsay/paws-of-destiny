@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://c83c5isikqdlx"]
+[gd_scene load_steps=17 format=4 uid="uid://c83c5isikqdlx"]
 
 [ext_resource type="PackedScene" uid="uid://y2c8dsi1ltud" path="res://Scenes/Player.tscn" id="4_h5xt4"]
 [ext_resource type="PackedScene" uid="uid://dsjqr8m254ndm" path="res://Scenes/LongPlatform.tscn" id="5_mtr8i"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://ck4p41k6co4wn" path="res://Scenes/Key.tscn" id="8_rc46a"]
 [ext_resource type="PackedScene" uid="uid://ch1xg5kqa1xmy" path="res://Scenes/Doors.tscn" id="8_x6b1m"]
 [ext_resource type="PackedScene" uid="uid://xyyu4et73e4g" path="res://Scenes/MeowolasEnemy.tscn" id="9_wkj38"]
+[ext_resource type="AudioStream" uid="uid://pvunu7d66v44" path="res://Assets/Audio/Music/13 - Decisive Battle 1 - Don't Be Afraid.wav" id="11_k5sen"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c7wxq"]
 texture = ExtResource("5_qfo64")
@@ -397,3 +398,7 @@ limit_bottom = 532
 limit_smoothed = true
 position_smoothing_speed = 0.1
 metadata/_edit_lock_ = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_k5sen")
+autoplay = true

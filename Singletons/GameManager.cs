@@ -27,10 +27,14 @@ public partial class GameManager : Node
     private PlayerHealth _playerHealth;
     private Timer _meowolasEnemyAndPlayerFightTimer;
     private Timer _playerDeathTimer;
+    private AudioStreamPlayer _audioStreamPlayer;
+    private AudioStreamPlayer _keyPickingSound;
+    private AudioStreamPlayer _heartPickingSound;
+    private AudioStreamPlayer _deathSound;
+    private AudioStreamPlayer _hitSound;
 
     private int _collectedKeys;
 
-    private PackedScene _gamePackedScene; //TODO: change it to main menu screen
     private List<PackedScene> _levelScenes;
 
     private int _numberOfLevels = 6;
@@ -41,6 +45,11 @@ public partial class GameManager : Node
         _playerHealth = GetNode<PlayerHealth>("PlayerHealth");
         _meowolasEnemyAndPlayerFightTimer = GetNode<Timer>("MeowolasEnemyAndPlayerFightTimer");
         _playerDeathTimer = GetNode<Timer>("PlayerDeathTimer");
+        _audioStreamPlayer = GetNode<AudioStreamPlayer>("AudioStreamPlayer");
+        _keyPickingSound = GetNode<AudioStreamPlayer>("KeyPickingSound");
+        _heartPickingSound = GetNode<AudioStreamPlayer>("HeartPickingSound");
+        _deathSound = GetNode<AudioStreamPlayer>("DeathSound");
+        _hitSound = GetNode<AudioStreamPlayer>("HitSound");
 
         _levelScenes = [];
 
@@ -49,32 +58,41 @@ public partial class GameManager : Node
             var level = GD.Load<PackedScene>($"res://Scenes/Level{i}.tscn");
             _levelScenes.Add(level);
         }
+
+        _audioStreamPlayer.Play();
     }
 
     private void SetNextLevel()
     {
         _currentLevel++;
+        if (_currentLevel == 5)
+        {
+            _audioStreamPlayer.Stop();
+        }
+        
         if (_currentLevel > _numberOfLevels)
         {
-            _currentLevel = 1;
+            PlayerHealthReset();
+            _currentLevel = 0;
         }
     }
 
     public void LoadNextLevel()
     {
-        if (_collectedKeys == 3)
-        {
+        //if (_collectedKeys == 3)
+        //{
             _collectedKeys = 0;
             _keyCounter.UpdateKeyCounter(_collectedKeys);
             SetNextLevel();
             GetTree().ChangeSceneToPacked(_levelScenes[_currentLevel]);
-        }
+        //}
     }
 
 
     //Method that handles Signal emmited by a single key:
     public void OnKeyCollected()
     {
+        _keyPickingSound.Play();
         _collectedKeys += 1;
         _keyCounter.UpdateKeyCounter(_collectedKeys);
     }
@@ -102,13 +120,14 @@ public partial class GameManager : Node
         {
             return;
         }
-
+        _hitSound.Play();
         EmitSignal(SignalName.EnemyHitPlayer, hitInfo);
         _playerHealth.UpdatePlayerHealthLabel(player.Health);
 
         if (player.State == PlayerState.Dead)
         {
             Engine.TimeScale = 0.75d;
+            _deathSound.Play();
             _playerDeathTimer.Start();
         }
     }
@@ -156,11 +175,11 @@ public partial class GameManager : Node
     private void OnPlayerDeathTimerTimeout()
     {
         Engine.TimeScale = 1d;
-
         _collectedKeys = 0;
         _keyCounter.UpdateKeyCounter(_collectedKeys);
         var DeathLevel = GD.Load<PackedScene>($"res://Scenes/LevelDeath.tscn");
         _currentLevel = 0;
+        _audioStreamPlayer.Stop(); 
         GetTree().ChangeSceneToPacked(DeathLevel);
     }
 
@@ -193,6 +212,7 @@ public partial class GameManager : Node
 
     public void OnHeartCollected(Node2D body)
     {
+        _heartPickingSound.Play();
         var player = body as Player;
         EmitSignal(SignalName.PlayerCollectHeart);
         _playerHealth.UpdatePlayerHealthLabel(player.Health);
@@ -204,6 +224,7 @@ public partial class GameManager : Node
         {
             GetNode<PlayerStats>("/root/PlayerStats").Health = 9;
             _playerHealth.UpdatePlayerHealthLabel(9);
+            _audioStreamPlayer.Play();
         }
     }
 }

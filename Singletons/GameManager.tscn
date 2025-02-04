@@ -1,8 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://c1bjwb82uqd0r"]
+[gd_scene load_steps=9 format=3 uid="uid://c1bjwb82uqd0r"]
 
 [ext_resource type="Script" path="res://Singletons/GameManager.cs" id="1_n133e"]
 [ext_resource type="PackedScene" uid="uid://coneacdb1i6t3" path="res://Scenes/PlayerHealth.tscn" id="2_hdi6k"]
 [ext_resource type="PackedScene" uid="uid://bns5pow3xoec7" path="res://Scenes/KeyCounter.tscn" id="3_lu5q6"]
+[ext_resource type="AudioStream" uid="uid://c5bpra3fp7dod" path="res://Assets/Audio/Music/14 - Tales of Firelight Town.wav" id="5_eyqxs"]
+[ext_resource type="AudioStream" uid="uid://dta4iis68006l" path="res://Assets/Audio/Effects/Key.wav" id="5_orq88"]
+[ext_resource type="AudioStream" uid="uid://lthpuuhn0p5o" path="res://Assets/Audio/Effects/Misc 1.wav" id="6_rolht"]
+[ext_resource type="AudioStream" uid="uid://bmcg6s1g7gj3t" path="res://Assets/Audio/Effects/Game Over 1.wav" id="7_pqvhd"]
+[ext_resource type="AudioStream" uid="uid://rr5ymy4hlfkm" path="res://Assets/Audio/Effects/Hit 1.wav" id="8_4komn"]
 
 [node name="GameManager" type="Node"]
 script = ExtResource("1_n133e")
@@ -22,6 +27,23 @@ one_shot = true
 [node name="MeowolasEnemyAndPlayerFightTimer" type="Timer" parent="."]
 wait_time = 20.0
 one_shot = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_eyqxs")
+volume_db = -10.0
+autoplay = true
+
+[node name="KeyPickingSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_orq88")
+
+[node name="HeartPickingSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_rolht")
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_pqvhd")
+
+[node name="HitSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_4komn")
 
 [connection signal="timeout" from="PlayerDeathTimer" to="." method="OnPlayerDeathTimerTimeout"]
 [connection signal="timeout" from="PlayerHitBySpikeTimer" to="." method="OnPlayerHitBySpikeTimerTimeout"]

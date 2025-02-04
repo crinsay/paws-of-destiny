@@ -15,6 +15,10 @@ run/main_scene="res://Scenes/Level0.tscn"
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
 config/icon="res://Assets/icon.svg"
 
+[audio]
+
+buses/default_bus_layout=""
+
 [autoload]
 
 GameManager="*res://Singletons/GameManager.tscn"
