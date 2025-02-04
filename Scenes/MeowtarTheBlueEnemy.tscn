@@ -274,7 +274,7 @@ position = Vector2(3.8147e-06, -1.90735e-06)
 sprite_frames = SubResource("SpriteFrames_jaakf")
 animation = &"Attack1"
 autoplay = "Attack1"
-frame_progress = 0.412952
+frame_progress = 0.139191
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(3.55271e-15, 2.28571)
