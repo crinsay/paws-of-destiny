@@ -21,7 +21,7 @@ public partial class MeowtarTheBlueEnemy : CharacterBody2D
     public float JumpVelocity = -275.0f;
 
     [Export]
-    public int Damage = 2;
+    public int Damage = 1;
 
     [Export]
     public float KnockbackStrength = 180.0f;
@@ -147,7 +147,6 @@ public partial class MeowtarTheBlueEnemy : CharacterBody2D
 
         //Dodge is basically a teleportation:
          _teleportationTimer.Start();
-        CanBeHit = false;
 
         SetDirectionTowardPlayer();
         PlayAnimation("Dodge");
@@ -329,6 +328,7 @@ public partial class MeowtarTheBlueEnemy : CharacterBody2D
 
     private void OnTeleportationTimerTimeout()
     {
+        CanBeHit = false;
         HandleTeleportation();
     }
 

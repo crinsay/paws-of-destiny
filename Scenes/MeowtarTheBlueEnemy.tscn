@@ -298,6 +298,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 
 [node name="BossName" type="Label" parent="HealthbarCanvasLayer/HealthBar"]
+layout_mode = 0
 offset_left = -1.0
 offset_top = -54.0
 offset_right = 366.0

@@ -22,6 +22,8 @@ public partial class GameManager : Node
     public delegate void MeowolasEnemyRunAwayEventHandler();
     [Signal]
     public delegate void PlayerCollectHeartEventHandler();
+    [Signal]
+    public delegate void MeowolasAndMeowtarDefeatedEventHandler();
 
     private KeyCounter _keyCounter;
     private Timer _meowolasEnemyAndPlayerFightTimer;
@@ -38,6 +40,9 @@ public partial class GameManager : Node
 
     private int _numberOfLevels = 6;
     private int _currentLevel = 0;
+
+    private bool _isMeowolasDead = false;
+    private bool _isMeowtarDead = false;
     public override void _Ready()
     {
         _keyCounter = GetNode<KeyCounter>("KeyCounter");
@@ -73,6 +78,8 @@ public partial class GameManager : Node
             PlayerHealthReset();
             _currentLevel = 0;
         }
+
+        _meowolasEnemyAndPlayerFightTimer.Stop();
     }
 
     public void LoadNextLevel()
@@ -140,12 +147,21 @@ public partial class GameManager : Node
 
             EmitSignal(SignalName.PlayerHitMeowolasEnemy, hitInfo);
 
-            if (meowolas.Health == 1)
+            if (meowolas.Health == 1 && _currentLevel != 5)
             {
                 EmitSignal(SignalName.MeowolasEnemyRunAway);
                 _meowolasEnemyAndPlayerFightTimer.Stop();
 
                 _currentLevel = 5;
+            }
+            else if (meowolas.Health < 1)
+            {
+                _isMeowolasDead = true;
+
+                if (_isMeowtarDead)
+                {
+                    EmitSignal(SignalName.MeowolasAndMeowtarDefeated);
+                }
             }
         }
         else if (hitInfo.Body is MeowtarTheBlueEnemy meowtarTheBlue)
@@ -156,17 +172,29 @@ public partial class GameManager : Node
             }
 
             EmitSignal(SignalName.PlayerHitMeowtarTheBlueEnemy, hitInfo);
+
+            if (meowtarTheBlue.Health < 1)
+            {
+                _isMeowtarDead = true;
+
+                if (_isMeowolasDead)
+                {
+                    EmitSignal(SignalName.MeowolasAndMeowtarDefeated);
+                }
+            }
         }
     }
 
     public void OnLevelMeowolasEnemyFightStart()
     {
         _meowolasEnemyAndPlayerFightTimer.Start();
+        GD.Print("Start");
     }
 
     private void OnMeowolasEnemyAndPlayerFightTimerTimeout()
     {
         EmitSignal(SignalName.MeowolasEnemyRunAway);
+        GD.Print("Stop");
     }
 
     private void OnPlayerDeathTimerTimeout()
@@ -176,7 +204,8 @@ public partial class GameManager : Node
         _keyCounter.UpdateKeyCounter(_collectedKeys);
         var DeathLevel = GD.Load<PackedScene>($"res://Scenes/LevelDeath.tscn");
         _currentLevel = 0;
-        _audioStreamPlayer.Stop(); 
+        _audioStreamPlayer.Stop();
+        _meowolasEnemyAndPlayerFightTimer.Stop();
         GetTree().ChangeSceneToPacked(DeathLevel);
     }
 
@@ -189,6 +218,7 @@ public partial class GameManager : Node
         }
 
         EmitSignal(SignalName.EnemyHitPlayer, hitInfo);
+        _meowolasEnemyAndPlayerFightTimer.Stop();
 
         if (player.State != PlayerState.Dead)
         {
