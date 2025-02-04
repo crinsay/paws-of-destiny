@@ -404,12 +404,9 @@ position = Vector2(-160, 400)
 [node name="MeowolasEnemy" parent="." instance=ExtResource("11_6nqt5")]
 position = Vector2(272, -112)
 
-[node name="BallSpikes" parent="." instance=ExtResource("7_5ps4a")]
-position = Vector2(680, -136)
-
 [node name="Player" parent="." instance=ExtResource("4_jryi6")]
 z_index = 100
-position = Vector2(764, -131)
+position = Vector2(136, 400)
 scale = Vector2(0.25, 0.25)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
@@ -432,5 +429,8 @@ shape = SubResource("RectangleShape2D_dr5nv")
 
 [node name="Path2D2" type="Path2D" parent="."]
 curve = SubResource("Curve2D_hs2m2")
+
+[node name="BallSpikes" parent="Path2D2" instance=ExtResource("7_5ps4a")]
+position = Vector2(680, -136)
 
 [connection signal="body_entered" from="MeowolasFightStart" to="." method="OnMeowolasFightStartBodyEntered"]
