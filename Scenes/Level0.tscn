@@ -304,7 +304,7 @@ metadata/_edit_lock_ = true
 
 [node name="Player" parent="." instance=ExtResource("1_yqkhh")]
 z_index = 100
-position = Vector2(5272, 240)
+position = Vector2(5312, 240)
 scale = Vector2(0.25, 0.25)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]

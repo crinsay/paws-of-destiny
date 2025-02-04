@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://cymgihwjy7iat"]
+[gd_scene load_steps=15 format=4 uid="uid://cymgihwjy7iat"]
 
 [ext_resource type="PackedScene" uid="uid://y2c8dsi1ltud" path="res://Scenes/Player.tscn" id="1_ork26"]
 [ext_resource type="Texture2D" uid="uid://2by6ux311p0t" path="res://Assets/Tilesets/ObjectsTileset.png" id="2_d6hx7"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://ch1xg5kqa1xmy" path="res://Scenes/Doors.tscn" id="6_mrjgp"]
 [ext_resource type="PackedScene" uid="uid://ck4p41k6co4wn" path="res://Scenes/Key.tscn" id="7_6wkv2"]
 [ext_resource type="Script" path="res://Scripts/Game/GameManagerComponents/PlayerResetStats.cs" id="8_greym"]
+[ext_resource type="AudioStream" uid="uid://dgn3tm44li56y" path="res://Assets/Audio/Music/10 - Lost Shrine.wav" id="9_luasx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6ty7i"]
 texture = ExtResource("2_d6hx7")
@@ -270,5 +271,9 @@ limit_bottom = 8000
 limit_smoothed = true
 position_smoothing_speed = 0.1
 metadata/_edit_lock_ = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_luasx")
+volume_db = -10.0
 
 [connection signal="body_entered" from="PlayerResetStats" to="PlayerResetStats" method="OnBodyEntered"]

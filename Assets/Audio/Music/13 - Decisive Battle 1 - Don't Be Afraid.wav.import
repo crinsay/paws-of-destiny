@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://pvunu7d66v44"
+path="res://.godot/imported/13 - Decisive Battle 1 - Don't Be Afraid.wav-14d761633125f4f12c03a1066bd23f2b.sample"
+
+[deps]
+
+source_file="res://Assets/Audio/Music/13 - Decisive Battle 1 - Don't Be Afraid.wav"
+dest_files=["res://.godot/imported/13 - Decisive Battle 1 - Don't Be Afraid.wav-14d761633125f4f12c03a1066bd23f2b.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=2
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
