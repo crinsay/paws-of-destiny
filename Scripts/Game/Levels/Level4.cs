@@ -3,7 +3,7 @@ using PawsOfDestiny.Scripts.PlayerComponents;
 using PawsOfDestiny.Singletons;
 using System;
 
-public partial class Level2 : Node2D
+public partial class Level4 : Node2D
 {
     private GameManager _gameManager;
     public override void _Ready()

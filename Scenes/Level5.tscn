@@ -377,6 +377,7 @@ position = Vector2(-600, 304)
 position = Vector2(-216, 304)
 
 [node name="Doors" parent="." instance=ExtResource("8_x6b1m")]
+unique_name_in_owner = true
 position = Vector2(1041, 288)
 
 [node name="Path2D" type="Path2D" parent="."]
@@ -409,4 +410,5 @@ metadata/_edit_lock_ = true
 stream = ExtResource("11_k5sen")
 autoplay = true
 
+[connection signal="ItsBossFightTime" from="." to="Doors" method="OnWorldItsBossFightTime"]
 [connection signal="ItsBossFightTime" from="." to="MeowolasEnemy" method="OnWorldItsBossFightTime"]

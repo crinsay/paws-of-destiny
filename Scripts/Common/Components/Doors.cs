@@ -26,4 +26,17 @@ public partial class Doors : Area2D
             meowolas.QueueFree();
         }
     }
+
+    private void OnWorldItsBossFightTime()
+    {
+        _gameManager.Connect(GameManager.SignalName.MeowolasAndMeowtarDefeated,
+                new Callable(this, nameof(OnMeowolasAndMeowtarDefeated)));
+
+        GetNode<CollisionShape2D>("CollisionShape2D").SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
+    }
+
+    private void OnMeowolasAndMeowtarDefeated()
+    {
+        GetNode<CollisionShape2D>("CollisionShape2D").SetDeferred(CollisionShape2D.PropertyName.Disabled, false);
+    }
 }

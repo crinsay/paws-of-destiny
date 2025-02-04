@@ -1032,6 +1032,7 @@ position_smoothing_speed = 0.1
 metadata/_edit_lock_ = true
 
 [node name="MeowolasFightStart" type="Area2D" parent="."]
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeowolasFightStart"]
 position = Vector2(1813, -371)
