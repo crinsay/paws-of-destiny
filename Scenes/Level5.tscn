@@ -373,9 +373,6 @@ position = Vector2(-216, 304)
 unique_name_in_owner = true
 position = Vector2(1041, 288)
 
-[node name="MeowolasEnemy" parent="." instance=ExtResource("9_wkj38")]
-position = Vector2(-421, 395)
-
 [node name="MeowtarTheBlueEnemy" parent="." instance=ExtResource("10_mygkv")]
 position = Vector2(-317, 398)
 
@@ -396,3 +393,6 @@ metadata/_edit_lock_ = true
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_k5sen")
 autoplay = true
+
+[node name="MeowolasEnemy" parent="." instance=ExtResource("9_wkj38")]
+position = Vector2(-376, 392)
