@@ -152,7 +152,7 @@ public partial class GameManager : Node
                 EmitSignal(SignalName.MeowolasEnemyRunAway);
                 _meowolasEnemyAndPlayerFightTimer.Stop();
 
-                _currentLevel = 5;
+                _currentLevel = 4;
             }
             else if (meowolas.Health < 1)
             {
