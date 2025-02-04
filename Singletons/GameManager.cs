@@ -22,9 +22,10 @@ public partial class GameManager : Node
     public delegate void MeowolasEnemyRunAwayEventHandler();
     [Signal]
     public delegate void PlayerCollectHeartEventHandler();
+    [Signal]
+    public delegate void MeowolasAndMeowtarDefeatedEventHandler();
 
     private KeyCounter _keyCounter;
-    private PlayerHealth _playerHealth;
     private Timer _meowolasEnemyAndPlayerFightTimer;
     private Timer _playerDeathTimer;
     private AudioStreamPlayer _audioStreamPlayer;
@@ -39,10 +40,12 @@ public partial class GameManager : Node
 
     private int _numberOfLevels = 6;
     private int _currentLevel = 0;
+
+    private bool _isMeowolasDead = false;
+    private bool _isMeowtarDead = false;
     public override void _Ready()
     {
         _keyCounter = GetNode<KeyCounter>("KeyCounter");
-        _playerHealth = GetNode<PlayerHealth>("PlayerHealth");
         _meowolasEnemyAndPlayerFightTimer = GetNode<Timer>("MeowolasEnemyAndPlayerFightTimer");
         _playerDeathTimer = GetNode<Timer>("PlayerDeathTimer");
         _audioStreamPlayer = GetNode<AudioStreamPlayer>("AudioStreamPlayer");
@@ -75,6 +78,8 @@ public partial class GameManager : Node
             PlayerHealthReset();
             _currentLevel = 0;
         }
+
+        _meowolasEnemyAndPlayerFightTimer.Stop();
     }
 
     public void LoadNextLevel()
@@ -122,7 +127,6 @@ public partial class GameManager : Node
         }
         _hitSound.Play();
         EmitSignal(SignalName.EnemyHitPlayer, hitInfo);
-        _playerHealth.UpdatePlayerHealthLabel(player.Health);
 
         if (player.State == PlayerState.Dead)
         {
@@ -143,11 +147,21 @@ public partial class GameManager : Node
 
             EmitSignal(SignalName.PlayerHitMeowolasEnemy, hitInfo);
 
-            if (meowolas.Health == 1)
+            if (meowolas.Health == 1 && _currentLevel != 5)
             {
-                GD.Print("Boss fight!");
                 EmitSignal(SignalName.MeowolasEnemyRunAway);
                 _meowolasEnemyAndPlayerFightTimer.Stop();
+
+                _currentLevel = 5;
+            }
+            else if (meowolas.Health < 1)
+            {
+                _isMeowolasDead = true;
+
+                if (_isMeowtarDead)
+                {
+                    EmitSignal(SignalName.MeowolasAndMeowtarDefeated);
+                }
             }
         }
         else if (hitInfo.Body is MeowtarTheBlueEnemy meowtarTheBlue)
@@ -158,18 +172,29 @@ public partial class GameManager : Node
             }
 
             EmitSignal(SignalName.PlayerHitMeowtarTheBlueEnemy, hitInfo);
+
+            if (meowtarTheBlue.Health < 1)
+            {
+                _isMeowtarDead = true;
+
+                if (_isMeowolasDead)
+                {
+                    EmitSignal(SignalName.MeowolasAndMeowtarDefeated);
+                }
+            }
         }
     }
 
     public void OnLevelMeowolasEnemyFightStart()
     {
         _meowolasEnemyAndPlayerFightTimer.Start();
+        GD.Print("Start");
     }
 
     private void OnMeowolasEnemyAndPlayerFightTimerTimeout()
     {
-        GD.Print("End of fight!");
         EmitSignal(SignalName.MeowolasEnemyRunAway);
+        GD.Print("Stop");
     }
 
     private void OnPlayerDeathTimerTimeout()
@@ -179,7 +204,8 @@ public partial class GameManager : Node
         _keyCounter.UpdateKeyCounter(_collectedKeys);
         var DeathLevel = GD.Load<PackedScene>($"res://Scenes/LevelDeath.tscn");
         _currentLevel = 0;
-        _audioStreamPlayer.Stop(); 
+        _audioStreamPlayer.Stop();
+        _meowolasEnemyAndPlayerFightTimer.Stop();
         GetTree().ChangeSceneToPacked(DeathLevel);
     }
 
@@ -192,7 +218,8 @@ public partial class GameManager : Node
         }
 
         EmitSignal(SignalName.EnemyHitPlayer, hitInfo);
-        _playerHealth.UpdatePlayerHealthLabel(player.Health);
+        _meowolasEnemyAndPlayerFightTimer.Stop();
+
         if (player.State != PlayerState.Dead)
         {
             GetNode<Timer>("PlayerHitBySpikeTimer").Start();
@@ -215,7 +242,6 @@ public partial class GameManager : Node
         _heartPickingSound.Play();
         var player = body as Player;
         EmitSignal(SignalName.PlayerCollectHeart);
-        _playerHealth.UpdatePlayerHealthLabel(player.Health);
     }
 
     public void PlayerHealthReset()
@@ -223,7 +249,6 @@ public partial class GameManager : Node
         if (_collectedKeys == 3)
         {
             GetNode<PlayerStats>("/root/PlayerStats").Health = 9;
-            _playerHealth.UpdatePlayerHealthLabel(9);
             _audioStreamPlayer.Play();
         }
     }
