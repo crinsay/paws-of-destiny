@@ -409,6 +409,3 @@ metadata/_edit_lock_ = true
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_k5sen")
 autoplay = true
-
-[connection signal="ItsBossFightTime" from="." to="Doors" method="OnWorldItsBossFightTime"]
-[connection signal="ItsBossFightTime" from="." to="MeowolasEnemy" method="OnWorldItsBossFightTime"]

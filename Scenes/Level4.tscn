@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://djmnfiqak6acp"]
+[gd_scene load_steps=30 format=4 uid="uid://djmnfiqak6acp"]
 
 [ext_resource type="Script" path="res://Scripts/Game/Levels/Level4.cs" id="1_btgm7"]
 [ext_resource type="PackedScene" uid="uid://y2c8dsi1ltud" path="res://Scenes/Player.tscn" id="4_jryi6"]
@@ -298,6 +298,12 @@ point_count = 112
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dr5nv"]
 size = Vector2(2, 32)
 
+[sub_resource type="Curve2D" id="Curve2D_hs2m2"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 680, -136, 0, 0, 0, 0, 680, -104, 0, 0, 0, 0, 680, -136)
+}
+point_count = 3
+
 [node name="World" type="Node2D"]
 script = ExtResource("1_btgm7")
 
@@ -398,6 +404,9 @@ position = Vector2(-160, 400)
 [node name="MeowolasEnemy" parent="." instance=ExtResource("11_6nqt5")]
 position = Vector2(272, -112)
 
+[node name="BallSpikes" parent="." instance=ExtResource("7_5ps4a")]
+position = Vector2(680, -136)
+
 [node name="Player" parent="." instance=ExtResource("4_jryi6")]
 z_index = 100
 position = Vector2(764, -131)
@@ -420,5 +429,8 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeowolasFightStart"]
 position = Vector2(692, -160)
 shape = SubResource("RectangleShape2D_dr5nv")
+
+[node name="Path2D2" type="Path2D" parent="."]
+curve = SubResource("Curve2D_hs2m2")
 
 [connection signal="body_entered" from="MeowolasFightStart" to="." method="OnMeowolasFightStartBodyEntered"]
