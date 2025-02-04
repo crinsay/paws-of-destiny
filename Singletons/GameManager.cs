@@ -1,5 +1,6 @@
 using Godot;
 using PawsOfDestiny.Scripts.Common;
+using PawsOfDestiny.Scripts.Common.Components;
 using PawsOfDestiny.Scripts.Common.MeowtarTheBlueComponents;
 using PawsOfDestiny.Scripts.Enemies.MeowolasEnemyComponents;
 using PawsOfDestiny.Scripts.Enemies.MeowtarTheBlueComponents;
@@ -75,7 +76,7 @@ public partial class GameManager : Node
         
         if (_currentLevel > _numberOfLevels)
         {
-            PlayerHealthReset();
+            HealthReset();
             _currentLevel = 0;
         }
 
@@ -244,11 +245,12 @@ public partial class GameManager : Node
         EmitSignal(SignalName.PlayerCollectHeart);
     }
 
-    public void PlayerHealthReset()
+    public void HealthReset()
     {
         if (_collectedKeys == 3)
         {
             GetNode<PlayerStats>("/root/PlayerStats").Health = 9;
+            GetNode<MeowolasEnemyStats>("/root/MeowolasEnemyStats").Health = 9;
             _audioStreamPlayer.Play();
         }
     }

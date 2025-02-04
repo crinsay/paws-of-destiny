@@ -14,6 +14,6 @@ public partial class PlayerResetStats : Area2D
 
     private void OnBodyEntered(Node2D _)
     {
-        _gameManager.PlayerHealthReset();
+        _gameManager.HealthReset();
     }
 }
