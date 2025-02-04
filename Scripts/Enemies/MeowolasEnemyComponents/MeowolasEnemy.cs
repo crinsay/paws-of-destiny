@@ -445,7 +445,7 @@ public partial class MeowolasEnemy : CharacterBody2D
     }
 
 
-    //Set direction toward player:
+    //Set direction toward player:_
     private void SetDirectionTowardPlayer()
     {
         if (Math.Abs(GlobalPosition.X - Player.CurrentGlobalPosition.X) > 10.0f && IsOnFloor())

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://c6dy7x726syc3"]
+[gd_scene load_steps=14 format=4 uid="uid://c6dy7x726syc3"]
 
 [ext_resource type="PackedScene" uid="uid://y2c8dsi1ltud" path="res://Scenes/Player.tscn" id="1_3y53x"]
 [ext_resource type="Texture2D" uid="uid://2by6ux311p0t" path="res://Assets/Tilesets/ObjectsTileset.png" id="2_7i3u6"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://ch1xg5kqa1xmy" path="res://Scenes/Doors.tscn" id="6_6jbse"]
 [ext_resource type="PackedScene" uid="uid://ck4p41k6co4wn" path="res://Scenes/Key.tscn" id="7_ahkch"]
 [ext_resource type="AudioStream" uid="uid://hh4tqi8wr0j7" path="res://Assets/Audio/Music/06 - Victory!.wav" id="8_ajqa5"]
+[ext_resource type="PackedScene" uid="uid://cyashxtt15c4w" path="res://Scenes/KingMeowthur.tscn" id="9_1kvem"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6ty7i"]
 texture = ExtResource("2_7i3u6")
@@ -273,3 +274,6 @@ metadata/_edit_lock_ = true
 stream = ExtResource("8_ajqa5")
 volume_db = -10.0
 autoplay = true
+
+[node name="KingMeowthur" parent="." instance=ExtResource("9_1kvem")]
+position = Vector2(321, 374)
