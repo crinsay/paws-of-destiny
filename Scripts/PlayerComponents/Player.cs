@@ -43,6 +43,7 @@ public partial class Player : CharacterBody2D
     private HitInformation _hitInfo;
     private GameManager _gameManager;
     private PlayerStats _playerStats;
+    private HealthBar _healthBar;
 
     public override void _Ready()
     {
@@ -54,7 +55,9 @@ public partial class Player : CharacterBody2D
             new Callable(this, nameof(OnGameManagerPlayerCollectHeart)));
 
         _playerStats = GetNode<PlayerStats>("/root/PlayerStats");
+        _healthBar = GetNode<HealthBar>("HealthbarCanvasLayer/HealthBar");
         Health = _playerStats.Health;
+        _healthBar.InitializeHealthBarComponent(9.0d, Health);
 
         _animatedSprite2D = GetNode<AnimatedSprite2D>(PlayerConstants.Nodes.AnimatedSprite2D);
         _sword = GetNode<Area2D>(PlayerConstants.Nodes.Sword);  
@@ -68,7 +71,7 @@ public partial class Player : CharacterBody2D
 	{
         Vector2 velocity = Velocity;
 
-		if (!IsOnFloor())
+        if (!IsOnFloor())
 		{
 			velocity += GetGravity() * (float)delta;
 		}
@@ -173,7 +176,11 @@ public partial class Player : CharacterBody2D
             _animatedSprite2D.Modulate = new Color(1.2f, 1.2f, 1.2f);
             GetNode<Timer>("InvincibilityAfterTakeDamageTimer").Start();
         }
-        State = PlayerState.Idle;
+
+        if (State != PlayerState.Dead)
+        {
+            State = PlayerState.Idle;
+        }
     }
 
     private void OnSwordBodyEntered(Node2D body)
@@ -198,6 +205,7 @@ public partial class Player : CharacterBody2D
 
         _playerStats.Health -= _hitInfo.Damage;
         Health = _playerStats.Health;
+        _healthBar.Health = Health;
         if (Health > 0)
         {
             _animatedSprite2D.Play(PlayerConstants.Animations.TakeDamage);
@@ -223,6 +231,7 @@ public partial class Player : CharacterBody2D
     {
         _playerStats.Health++;
         Health = _playerStats.Health;
+        _healthBar.Health = Health;
     }
 
 }

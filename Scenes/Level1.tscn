@@ -950,7 +950,7 @@ _data = {
 point_count = 3
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4fnmq"]
-size = Vector2(4, 58)
+size = Vector2(32, 4)
 
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_npf6r")
@@ -1701,7 +1701,7 @@ metadata/_edit_lock_ = true
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeowolasFightStart"]
-position = Vector2(1246, -1049)
+position = Vector2(1232, -1020)
 shape = SubResource("RectangleShape2D_4fnmq")
 
 [connection signal="body_entered" from="MeowolasFightStart" to="." method="OnMeowolasFightStartBodyEntered"]

@@ -21,9 +21,9 @@ public partial class Doors : Area2D
         {
             _gameManager.CallDeferred(nameof(_gameManager.LoadNextLevel));
         }
-        else if (body is MeowolasEnemy meowolasEnemy)
+        else if (body is MeowolasEnemy meowolas && meowolas.State == MeowolasState.RunAway)
         {
-            meowolasEnemy.QueueFree();
+            meowolas.QueueFree();
         }
     }
 }

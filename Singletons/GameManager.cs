@@ -24,7 +24,6 @@ public partial class GameManager : Node
     public delegate void PlayerCollectHeartEventHandler();
 
     private KeyCounter _keyCounter;
-    private PlayerHealth _playerHealth;
     private Timer _meowolasEnemyAndPlayerFightTimer;
     private Timer _playerDeathTimer;
     private AudioStreamPlayer _audioStreamPlayer;
@@ -42,7 +41,6 @@ public partial class GameManager : Node
     public override void _Ready()
     {
         _keyCounter = GetNode<KeyCounter>("KeyCounter");
-        _playerHealth = GetNode<PlayerHealth>("PlayerHealth");
         _meowolasEnemyAndPlayerFightTimer = GetNode<Timer>("MeowolasEnemyAndPlayerFightTimer");
         _playerDeathTimer = GetNode<Timer>("PlayerDeathTimer");
         _audioStreamPlayer = GetNode<AudioStreamPlayer>("AudioStreamPlayer");
@@ -122,7 +120,6 @@ public partial class GameManager : Node
         }
         _hitSound.Play();
         EmitSignal(SignalName.EnemyHitPlayer, hitInfo);
-        _playerHealth.UpdatePlayerHealthLabel(player.Health);
 
         if (player.State == PlayerState.Dead)
         {
@@ -145,9 +142,10 @@ public partial class GameManager : Node
 
             if (meowolas.Health == 1)
             {
-                GD.Print("Boss fight!");
                 EmitSignal(SignalName.MeowolasEnemyRunAway);
                 _meowolasEnemyAndPlayerFightTimer.Stop();
+
+                _currentLevel = 5;
             }
         }
         else if (hitInfo.Body is MeowtarTheBlueEnemy meowtarTheBlue)
@@ -168,7 +166,6 @@ public partial class GameManager : Node
 
     private void OnMeowolasEnemyAndPlayerFightTimerTimeout()
     {
-        GD.Print("End of fight!");
         EmitSignal(SignalName.MeowolasEnemyRunAway);
     }
 
@@ -192,7 +189,7 @@ public partial class GameManager : Node
         }
 
         EmitSignal(SignalName.EnemyHitPlayer, hitInfo);
-        _playerHealth.UpdatePlayerHealthLabel(player.Health);
+
         if (player.State != PlayerState.Dead)
         {
             GetNode<Timer>("PlayerHitBySpikeTimer").Start();
@@ -215,7 +212,6 @@ public partial class GameManager : Node
         _heartPickingSound.Play();
         var player = body as Player;
         EmitSignal(SignalName.PlayerCollectHeart);
-        _playerHealth.UpdatePlayerHealthLabel(player.Health);
     }
 
     public void PlayerHealthReset()
@@ -223,7 +219,6 @@ public partial class GameManager : Node
         if (_collectedKeys == 3)
         {
             GetNode<PlayerStats>("/root/PlayerStats").Health = 9;
-            _playerHealth.UpdatePlayerHealthLabel(9);
             _audioStreamPlayer.Play();
         }
     }

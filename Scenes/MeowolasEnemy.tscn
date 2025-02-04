@@ -454,14 +454,6 @@ one_shot = true
 wait_time = 0.1
 one_shot = true
 
-[node name="StateForDebug" type="Label" parent="."]
-offset_left = -12.0
-offset_top = -29.0
-offset_right = 35.0
-offset_bottom = -6.0
-theme_override_font_sizes/font_size = 11
-text = "state"
-
 [node name="SightRange" type="Area2D" parent="."]
 collision_mask = 2
 
