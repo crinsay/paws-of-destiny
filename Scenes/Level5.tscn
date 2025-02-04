@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://c83c5isikqdlx"]
+[gd_scene load_steps=17 format=4 uid="uid://c83c5isikqdlx"]
 
 [ext_resource type="Script" path="res://Scripts/Game/Levels/Level5.cs" id="1_y1yh2"]
 [ext_resource type="PackedScene" uid="uid://y2c8dsi1ltud" path="res://Scenes/Player.tscn" id="4_h5xt4"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://2by6ux311p0t" path="res://Assets/Tilesets/ObjectsTileset.png" id="5_qfo64"]
 [ext_resource type="PackedScene" uid="uid://dydc3dtp5y0tb" path="res://Scenes/Heart.tscn" id="6_1upsx"]
 [ext_resource type="Texture2D" uid="uid://cctoescqy1ard" path="res://Assets/Tilesets/SurroundingTileset.png" id="6_xj81d"]
-[ext_resource type="PackedScene" uid="uid://dtcyqk5rrbm7d" path="res://Scenes/BallSpikes.tscn" id="7_5rke4"]
 [ext_resource type="Texture2D" uid="uid://c077vjbaavym8" path="res://Assets/Tilesets/WallsAccesoriesTileset.png" id="7_j8q14"]
 [ext_resource type="PackedScene" uid="uid://ck4p41k6co4wn" path="res://Scenes/Key.tscn" id="8_rc46a"]
 [ext_resource type="PackedScene" uid="uid://ch1xg5kqa1xmy" path="res://Scenes/Doors.tscn" id="8_x6b1m"]
@@ -174,12 +173,6 @@ physics_layer_0/collision_mask = 0
 sources/51 = SubResource("TileSetAtlasSource_c7wxq")
 sources/52 = SubResource("TileSetAtlasSource_lijju")
 sources/54 = SubResource("TileSetAtlasSource_j0hlp")
-
-[sub_resource type="Curve2D" id="Curve2D_7d4a1"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 245, 397, 0, 0, 0, 0, 245, 364, 0, 0, 0, 0, 308, 364, 0, 0, 0, 0, 308, 397, 0, 0, 0, 0, 373, 396, 0, 0, 0, 0, 373, 360, 0, 0, 0, 0, 435, 361, 0, 0, 0, 0, 436, 397, 0, 0, 0, 0, 484, 396, 0, 0, 0, 0, 500, 396, 0, 0, 0, 0, 499, 363, 0, 0, 0, 0, 565, 361, 0, 0, 0, 0, 564, 399, 0, 0, 0, 0, 500, 396, 0, 0, 0, 0, 500, 364, 0, 0, 0, 0, 436, 361, 0, 0, 0, 0, 438, 397, 0, 0, 0, 0, 373, 397, 0, 0, 0, 0, 374, 361, 0, 0, 0, 0, 310, 363, 0, 0, 0, 0, 307, 396, 0, 0, 0, 0, 244, 398, 0, 0, 0, 0, 244, 398, 0, 0, 0, 0, 245, 397)
-}
-point_count = 24
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_y1yh2")
@@ -379,12 +372,6 @@ position = Vector2(-216, 304)
 [node name="Doors" parent="." instance=ExtResource("8_x6b1m")]
 unique_name_in_owner = true
 position = Vector2(1041, 288)
-
-[node name="Path2D" type="Path2D" parent="."]
-curve = SubResource("Curve2D_7d4a1")
-
-[node name="BallSpikes" parent="Path2D" instance=ExtResource("7_5rke4")]
-position = Vector2(245, 397)
 
 [node name="MeowolasEnemy" parent="." instance=ExtResource("9_wkj38")]
 position = Vector2(-421, 395)
