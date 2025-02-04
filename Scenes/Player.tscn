@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=3 uid="uid://y2c8dsi1ltud"]
+[gd_scene load_steps=79 format=3 uid="uid://y2c8dsi1ltud"]
 
 [ext_resource type="Texture2D" uid="uid://d3fayu5qmlqo2" path="res://Assets/MeowKnight/Attack1/MeowKnight_Attack1-1.png" id="1_u31dy"]
 [ext_resource type="Script" path="res://Scripts/PlayerComponents/Player.cs" id="1_x71lr"]
@@ -70,6 +70,8 @@
 [ext_resource type="Texture2D" uid="uid://c85plqyydh8nd" path="res://Assets/MeowKnight/TakeDamage/MeowKnight_TakeDamage-1.png" id="67_diu04"]
 [ext_resource type="Texture2D" uid="uid://bak6sqerc0h6r" path="res://Assets/MeowKnight/TakeDamage/MeowKnight_TakeDamage-2.png" id="68_ym1lg"]
 [ext_resource type="Texture2D" uid="uid://cqrp2h87qjxri" path="res://Assets/MeowKnight/TakeDamage/MeowKnight_TakeDamage-3.png" id="69_1rha8"]
+[ext_resource type="PackedScene" uid="uid://dwepbn264tdju" path="res://Scenes/HealthBar.tscn" id="71_tk3hy"]
+[ext_resource type="FontFile" uid="uid://nxxq244ebva4" path="res://Assets/Font/OldEnglishGothicPixelRegular.ttf" id="72_wto2j"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wab2o"]
 radius = 29.0
@@ -406,6 +408,36 @@ libraries = {
 [node name="InvincibilityAfterTakeDamageTimer" type="Timer" parent="."]
 wait_time = 0.25
 one_shot = true
+
+[node name="HealthbarCanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HealthBar" parent="HealthbarCanvasLayer" instance=ExtResource("71_tk3hy")]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -332.0
+offset_top = 22.0
+offset_right = -29.0
+offset_bottom = 57.0
+grow_horizontal = 0
+
+[node name="PlayerHealthbarLabel" type="Label" parent="HealthbarCanvasLayer/HealthBar"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -270.5
+offset_top = -41.0
+offset_right = -162.5
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("72_wto2j")
+theme_override_font_sizes/font_size = 38
+text = "Health
+"
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="OnAnimatedSprite2DAnimationFinished"]
 [connection signal="body_entered" from="Sword" to="." method="OnSwordBodyEntered"]

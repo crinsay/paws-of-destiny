@@ -21,19 +21,19 @@ public partial class MeowtarTheBlueEnemy : CharacterBody2D
     public float JumpVelocity = -275.0f;
 
     [Export]
-    public int Damage = 2;
+    public int Damage = 1;
 
     [Export]
     public float KnockbackStrength = 180.0f;
 
     [Export]
-    public float MinTeleportationCoordinationX = 600.0f;
+    public float MinTeleportationCoordinationX = -1200.0f;
     [Export]
-    public float MaxTeleportationCoordinationX = 1100.0f;
+    public float MaxTeleportationCoordinationX = 820.0f;
     [Export]
-    public float MinTeleportationCoordinationY = -860.0f;
+    public float MinTeleportationCoordinationY = 400.0f;
     [Export]
-    public float MaxTeleportationCoordinationY = -900.0f;
+    public float MaxTeleportationCoordinationY = 200.0f;
 
 
     [Export]
@@ -56,7 +56,6 @@ public partial class MeowtarTheBlueEnemy : CharacterBody2D
     private Timer _startHealingTimer;
     private Timer _healingTimer;
     private Timer _deathTimer;
-	private Label _stateForDebug;
 
 	private Direction _direction = Direction.Left;
 	private bool _isJustHit = false;
@@ -82,7 +81,6 @@ public partial class MeowtarTheBlueEnemy : CharacterBody2D
         _healingTimer = GetNode<Timer>("HealingTimer");
         _deathTimer = GetNode<Timer>("DeathTimer");
 
-		_stateForDebug = GetNode<Label>("StateForDebug");
 		HandleShootFireball();
 
         _startHealingTimer.Start();
@@ -109,6 +107,7 @@ public partial class MeowtarTheBlueEnemy : CharacterBody2D
         {
             velocity.X = 0.0f;
             SetDirectionTowardPlayer();
+            PlayAnimation("Attack1");
         }
 
 		//No need for constant States Process.
@@ -120,7 +119,6 @@ public partial class MeowtarTheBlueEnemy : CharacterBody2D
 
 	private void HandleShootFireball()
 	{
-        _stateForDebug.Text = nameof(MeowtarTheBlueState.ShootFireball);
         State = MeowtarTheBlueState.ShootFireball;
 
         _shootFireballCooldownTimer.Start();
@@ -130,7 +128,6 @@ public partial class MeowtarTheBlueEnemy : CharacterBody2D
 
 	private void HandleGroundFireAttack()
 	{
-        _stateForDebug.Text = nameof(MeowtarTheBlueState.GroundFireAttack);
         State = MeowtarTheBlueState.GroundFireAttack;
 
         SetDirectionTowardPlayer();
@@ -146,12 +143,10 @@ public partial class MeowtarTheBlueEnemy : CharacterBody2D
 
 	private void HandleDodge()
 	{
-        _stateForDebug.Text = nameof(MeowtarTheBlueState.Dodge);
         State = MeowtarTheBlueState.Dodge;
 
         //Dodge is basically a teleportation:
          _teleportationTimer.Start();
-        CanBeHit = false;
 
         SetDirectionTowardPlayer();
         PlayAnimation("Dodge");
@@ -168,7 +163,6 @@ public partial class MeowtarTheBlueEnemy : CharacterBody2D
 
     private void HandleStartHealing()
     {
-        _stateForDebug.Text = nameof(MeowtarTheBlueState.Heal);
         State = MeowtarTheBlueState.Heal;
 
         _healingTimer.Start();
@@ -199,7 +193,7 @@ public partial class MeowtarTheBlueEnemy : CharacterBody2D
 		if (body is Player)
 		{
 			if (GD.Randf() < 0.07f * (10 - Health))
-			{
+            {
                 HandleDodge();
             }
 			else
@@ -288,7 +282,6 @@ public partial class MeowtarTheBlueEnemy : CharacterBody2D
         _healthBar.Health = Health;
         if (Health > 0)
         {
-            _stateForDebug.Text = nameof(MeowtarTheBlueState.TakeDamage);
             State = MeowtarTheBlueState.TakeDamage;
 
             PlayAnimation("TakeDamage");
@@ -296,7 +289,6 @@ public partial class MeowtarTheBlueEnemy : CharacterBody2D
         }
         else
         {
-            _stateForDebug.Text = nameof(MeowtarTheBlueState.Death);
             State = MeowtarTheBlueState.Death;
 
             PlayAnimation("Death");
@@ -336,6 +328,7 @@ public partial class MeowtarTheBlueEnemy : CharacterBody2D
 
     private void OnTeleportationTimerTimeout()
     {
+        CanBeHit = false;
         HandleTeleportation();
     }
 

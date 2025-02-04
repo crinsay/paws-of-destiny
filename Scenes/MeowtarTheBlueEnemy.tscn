@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://ckei1rgvimrnd"]
+[gd_scene load_steps=58 format=3 uid="uid://ckei1rgvimrnd"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/MeowtarTheBlueEnemyComponents/MeowtarTheBlueEnemy.cs" id="1_6qrmi"]
 [ext_resource type="PackedScene" uid="uid://becv2pjtcsino" path="res://MeowtarTheBlueFireball.tscn" id="2_3mgxq"]
@@ -40,6 +40,7 @@
 [ext_resource type="Texture2D" uid="uid://bum0faeh7e262" path="res://Assets/MeowtarTheBlue/ChangedDodge/MeowTarTheBlue12.png" id="47_4g0f1"]
 [ext_resource type="Texture2D" uid="uid://c4ubiyjxabx4y" path="res://Assets/MeowtarTheBlue/ChangedDodge/MeowTarTheBlue13.png" id="48_51v4b"]
 [ext_resource type="Texture2D" uid="uid://c28oakyhsw7ri" path="res://Assets/MeowtarTheBlue/ChangedDodge/MeowTarTheBlue14.png" id="49_ketgx"]
+[ext_resource type="FontFile" uid="uid://nxxq244ebva4" path="res://Assets/Font/OldEnglishGothicPixelRegular.ttf" id="51_vmd26"]
 [ext_resource type="Texture2D" uid="uid://co5cqvdqa6l54" path="res://Assets/MeowtarTheBlue/ChangedHealing/MeowTarTheBlue34.png" id="55_i7h1d"]
 [ext_resource type="Texture2D" uid="uid://cempqd38beuo2" path="res://Assets/MeowtarTheBlue/ChangedHealing/MeowTarTheBlue35.png" id="56_50vfb"]
 [ext_resource type="Texture2D" uid="uid://c3sqbjl3n3im7" path="res://Assets/MeowtarTheBlue/ChangedHealing/MeowTarTheBlue36.png" id="57_f2cyu"]
@@ -71,7 +72,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"Attack1",
-"speed": 6.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -271,9 +272,9 @@ FireballsScene = ExtResource("2_3mgxq")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(3.8147e-06, -1.90735e-06)
 sprite_frames = SubResource("SpriteFrames_jaakf")
-animation = &"Heal"
+animation = &"Attack1"
 autoplay = "Attack1"
-frame_progress = 0.210378
+frame_progress = 0.139191
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(3.55271e-15, 2.28571)
@@ -296,21 +297,24 @@ grow_vertical = 0
 size_flags_horizontal = 4
 size_flags_vertical = 8
 
-[node name="BossName" type="Label" parent="HealthbarCanvasLayer"]
-offset_left = 377.0
-offset_top = 572.0
-offset_right = 510.0
-offset_bottom = 595.0
-text = "MeowtarTheBlue"
+[node name="BossName" type="Label" parent="HealthbarCanvasLayer/HealthBar"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -54.0
+offset_right = 366.0
+offset_bottom = 9.0
+theme_override_fonts/font = ExtResource("51_vmd26")
+theme_override_font_sizes/font_size = 52
+text = "Meowtar The Blue"
 
 [node name="ShootFireballCooldownTimer" type="Timer" parent="."]
-wait_time = 0.8
+wait_time = 1.25
 
 [node name="TeleportationTimer" type="Timer" parent="."]
 one_shot = true
 
 [node name="StartHealingTimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 15.0
 
 [node name="HealingTimer" type="Timer" parent="."]
 
@@ -323,12 +327,6 @@ position = Vector2(-32.5714, 6.28571)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_3m4l7")
 
-[node name="StateForDebug" type="Label" parent="."]
-offset_left = -59.4286
-offset_top = -16.5714
-offset_right = -19.4286
-offset_bottom = 6.42857
-
 [node name="DeathTimer" type="Timer" parent="."]
 wait_time = 3.5
 one_shot = true
@@ -338,7 +336,6 @@ collision_mask = 2
 
 [node name="GroundFireAttackCollisionShape" type="CollisionShape2D" parent="GroundFireAttackHitbox"]
 position = Vector2(30.2857, -1)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_i5kce")
 disabled = true
 

@@ -1,10 +1,12 @@
 using Godot;
+using Microsoft.VisualBasic;
 using PawsOfDestiny.Scripts.Common;
 using PawsOfDestiny.Scripts.Common.Components;
 using PawsOfDestiny.Scripts.Enemies.MeowtarTheBlueEnemyComponents;
 using PawsOfDestiny.Scripts.PlayerComponents;
 using PawsOfDestiny.Singletons;
 using System;
+using System.Linq;
 
 namespace PawsOfDestiny.Scripts.Enemies.MeowolasEnemyComponents;
 
@@ -48,7 +50,6 @@ public partial class MeowolasEnemy : CharacterBody2D
 
     private bool _isEnemyJustHit = false;
     private bool _wasPlayerKickedOutOfKickRange = false;
-    private Label _stateForDebug;
 
     private MeowolasEnemyStats _meowolasStats;
 
@@ -73,7 +74,6 @@ public partial class MeowolasEnemy : CharacterBody2D
         _healthBar = GetNode<HealthBar>(MeowolasEnemyConstants.Nodes.HealthBar);
         _deathTimer = GetNode<Timer>(MeowolasEnemyConstants.Nodes.DeathTimer);
         _changeStateTimer = GetNode<Timer>("ChangeStateTimer");
-        _stateForDebug = GetNode<Label>("StateForDebug");
 
         _animatedSprite2D.FlipH = _moveDirection == Direction.Left;
         _animatedSprite2D.Play(MeowolasEnemyConstants.Animations.Run);
@@ -126,7 +126,6 @@ public partial class MeowolasEnemy : CharacterBody2D
     //Handle every behavior:
     private void HandlePatrol(ref Vector2 velocity)
     {
-        _stateForDebug.Text = nameof(MeowolasState.Patrol);
         velocity.X = (int)_moveDirection * Speed;
 
         //RayCast2D collision detection:
@@ -145,7 +144,6 @@ public partial class MeowolasEnemy : CharacterBody2D
 
     private void HandleChase(ref Vector2 velocity)
     {
-        _stateForDebug.Text = nameof(MeowolasState.Chase);
         velocity.X = (int)_moveDirection * Speed;
 
         //RayCast2D collision detection:
@@ -165,7 +163,6 @@ public partial class MeowolasEnemy : CharacterBody2D
 
     private void HandleShoot(ref Vector2 velocity)
     {
-        _stateForDebug.Text = nameof(MeowolasState.Shoot);
         velocity.X = 0.0f;
 
         //Animation and direction:
@@ -175,7 +172,6 @@ public partial class MeowolasEnemy : CharacterBody2D
 
     private void HandleWantToAttack(ref Vector2 velocity)
     {
-        _stateForDebug.Text = nameof(MeowolasState.WantToAttack);
         velocity.X = (int)_moveDirection * Speed;
 
         if (_rightRayCast2D.IsColliding() && IsOnFloor())
@@ -194,8 +190,6 @@ public partial class MeowolasEnemy : CharacterBody2D
 
     private void HandleKick()
     {
-        _stateForDebug.Text = nameof(MeowolasState.Kick);
-
         Vector2 velocity = Velocity;
         velocity.X = 0.0f;
         Velocity = velocity;
@@ -217,7 +211,6 @@ public partial class MeowolasEnemy : CharacterBody2D
 
     private void HandleRunAway(ref Vector2 velocity)
     {
-        _stateForDebug.Text = nameof(MeowolasState.RunAway);
         velocity.X = (int)_moveDirection * Speed;
         if (_rightRayCast2D.IsColliding() && IsOnFloor())
         {
@@ -233,7 +226,6 @@ public partial class MeowolasEnemy : CharacterBody2D
 
     private void HandleDeath(ref Vector2 velocity)
     {
-        _stateForDebug.Text = nameof(MeowolasState.Death);
         velocity.X = Mathf.MoveToward(Velocity.X, 0f, Speed);
     }
 
@@ -248,14 +240,12 @@ public partial class MeowolasEnemy : CharacterBody2D
         _healthBar.Health = Health;
         if (Health > 0)
         {
-            _stateForDebug.Text = nameof(MeowolasState.TakeDamage);
             State = MeowolasState.TakeDamage;
             PlayAnimation(MeowolasEnemyConstants.Animations.TakeDamage);
             _isEnemyJustHit = true;
         }
         else
-        {
-            _stateForDebug.Text = nameof(MeowolasState.Death);         
+        {        
             State = MeowolasState.Death;
             PlayAnimation(MeowolasEnemyConstants.Animations.Death);
             _deathTimer.Start();
@@ -455,7 +445,7 @@ public partial class MeowolasEnemy : CharacterBody2D
     }
 
 
-    //Set direction toward player:
+    //Set direction toward player:_
     private void SetDirectionTowardPlayer()
     {
         if (Math.Abs(GlobalPosition.X - Player.CurrentGlobalPosition.X) > 10.0f && IsOnFloor())
@@ -540,5 +530,22 @@ public partial class MeowolasEnemy : CharacterBody2D
             PlayAnimation(MeowolasEnemyConstants.Animations.Attack2);
             _animatedSprite2D.Frame = 6;
         }
+    }
+
+    private void OnWorldItsBossFightTime()
+    {
+        GetNode<CollisionShape2D>("SightRange/CollisionShape2D").Scale *= 4;
+
+        //Heal Meowolas max for 3 Health when boss fight starts:
+        foreach (int _ in Enumerable.Range(0, 2))
+        {
+            if (_meowolasStats.Health >= 9)
+            {
+                break;
+            }
+            _meowolasStats.Health++;
+        }
+        Health = _meowolasStats.Health;
+        _healthBar.InitializeHealthBarComponent(9.0d, Health);
     }
 }

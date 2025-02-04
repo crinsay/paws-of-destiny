@@ -1,0 +1,97 @@
+[gd_scene load_steps=18 format=3 uid="uid://cyashxtt15c4w"]
+
+[ext_resource type="Script" path="res://Scripts/KingMeowthurComponents/KingMeowthur.cs" id="1_ljnmq"]
+[ext_resource type="Texture2D" uid="uid://cdfqhqgx5a215" path="res://Assets/KingMeowthur/Idle/KingMewrthur_Idle-1.png" id="1_p6nu0"]
+[ext_resource type="Texture2D" uid="uid://b6i67ey3h2r0v" path="res://Assets/KingMeowthur/Idle/KingMewrthur_Idle-2.png" id="2_rynlw"]
+[ext_resource type="Texture2D" uid="uid://bckldj3ph6rwt" path="res://Assets/KingMeowthur/Idle/KingMewrthur_Idle-3.png" id="3_n4es4"]
+[ext_resource type="Texture2D" uid="uid://dr8i8yneu0io4" path="res://Assets/KingMeowthur/Idle/KingMewrthur_Idle-4.png" id="4_gspwt"]
+[ext_resource type="Texture2D" uid="uid://clit4s36piui2" path="res://Assets/KingMeowthur/Idle/KingMewrthur_Idle-5.png" id="5_4k01v"]
+[ext_resource type="Texture2D" uid="uid://b1tf21ntunqfh" path="res://Assets/KingMeowthur/Idle/KingMewrthur_Idle-6.png" id="6_hpnmx"]
+[ext_resource type="Texture2D" uid="uid://bc4sllthbvxt2" path="res://Assets/KingMeowthur/Run/KingMewrthur_Run-1.png" id="7_18j4a"]
+[ext_resource type="Texture2D" uid="uid://dkygucoo85exf" path="res://Assets/KingMeowthur/Run/KingMewrthur_Run-2.png" id="8_jssfy"]
+[ext_resource type="Texture2D" uid="uid://ct5q0751ei6yk" path="res://Assets/KingMeowthur/Run/KingMewrthur_Run-3.png" id="9_crid4"]
+[ext_resource type="Texture2D" uid="uid://ced7lbiqg7w5" path="res://Assets/KingMeowthur/Run/KingMewrthur_Run-4.png" id="10_248t0"]
+[ext_resource type="Texture2D" uid="uid://djvraur5d3ofq" path="res://Assets/KingMeowthur/Run/KingMewrthur_Run-5.png" id="11_s7da8"]
+[ext_resource type="Texture2D" uid="uid://n60axems02dt" path="res://Assets/KingMeowthur/Run/KingMewrthur_Run-6.png" id="12_eej20"]
+[ext_resource type="Texture2D" uid="uid://c1h34w4ibqqcl" path="res://Assets/KingMeowthur/Run/KingMewrthur_Run-7.png" id="13_vcba5"]
+[ext_resource type="Texture2D" uid="uid://bs8aco26vhe5j" path="res://Assets/KingMeowthur/Run/KingMewrthur_Run-8.png" id="14_yr3v5"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s6jda"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_p6nu0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_rynlw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_n4es4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_gspwt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_4k01v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_hpnmx")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_18j4a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_jssfy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_crid4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_248t0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_s7da8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_eej20")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_vcba5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_yr3v5")
+}],
+"loop": true,
+"name": &"Run",
+"speed": 8.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_opa82"]
+radius = 2.85714
+height = 11.4286
+
+[node name="KingMeowthur" type="CharacterBody2D"]
+scale = Vector2(1.75, 1.75)
+collision_layer = 2
+script = ExtResource("1_ljnmq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_s6jda")
+animation = &"Run"
+autoplay = "Idle"
+frame_progress = 0.699466
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(4, 17.1429)
+shape = SubResource("CapsuleShape2D_opa82")
+
+[node name="StartMovingTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="timeout" from="StartMovingTimer" to="." method="OnStartMovingTimerTimeout"]
