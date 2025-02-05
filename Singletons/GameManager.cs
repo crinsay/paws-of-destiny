@@ -24,7 +24,11 @@ public partial class GameManager : Node
     [Signal]
     public delegate void PlayerCollectHeartEventHandler();
     [Signal]
+    public delegate void MeowolasFightStartEventHandler();
+    [Signal]
     public delegate void MeowolasAndMeowtarDefeatedEventHandler();
+
+    public int MeowolasHealthAtTheLevelStart { private get; set; }
 
     private KeyCounter _keyCounter;
     private Timer _meowolasEnemyAndPlayerFightTimer;
@@ -44,6 +48,7 @@ public partial class GameManager : Node
 
     private bool _isMeowolasDead = false;
     private bool _isMeowtarDead = false;
+    private bool _gameWasStarted = false;
     public override void _Ready()
     {
         _keyCounter = GetNode<KeyCounter>("KeyCounter");
@@ -62,36 +67,39 @@ public partial class GameManager : Node
             var level = GD.Load<PackedScene>($"res://Scenes/Level{i}.tscn");
             _levelScenes.Add(level);
         }
-
-        _audioStreamPlayer.Play();
     }
 
     private void SetNextLevel()
     {
-        _currentLevel++;
-        if (_currentLevel == 5)
+        if (_currentLevel++ == 0 && _gameWasStarted)
+        {
+            _audioStreamPlayer.Play();
+        }
+        else if (_currentLevel == 5)
         {
             _audioStreamPlayer.Stop();
-        }
-        
-        if (_currentLevel > _numberOfLevels)
+        }       
+        else if (_currentLevel > _numberOfLevels)
         {
             HealthReset();
             _currentLevel = 0;
+
+            _audioStreamPlayer.Play();
         }
 
+        _gameWasStarted = true;
         _meowolasEnemyAndPlayerFightTimer.Stop();
     }
 
     public void LoadNextLevel()
     {
-        //if (_collectedKeys == 3)
-        //{
+        if (_collectedKeys == 3)
+        {
             _collectedKeys = 0;
             _keyCounter.UpdateKeyCounter(_collectedKeys);
             SetNextLevel();
             GetTree().ChangeSceneToPacked(_levelScenes[_currentLevel]);
-        //}
+        }
     }
 
 
@@ -188,6 +196,7 @@ public partial class GameManager : Node
 
     public void OnLevelMeowolasEnemyFightStart()
     {
+        EmitSignal(SignalName.MeowolasFightStart);
         _meowolasEnemyAndPlayerFightTimer.Start();
         GD.Print("Start");
     }
@@ -201,13 +210,16 @@ public partial class GameManager : Node
     private void OnPlayerDeathTimerTimeout()
     {
         Engine.TimeScale = 1d;
+
         _collectedKeys = 0;
         _keyCounter.UpdateKeyCounter(_collectedKeys);
-        var DeathLevel = GD.Load<PackedScene>($"res://Scenes/LevelDeath.tscn");
-        _currentLevel = 0;
+
         _audioStreamPlayer.Stop();
         _meowolasEnemyAndPlayerFightTimer.Stop();
-        GetTree().ChangeSceneToPacked(DeathLevel);
+
+        var deathLevel = GD.Load<PackedScene>($"res://Scenes/LevelDeath.tscn");
+        _currentLevel = 0;
+        GetTree().ChangeSceneToPacked(deathLevel);
     }
 
     public void OnSpikesHitPlayer(HitInformation hitInfo)
@@ -223,10 +235,12 @@ public partial class GameManager : Node
 
         if (player.State != PlayerState.Dead)
         {
+            _hitSound.Play();
             GetNode<Timer>("PlayerHitBySpikeTimer").Start();
         }
         else
         {
+            _deathSound.Play();
             _playerDeathTimer.Start();
         }
     }
@@ -234,24 +248,23 @@ public partial class GameManager : Node
     private void OnPlayerHitBySpikeTimerTimeout()
     {
         GetTree().ReloadCurrentScene();
+
         _collectedKeys = 0;
         _keyCounter.UpdateKeyCounter(_collectedKeys);
+        GetNode<MeowolasEnemyStats>("/root/MeowolasEnemyStats").Health = MeowolasHealthAtTheLevelStart;
     }
 
     public void OnHeartCollected(Node2D body)
     {
         _heartPickingSound.Play();
-        var player = body as Player;
         EmitSignal(SignalName.PlayerCollectHeart);
     }
 
     public void HealthReset()
     {
-        if (_collectedKeys == 3)
-        {
-            GetNode<PlayerStats>("/root/PlayerStats").Health = 9;
-            GetNode<MeowolasEnemyStats>("/root/MeowolasEnemyStats").Health = 9;
-            _audioStreamPlayer.Play();
-        }
+        GetNode<PlayerStats>("/root/PlayerStats").Health = 9;
+        GetNode<MeowolasEnemyStats>("/root/MeowolasEnemyStats").Health = 9;
+
+        _audioStreamPlayer.Play();
     }
 }

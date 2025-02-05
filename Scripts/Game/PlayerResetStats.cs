@@ -2,6 +2,8 @@ using Godot;
 using PawsOfDestiny.Singletons;
 using System;
 
+namespace PawsOfDestiny.Scripts.Game;
+
 public partial class PlayerResetStats : Area2D
 {
     private GameManager _gameManager;
