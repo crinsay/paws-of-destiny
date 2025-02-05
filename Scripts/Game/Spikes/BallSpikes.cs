@@ -5,6 +5,8 @@ using PawsOfDestiny.Singletons;
 using System;
 using static System.Net.Mime.MediaTypeNames;
 
+namespace PawsOfDestiny.Scripts.Game.Spikes;
+
 public partial class BallSpikes : PathFollow2D
 {
     [Export]
