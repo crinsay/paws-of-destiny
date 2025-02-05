@@ -21,7 +21,7 @@ public partial class MeowtarTheBlueEnemy : CharacterBody2D
     public float JumpVelocity = -275.0f;
 
     [Export]
-    public int Damage = 1;
+    public int Damage = 2;
 
     [Export]
     public float KnockbackStrength = 180.0f;

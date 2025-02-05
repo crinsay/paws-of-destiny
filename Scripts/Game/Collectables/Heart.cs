@@ -2,6 +2,8 @@ using Godot;
 using PawsOfDestiny.Scripts.PlayerComponents;
 using PawsOfDestiny.Singletons;
 
+namespace PawsOfDestiny.Scripts.Game.Collectables;
+
 public partial class Heart : Area2D
 {
     private GameManager _gameManager;

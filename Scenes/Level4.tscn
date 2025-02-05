@@ -406,7 +406,7 @@ position = Vector2(272, -112)
 
 [node name="Player" parent="." instance=ExtResource("4_jryi6")]
 z_index = 100
-position = Vector2(-72, -112)
+position = Vector2(174, 403)
 scale = Vector2(0.25, 0.25)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
@@ -418,6 +418,7 @@ limit_smoothed = true
 position_smoothing_speed = 0.1
 
 [node name="MeowolasFightStart" type="Area2D" parent="."]
+position = Vector2(-32, 0)
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeowolasFightStart"]

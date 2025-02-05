@@ -4,6 +4,7 @@ using PawsOfDestiny.Scripts.PlayerComponents;
 using PawsOfDestiny.Singletons;
 using System;
 
+namespace PawsOfDestiny.Scripts.Game.Spikes;
 public partial class GroundSpikes : Area2D
 {
     private int _damage = 1;

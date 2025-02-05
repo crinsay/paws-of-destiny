@@ -34,6 +34,7 @@ public partial class MeowolasEnemy : CharacterBody2D
     [Export]
     public float KnockbackStrength = 120.0f;
 
+    private HealthBar _healthBar;
     private Timer _shootCooldownTimer;
     private Timer _kickCooldownTimer;
     private AnimationPlayer _animationPlayer;
@@ -41,7 +42,6 @@ public partial class MeowolasEnemy : CharacterBody2D
     private RayCast2D _rightRayCast2D;
     private RayCast2D _leftRayCast2D;
     private AnimatedSprite2D _animatedSprite2D;
-    private HealthBar _healthBar;
     private Timer _deathTimer;
     private Timer _changeStateTimer;
     private Direction _moveDirection = Direction.Left;
@@ -60,9 +60,15 @@ public partial class MeowolasEnemy : CharacterBody2D
             new Callable(this, nameof(OnGameManagerPlayerHitMeowolasEnemy)));
         _gameManager.Connect(GameManager.SignalName.MeowolasEnemyRunAway,
             new Callable(this, nameof(OnGameManagerMeowolasEnemyRunAway)));
+        _gameManager.Connect(GameManager.SignalName.MeowolasFightStart,
+            new Callable(this, nameof(OnMeowolasFightStart)));
+
+        _healthBar = GetNode<HealthBar>(MeowolasEnemyConstants.Nodes.HealthBar);
 
         _meowolasStats = GetNode<MeowolasEnemyStats>("/root/MeowolasEnemyStats");
         Health = _meowolasStats.Health;
+        _gameManager.MeowolasHealthAtTheLevelStart = Health;
+        _healthBar.InitializeHealthBarComponent(9.0d, Health);
 
         _shootCooldownTimer = GetNode<Timer>(MeowolasEnemyConstants.Nodes.ShootCooldownTimer);
         _kickCooldownTimer = GetNode<Timer>("KickCooldownTimer");
@@ -71,14 +77,19 @@ public partial class MeowolasEnemy : CharacterBody2D
         _rightRayCast2D = GetNode<RayCast2D>(MeowolasEnemyConstants.Nodes.RightRayCast2D);
         _leftRayCast2D = GetNode<RayCast2D>(MeowolasEnemyConstants.Nodes.LeftRayCast2D);
         _animatedSprite2D = GetNode<AnimatedSprite2D>(MeowolasEnemyConstants.Nodes.AnimatedSprite2D);
-        _healthBar = GetNode<HealthBar>(MeowolasEnemyConstants.Nodes.HealthBar);
         _deathTimer = GetNode<Timer>(MeowolasEnemyConstants.Nodes.DeathTimer);
         _changeStateTimer = GetNode<Timer>("ChangeStateTimer");
 
         _animatedSprite2D.FlipH = _moveDirection == Direction.Left;
         _animatedSprite2D.Play(MeowolasEnemyConstants.Animations.Run);
 
-        _healthBar.InitializeHealthBarComponent(9.0d, Health);
+
+        GetNode<CollisionShape2D>("SightRange/CollisionShape2D").SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
+        GetNode<CollisionShape2D>("ShootRange/CollisionShape2D").SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
+        GetNode<CollisionShape2D>("WantToAttackRange/CollisionShape2D").SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
+        GetNode<CollisionShape2D>("AttackDecisionRange/CollisionShape2D").SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
+        GetNode<CollisionShape2D>("KickRange/CollisionShape2D").SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
+        GetNode<CollisionShape2D>("Kick/KickHitbox").SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
     }
 
     public override void _Process(double delta)
@@ -532,10 +543,18 @@ public partial class MeowolasEnemy : CharacterBody2D
         }
     }
 
+    private void OnMeowolasFightStart()
+    {
+        GetNode<CollisionShape2D>("SightRange/CollisionShape2D").SetDeferred(CollisionShape2D.PropertyName.Disabled, false);
+        GetNode<CollisionShape2D>("ShootRange/CollisionShape2D").SetDeferred(CollisionShape2D.PropertyName.Disabled, false);
+        GetNode<CollisionShape2D>("WantToAttackRange/CollisionShape2D").SetDeferred(CollisionShape2D.PropertyName.Disabled, false);
+        GetNode<CollisionShape2D>("AttackDecisionRange/CollisionShape2D").SetDeferred(CollisionShape2D.PropertyName.Disabled, false);
+        GetNode<CollisionShape2D>("KickRange/CollisionShape2D").SetDeferred(CollisionShape2D.PropertyName.Disabled, false);
+        GetNode<CollisionShape2D>("Kick/KickHitbox").SetDeferred(CollisionShape2D.PropertyName.Disabled, false);
+    }
+
     private void OnWorldItsBossFightTime()
     {
-        GetNode<CollisionShape2D>("SightRange/CollisionShape2D").Scale *= 4;
-
         //Heal Meowolas max for 3 Health when boss fight starts:
         foreach (int _ in Enumerable.Range(0, 2))
         {
@@ -547,5 +566,8 @@ public partial class MeowolasEnemy : CharacterBody2D
         }
         Health = _meowolasStats.Health;
         _healthBar.InitializeHealthBarComponent(9.0d, Health);
+
+        OnMeowolasFightStart();
+        GetNode<CollisionShape2D>("SightRange/CollisionShape2D").Scale *= 4;
     }
 }

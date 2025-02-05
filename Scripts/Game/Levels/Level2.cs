@@ -3,6 +3,8 @@ using PawsOfDestiny.Scripts.PlayerComponents;
 using PawsOfDestiny.Singletons;
 using System;
 
+namespace PawsOfDestiny.Scripts.Game.Levels;
+
 public partial class Level2 : Node2D
 {
     private GameManager _gameManager;

@@ -2,7 +2,8 @@ using Godot;
 using PawsOfDestiny.Singletons;
 using System;
 
-namespace PawsOfDestiny.Scripts.Game;
+namespace PawsOfDestiny.Scripts.Game.Levels;
+
 public partial class Level5 : Node2D
 {
 	[Signal]

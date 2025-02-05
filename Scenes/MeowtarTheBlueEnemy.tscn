@@ -1,7 +1,7 @@
 [gd_scene load_steps=58 format=3 uid="uid://ckei1rgvimrnd"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/MeowtarTheBlueEnemyComponents/MeowtarTheBlueEnemy.cs" id="1_6qrmi"]
-[ext_resource type="PackedScene" uid="uid://becv2pjtcsino" path="res://MeowtarTheBlueFireball.tscn" id="2_3mgxq"]
+[ext_resource type="PackedScene" uid="uid://becv2pjtcsino" path="res://Scenes/MeowtarTheBlueFireball.tscn" id="2_3mgxq"]
 [ext_resource type="Texture2D" uid="uid://dlycooct3xc55" path="res://Assets/MeowtarTheBlue/ChangedAttack1/MeowTarTheBlue15.png" id="2_w5g1w"]
 [ext_resource type="Texture2D" uid="uid://bmeruke735u36" path="res://Assets/MeowtarTheBlue/ChangedAttack1/MeowTarTheBlue16.png" id="3_4du0r"]
 [ext_resource type="Texture2D" uid="uid://c3ocnpb3s6ot6" path="res://Assets/MeowtarTheBlue/ChangedAttack1/MeowTarTheBlue17.png" id="4_wovy4"]

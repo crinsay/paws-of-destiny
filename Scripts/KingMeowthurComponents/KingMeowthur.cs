@@ -3,6 +3,8 @@ using PawsOfDestiny.Scripts.Common;
 using PawsOfDestiny.Scripts.PlayerComponents;
 using System;
 
+namespace PawsOfDestiny.Scripts.KingMeowthurComponents;
+
 public partial class KingMeowthur : CharacterBody2D
 {
 	public const float Speed = 110.0f;
