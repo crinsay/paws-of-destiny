@@ -7,7 +7,7 @@
 [ext_resource type="FontFile" uid="uid://nxxq244ebva4" path="res://Assets/Font/OldEnglishGothicPixelRegular.ttf" id="5_thrpa"]
 [ext_resource type="PackedScene" uid="uid://ch1xg5kqa1xmy" path="res://Scenes/Doors.tscn" id="6_mrjgp"]
 [ext_resource type="PackedScene" uid="uid://ck4p41k6co4wn" path="res://Scenes/Key.tscn" id="7_6wkv2"]
-[ext_resource type="Script" path="res://Scripts/Game/GameManagerComponents/PlayerResetStats.cs" id="8_greym"]
+[ext_resource type="Script" path="res://Scripts/Game/PlayerResetStats.cs" id="7_386v2"]
 [ext_resource type="AudioStream" uid="uid://dgn3tm44li56y" path="res://Assets/Audio/Music/10 - Lost Shrine.wav" id="9_luasx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6ty7i"]
@@ -250,7 +250,7 @@ position = Vector2(1232, 400)
 position = Vector2(1224, 400)
 collision_layer = 0
 collision_mask = 2
-script = ExtResource("8_greym")
+script = ExtResource("7_386v2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerResetStats"]
 light_mask = 0

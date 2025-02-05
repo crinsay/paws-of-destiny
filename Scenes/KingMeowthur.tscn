@@ -73,7 +73,7 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_opa82"]
 radius = 2.85714
-height = 11.4286
+height = 13.7142
 
 [node name="KingMeowthur" type="CharacterBody2D"]
 scale = Vector2(1.75, 1.75)
@@ -82,9 +82,8 @@ script = ExtResource("1_ljnmq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_s6jda")
-animation = &"Run"
+animation = &"Idle"
 autoplay = "Idle"
-frame_progress = 0.699466
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(4, 17.1429)

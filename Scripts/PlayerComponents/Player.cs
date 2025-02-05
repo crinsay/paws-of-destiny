@@ -233,5 +233,4 @@ public partial class Player : CharacterBody2D
         Health = _playerStats.Health;
         _healthBar.Health = Health;
     }
-
 }
